@@ -2,8 +2,8 @@
 set -e
 
 echo "==============================================================================="
-echo "Financial Inclusion Analytics Warehouse -- BigQuery + Power BI Migration"
-echo "Complete End-to-End Execution Pipeline"
+echo "Financial Inclusion Analytics Warehouse"
+echo "An End-to-End Financial Analytics and Business Intelligence Solution"
 echo "==============================================================================="
 
 echo ""

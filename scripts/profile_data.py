@@ -1,5 +1,5 @@
 """
-Automated Data Profiling & Quality Assessment Engine for BigQuery Migration.
+Automated Data Profiling & Quality Assessment Engine.
 
 Performs an exhaustive pre- and post-modelling audit of BigQuery datasets:
 1. Validates >= 50,000 unique loans before intentional corruption.

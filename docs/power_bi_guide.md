@@ -54,7 +54,7 @@ This document outlines the visual layout, UX architecture, DAX integration, and 
 | ACTIVE LOANS COUNT  | GROSS PRINCIPAL     | PAR 30 (OVERDUE)    | PAR 90 (NPA)        | COLLECTION EFF. |
 | 40,940              | ₹ 203.71 Cr         | 8.22% (₹ 16.75 Cr)  | 2.77% (₹ 5.64 Cr)   | 97.4%           |
 +---------------------+---------------------+---------------------+---------------------+-----------------+
-| MONTHLY ACTIVE LOANS & PORTFOLIO TREND (24 Months) | DELINQUENCY AGING MIGRATION (Stacked Bar)           |
+| MONTHLY ACTIVE LOANS & PORTFOLIO TREND (24 Months) | DELINQUENCY AGING DISTRIBUTION (Stacked Bar)        |
 | [Line Chart: Total Principal vs PAR30 Amount]     | [DPD 0 | DPD 1-30 | DPD 31-60 | DPD 61-90 | DPD 90+]     |
 +---------------------------------------------------+-----------------------------------------------------+
 | PORTFOLIO RISK BY PRODUCT CATEGORY                | STATE-WISE DELINQUENCY LEAGUE TABLE                 |
@@ -154,7 +154,7 @@ This document outlines the visual layout, UX architecture, DAX integration, and 
 | DIGITAL VALUE SHARE | UPI VALUE SHARE     | DIGITAL TXN SHARE   | DIGITAL VALUE YoY   | CASH VALUE      |
 | 80.94% (+47.3 pts)  | 62.45%              | 80.92%              | +22.8% YoY          | ₹ 4.61 Cr       |
 +---------------------+---------------------+---------------------+---------------------+-----------------+
-| 24-MONTH DIGITAL VS CASH CHANNEL VALUE MIGRATION    | AVERAGE TICKET SIZE BY CHANNEL                     |
+| 24-MONTH DIGITAL VS CASH CHANNEL VALUE TRANSITION   | AVERAGE TICKET SIZE BY CHANNEL                     |
 | [100% Stacked Area: UPI vs Bank Transfer vs Cash]  | [Bar Chart: Bank Transfer ₹18.4K | UPI ₹4.2K | Cash]|
 +----------------------------------------------------+----------------------------------------------------+
 | REGIONAL DIGITAL ADOPTION RANKING                  | DIGITAL ADOPTION PACE BY BORROWER SEGMENT          |
@@ -168,7 +168,7 @@ This document outlines the visual layout, UX architecture, DAX integration, and 
   3. **UPI Payment Value**: `₹ 15.2 Cr` (monthly run-rate).
   4. **Bank Transfer Value**: `₹ 4.8 Cr`.
   5. **Cash Payment Value**: `₹ 4.6 Cr` (down from ₹ 9.8 Cr).
-- **Visual 1**: **24-Month Channel Migration**
+- **Visual 1**: **24-Month Channel Transition**
   - *Type*: 100% Stacked Area Chart.
   - *X-Axis*: `year_month`.
   - *Series*: `UPI`, `Bank Transfer`, `Cash`.

@@ -85,7 +85,7 @@ xychart-beta
   - Bank Transfers average **₹18,450** (primarily SMB expansion loans).
   - Cash collections average **₹5,120** (traditional rural doorstep collections).
   - UPI averages **₹4,280** (convenient weekly/monthly microfinance EMIs).
-- **Operational Cost Reduction**: The digital migration generated an estimated ₹3.8 Cr annualised saving in field cash handling, security transit, and insurance costs.
+- **Operational Cost Reduction**: The digital transition generated an estimated ₹3.8 Cr annualised saving in field cash handling, security transit, and insurance costs.
 
 ---
 

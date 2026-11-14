@@ -19,7 +19,7 @@ DB_PATH = os.path.join(BASE_DIR, "data", "warehouse", "financial_inclusion_bigqu
 
 def run_independent_verification():
     print("=" * 96)
-    print("  FINANCIAL INCLUSION ANALYTICS WAREHOUSE - TARGETED FINANCIAL AUDIT (BIGQUERY MIGRATION)")
+    print("  FINANCIAL INCLUSION ANALYTICS WAREHOUSE - TARGETED FINANCIAL AUDIT")
     print("  INDEPENDENT RECALCULATION ENGINE (PURE PYTHON RAW vs BIGQUERY WAREHOUSE)")
     print("=" * 96)
 

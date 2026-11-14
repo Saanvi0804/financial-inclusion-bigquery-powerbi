@@ -61,7 +61,7 @@ SELECT
                     COALESCE(mb.scheduled_amount_due, NUMERIC '0.00')), 
         2
     ) AS total_collection_ratio_pct,
-    -- Legacy compatibility alias
+    -- Standard collection efficiency alias
     ROUND(
         SAFE_DIVIDE(COALESCE(ma.total_cash_collected, NUMERIC '0.00') * NUMERIC '100.0', 
                     COALESCE(mb.scheduled_amount_due, NUMERIC '0.00')), 

@@ -16,6 +16,16 @@ credentials.json
 *.duckdb
 *.duckdb.wal
 
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Logs & temporary files
+*.log
+*.tmp
+.temp/
+
 # OS generated files
 .DS_Store
 Thumbs.db

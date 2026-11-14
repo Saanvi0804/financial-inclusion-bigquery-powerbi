@@ -1,5 +1,5 @@
 """
-Synthetic Data Generation Module for Financial Inclusion Analytics Warehouse (BigQuery Migration).
+Synthetic Data Generation Module for Financial Inclusion Analytics Warehouse.
 
 Generates:
 1. Loan Portfolio (>= 50,000 loans, specifically 52,000 loans)

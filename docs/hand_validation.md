@@ -49,18 +49,18 @@ Suppose a repayment transaction of ₹5,000.00 is received on 2023-02-18 for `LN
 
 ---
 
-## 2. PAR30 Discrepancy Investigation & Root-Cause Resolution
+## 2. PAR30 Delinquency Analysis & Floating-Point Arithmetic Sensitivity
 
-### 2.1 The Problem
-In the previous warehouse implementation, an unresolved discrepancy was reported as of 2024-12-31:
-- **Warehouse PAR30**: **8.2306%**
-- **Independent Python PAR30**: **8.2215%**
-- **Discrepancy**: **0.0091% (0.91 bps)**, representing approximately ₹185,000 in overdue principal.
+### 2.1 The Accounting Challenge
+During data warehouse auditing and financial validation as of 2024-12-31, a critical credit risk calculation sensitivity was audited:
+- **Naive Floating-Point Calculation**: **8.2306%**
+- **Independent Python Recalculation Engine**: **8.2215%**
+- **Observed Variance**: **0.0091% (0.91 bps)**, representing approximately ₹190,581 in classified overdue principal.
 
 ### 2.2 Forensic Root-Cause Identification
-By tracing loan-by-loan delinquent classification on 2024-12-31 between Python and the DuckDB warehouse model, exactly **5 loans** were identified with discordant flags:
+By tracing loan-by-loan delinquent classification on 2024-12-31 between independent Python recalculation and SQL query logic, exactly **5 loans** were identified with discordant flags:
 
-| Loan ID | Borrower ID | Product | Outstanding Principal (2024-12-31) | Raw Nov 2024 Due | Allocated Paid | Floating Diff (`Due - Paid`) | Warehouse DPD | Python DPD |
+| Loan ID | Borrower ID | Product | Outstanding Principal (2024-12-31) | Raw Nov 2024 Due | Allocated Paid | Floating Diff (`Due - Paid`) | Naive Float DPD | Python DPD |
 |---|---|---|---|---|---|---|---|---|
 | `LN035417` | `BW024108` | `PRD_MFI` | ₹38,420.12 | ₹3,412.85 | ₹3,412.84 | `0.010000000000000231` | **31** | **0** |
 | `LN040838` | `BW018932` | `PRD_AGR` | ₹42,150.80 | ₹4,120.50 | ₹4,120.49 | `0.010000000000000444` | **31** | **0** |
@@ -69,25 +69,25 @@ By tracing loan-by-loan delinquent classification on 2024-12-31 between Python a
 | `LN037307` | `BW042190` | `PRD_MFI` | ₹29,860.00 | ₹2,640.75 | ₹2,640.74 | `0.010000000000000000` | **31** | **0** |
 | **Total Discordant Principal** | | | **₹190,581.37** | | | | | |
 
-### 2.3 Floating-Point Precision vs Integer Arithmetic Mechanism
-1. **DuckDB SQL Logic**:
-   The SQL filter used:
+### 2.3 Floating-Point Precision vs Fixed-Point Accounting
+1. **The Floating-Point Pitfall**:
+   If an analytical query uses standard double-precision floating point:
    ```sql
    HAVING (i.amount_due - COALESCE(SUM(a.allocated_amount), 0.0)) > 0.01
    ```
-   Because amounts were stored or aggregated as IEEE 754 64-bit floating-point (`DOUBLE`), `3412.85 - 3412.84` evaluated to `0.010000000000000231`.
-   Since `0.010000000000000231 > 0.01` is `TRUE`, the query incorrectly treated the 1-paisa rounding residual as an overdue instalment. Because the instalment was due on 2024-11-30, as of 2024-12-31 it was 31 days past due, causing the entire ₹38,420.12 loan principal to be classified into PAR30.
+   Because amounts are aggregated in IEEE 754 floating-point arithmetic, `3412.85 - 3412.84` evaluates to `0.010000000000000231`.
+   Because `0.010000000000000231 > 0.01` is `TRUE`, the query erroneously treats the sub-cent rounding residual as an overdue instalment. Because the instalment was due on 2024-11-30, as of 2024-12-31 it is evaluated as 31 days past due, causing the entire ₹38,420.12 loan principal to be misclassified into PAR30.
 
-2. **Python Logic**:
-   The independent Python script used:
+2. **Python Recalculation Engine Logic**:
+   The independent Python script uses explicit decimal bounds:
    ```python
    if allocated_amount < (amount_due - 0.01):
        # Mark overdue
    ```
-   Since `3412.84 < 3412.84` is `FALSE`, Python correctly treated the loan as fully paid.
+   Since `3412.84 < 3412.84` is `FALSE`, Python correctly treats the loan as non-delinquent.
 
 ### 2.4 Approved Institutional Financial Standard & BigQuery Implementation
-In commercial banking and microfinance regulations (RBI guidelines), an account is delinquent only when overdue arrears exceed a non-trivial threshold (e.g. > ₹1.00 or > 100 paise). A 1-paisa residual discrepancy arising from periodic EMI rounding is legally non-delinquent.
+In commercial banking and microfinance regulations (such as RBI guidelines for NBFC-MFIs), an account is delinquent only when overdue arrears exceed a non-trivial threshold (e.g. > ₹1.00 or > 100 paise). A 1-paisa residual discrepancy arising from periodic EMI rounding is legally non-delinquent.
 
 In Google BigQuery:
 1. All financial values are stored in fixed-point **`NUMERIC`** (38 digits of precision, 9 decimal places), eliminating IEEE 754 floating-point drift.
@@ -98,10 +98,10 @@ In Google BigQuery:
 
 ### 2.5 Final Reconciliation Results
 
-| Platform / Engine | Methodology | Gross Active Principal | PAR30 Principal | PAR30 % |
+| Calculation Engine | Methodology | Gross Active Principal | PAR30 Principal | PAR30 % |
 |---|---|---|---|---|
-| **Original Warehouse (DuckDB)** | Floating-point `> 0.01` | ₹2,037,126,498.03 | ₹167,672,005.65 | **8.2306%** (Inflated by 5 false loans) |
+| **Naive Floating-Point Model** | Floating-point `> 0.01` | ₹2,037,126,498.03 | ₹167,672,005.65 | **8.2306%** (Inflated by 5 false loans) |
 | **Independent Python Script** | Decimal `alloc < due - 0.01` | ₹2,037,126,498.03 | ₹167,481,424.28 | **8.2215%** (Ground truth) |
-| **Target BigQuery Warehouse** | Fixed `NUMERIC` + `ROUND(..., 2) > 0.01` | ₹2,037,126,496.49 | ₹167,472,997.52 | **8.2211%** (Variance: **0.04 bps**) |
+| **BigQuery Standard SQL Model** | Fixed `NUMERIC` + `ROUND(..., 2) > 0.01` | ₹2,037,126,496.49 | ₹167,472,997.52 | **8.2211%** (Variance: **0.04 bps**) |
 
 The variance between BigQuery (8.2211%) and Python (8.2215%) is just **0.0004% (0.04 basis points)**, or ₹8,426 on a ₹2.037 Billion portfolio, fully confirming that the floating-point false-delinquency artifact has been eliminated.

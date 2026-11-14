@@ -1,6 +1,6 @@
 # BigQuery Data Quality & Comprehensive Profiling Report
 
-*Audit Timestamp: 2026-11-14 14:53:06*
+*Audit Timestamp: 2026-11-14 15:24:59*
 
 **Platform**: Google BigQuery Standard SQL Analytical Warehouse (`fin_raw`, `fin_staging`, `fin_warehouse`, `fin_analytics`)
 
@@ -60,9 +60,9 @@
 - **Detection Query**: `SELECT loan_id, COUNT(*) FROM fin_raw.raw_loans GROUP BY loan_id HAVING COUNT(*) > 1`
 - **Sample Problematic Records**:
 ```
-loan_id=LN000008 | borrower_id=BW005730 | branch_id=BR030 | state=ST_MP | product=PRD_SMB | principal=253100.0 | Occurrences=2
-loan_id=LN000030 | borrower_id=BW023948 | branch_id=BR026 | state=ST_RJ | product=PRD_MFI | principal=20500.0 | Occurrences=2
-loan_id=LN000033 | borrower_id=BW006632 | branch_id=BR015 | state=ST_KA | product=PRD_MFI | principal=45700.0 | Occurrences=2
+loan_id=LN000003 | borrower_id=BW017234 | branch_id=BR014 | state=ST_KA | product=PRD_EDU | principal=98100.0 | Occurrences=2
+loan_id=LN000046 | borrower_id=BW002195 | branch_id=BR016 | state=ST_KA | product=PRD_MFI | principal=16200.0 | Occurrences=2
+loan_id=LN000048 | borrower_id=BW008481 | branch_id=BR028 | state=ST_RJ | product=PRD_MFI | principal=43700.0 | Occurrences=2
 ```
 
 ### Issue 2: Duplicate Payment Transactions (`fin_raw.raw_repayments`)
@@ -70,9 +70,9 @@ loan_id=LN000033 | borrower_id=BW006632 | branch_id=BR015 | state=ST_KA | produc
 - **Detection Query**: `SELECT transaction_id, COUNT(*) FROM fin_raw.raw_repayments GROUP BY transaction_id HAVING COUNT(*) > 1`
 - **Sample Problematic Records**:
 ```
-transaction_id=TXN00000020 | loan_id=LN000003 | payment_date=2023-10-27 | amount=3337.6 | channel=UPI | Occurrences=2
-transaction_id=TXN00000068 | loan_id=LN000009 | payment_date=2024-09-19 | amount=3125.86 | channel=UPI | Occurrences=2
-transaction_id=TXN00000070 | loan_id=LN000009 | payment_date=2024-11-19 | amount=3125.86 | channel=Bank Transfer | Occurrences=2
+transaction_id=TXN00000005 | loan_id=LN000001 | payment_date=2024-07-23 | amount=6286.65 | channel=UPI | Occurrences=2
+transaction_id=TXN00000007 | loan_id=LN000001 | payment_date=2024-09-23 | amount=6286.65 | channel=UPI | Occurrences=2
+transaction_id=TXN00000043 | loan_id=LN000005 | payment_date=2023-09-28 | amount=4390.36 | channel=Cash | Occurrences=2
 ```
 
 ### Issue 3: Missing Monthly Branch Data (`fin_raw.raw_repayments` Collection Outage)
@@ -138,9 +138,9 @@ instalment_id=INS00013706 | loan_id=LN000699 | due_date=2026-08-23 | amount_due=
 - **Detection Query**: `SELECT * FROM fin_raw.raw_repayments r JOIN fin_raw.raw_loans l ON r.loan_id = l.loan_id WHERE r.payment_date < l.disbursement_date`
 - **Sample Problematic Records**:
 ```
-transaction_id=TXN00001913 | loan_id=LN000170 | payment_date=2023-09-22 | disbursement_date=2023-10-21 | Days Diff: -29 days (PRE-DISBURSEMENT)
-transaction_id=TXN00001913 | loan_id=LN000170 | payment_date=2023-09-22 | disbursement_date=2023-10-21 | Days Diff: -29 days (PRE-DISBURSEMENT)
 transaction_id=TXN00246549 | loan_id=LN023967 | payment_date=2023-12-06 | disbursement_date=2023-12-22 | Days Diff: -16 days (PRE-DISBURSEMENT)
+transaction_id=TXN00125003 | loan_id=LN012160 | payment_date=2023-03-01 | disbursement_date=2023-03-11 | Days Diff: -10 days (PRE-DISBURSEMENT)
+transaction_id=TXN00443144 | loan_id=LN043115 | payment_date=2023-12-16 | disbursement_date=2023-12-27 | Days Diff: -11 days (PRE-DISBURSEMENT)
 ```
 
 ### Issue 10: Corrupted Zero DPD on Arrears (`fin_raw.raw_instalments`)

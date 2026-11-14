@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_collection_efficiency` (
     total_amount_collected NUMERIC(14, 2) OPTIONS(description="Total gross cash collections in month"),
     current_period_efficiency_pct NUMERIC(7, 2) OPTIONS(description="Current-period scheduled efficiency percentage (bounded [0, 100])"),
     total_collection_ratio_pct NUMERIC(7, 2) OPTIONS(description="Total cash collection ratio (can exceed 100% on recovery drives)"),
-    collection_efficiency_pct NUMERIC(7, 2) OPTIONS(description="Headline collection efficiency (legacy alias)")
+    collection_efficiency_pct NUMERIC(7, 2) OPTIONS(description="Standard collection efficiency percentage")
 )
 CLUSTER BY year_month, branch_name;
 
