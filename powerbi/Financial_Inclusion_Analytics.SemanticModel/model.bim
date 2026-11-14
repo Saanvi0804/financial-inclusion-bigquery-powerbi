@@ -1,0 +1,1167 @@
+{
+  "name": "Financial_Inclusion_Analytics",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "_Measures",
+        "lineageTag": "measures-table-lineage",
+        "columns": [
+          {
+            "name": "Dummy",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "Dummy"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Measures-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Dummy = _t])",
+                "in",
+                "    Source"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Active Loans Count",
+            "expression": "CALCULATE(DISTINCTCOUNT(fact_loan_monthly[loan_key]), fact_loan_monthly[outstanding_principal] > 0)",
+            "formatString": "#,##0"
+          },
+          {
+            "name": "Total Outstanding Principal",
+            "expression": "SUM(fact_loan_monthly[outstanding_principal])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Outstanding Principal (INR Cr)",
+            "expression": "DIVIDE([Total Outstanding Principal], 10000000, 0)",
+            "formatString": "\"\u20b9\"\\ #,##0.00\\ \"Cr\""
+          },
+          {
+            "name": "PAR 30 Principal",
+            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] > 30)",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "PAR 30 %",
+            "expression": "DIVIDE([PAR 30 Principal], [Total Outstanding Principal], 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "PAR 90 Principal",
+            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] > 90)",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "PAR 90 %",
+            "expression": "DIVIDE([PAR 90 Principal], [Total Outstanding Principal], 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Current Principal",
+            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] = 0)",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Delinquency DPD 1-30",
+            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] >= 1, fact_loan_monthly[days_past_due] <= 30)",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Delinquency DPD 31-60",
+            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] >= 31, fact_loan_monthly[days_past_due] <= 60)",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Delinquency DPD 61-90",
+            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] >= 61, fact_loan_monthly[days_past_due] <= 90)",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Scheduled Billing Due",
+            "expression": "SUM(kpi_collection_efficiency[scheduled_amount_due])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Current Period Collected",
+            "expression": "SUM(kpi_collection_efficiency[current_period_collected])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Arrears Collected",
+            "expression": "SUM(kpi_collection_efficiency[arrears_collected])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Advance Collected",
+            "expression": "SUM(kpi_collection_efficiency[advance_collected])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Total Cash Collected",
+            "expression": "SUM(kpi_collection_efficiency[total_amount_collected])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Current Period Collection Efficiency %",
+            "expression": "DIVIDE([Current Period Collected], [Scheduled Billing Due], 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Total Collection Ratio %",
+            "expression": "DIVIDE([Total Cash Collected], [Scheduled Billing Due], 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Total Collections Value",
+            "expression": "SUM(kpi_digital_collections[total_collection_value])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Digital Collections Value",
+            "expression": "SUM(kpi_digital_collections[digital_collection_value])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Cash Collections Value",
+            "expression": "SUM(kpi_digital_collections[cash_collection_value])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "UPI Value",
+            "expression": "SUM(kpi_digital_collections[upi_value])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Bank Transfer Value",
+            "expression": "SUM(kpi_digital_collections[bank_transfer_value])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Digital Value Share %",
+            "expression": "DIVIDE([Digital Collections Value], [Total Collections Value], 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Digital Count Share %",
+            "expression": "DIVIDE(SUM(kpi_digital_collections[digital_transaction_count]), SUM(kpi_digital_collections[total_transaction_count]), 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Cumulative Scheduled Due (Vintage)",
+            "expression": "SUM(kpi_vintage_curves[cumulative_scheduled_due])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Cumulative Amount Paid (Vintage)",
+            "expression": "SUM(kpi_vintage_curves[cumulative_amount_paid])",
+            "formatString": "\"\u20b9\"\\ #,##0.00"
+          },
+          {
+            "name": "Vintage Repayment Rate %",
+            "expression": "DIVIDE([Cumulative Amount Paid (Vintage)], [Cumulative Scheduled Due (Vintage)], 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Total Quarantined Records",
+            "expression": "COUNTROWS(stg_quarantined_records)",
+            "formatString": "#,##0"
+          },
+          {
+            "name": "Negative Amount Anomalies",
+            "expression": "CALCULATE(COUNTROWS(stg_quarantined_records), stg_quarantined_records[reason_code] = \"NEGATIVE_PAYMENT_AMOUNT\")",
+            "formatString": "#,##0"
+          },
+          {
+            "name": "Pre-dated Payment Anomalies",
+            "expression": "CALCULATE(COUNTROWS(stg_quarantined_records), stg_quarantined_records[reason_code] = \"PAYMENT_BEFORE_DISBURSEMENT\")",
+            "formatString": "#,##0"
+          },
+          {
+            "name": "Excess Payment Anomalies",
+            "expression": "CALCULATE(COUNTROWS(stg_quarantined_records), stg_quarantined_records[reason_code] = \"EXCESS_INSTALMENT_PAYMENT\")",
+            "formatString": "#,##0"
+          }
+        ]
+      },
+      {
+        "name": "dim_date",
+        "lineageTag": "dim_date-lineage",
+        "columns": [
+          {
+            "name": "date_key",
+            "dataType": "int64",
+            "sourceColumn": "date_key",
+            "isHidden": true
+          },
+          {
+            "name": "date",
+            "dataType": "dateTime",
+            "sourceColumn": "date"
+          },
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year"
+          },
+          {
+            "name": "quarter",
+            "dataType": "int64",
+            "sourceColumn": "quarter"
+          },
+          {
+            "name": "month",
+            "dataType": "int64",
+            "sourceColumn": "month"
+          },
+          {
+            "name": "month_name",
+            "dataType": "string",
+            "sourceColumn": "month_name"
+          },
+          {
+            "name": "day",
+            "dataType": "int64",
+            "sourceColumn": "day"
+          },
+          {
+            "name": "day_of_week",
+            "dataType": "int64",
+            "sourceColumn": "day_of_week"
+          },
+          {
+            "name": "day_name",
+            "dataType": "string",
+            "sourceColumn": "day_name"
+          },
+          {
+            "name": "is_weekend",
+            "dataType": "boolean",
+            "sourceColumn": "is_weekend"
+          },
+          {
+            "name": "financial_year",
+            "dataType": "string",
+            "sourceColumn": "financial_year"
+          },
+          {
+            "name": "financial_quarter",
+            "dataType": "string",
+            "sourceColumn": "financial_quarter"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_date-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_date.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_state",
+        "lineageTag": "dim_state-lineage",
+        "columns": [
+          {
+            "name": "state_key",
+            "dataType": "int64",
+            "sourceColumn": "state_key",
+            "isHidden": true
+          },
+          {
+            "name": "state_id",
+            "dataType": "string",
+            "sourceColumn": "state_id"
+          },
+          {
+            "name": "state_name",
+            "dataType": "string",
+            "sourceColumn": "state_name"
+          },
+          {
+            "name": "region",
+            "dataType": "string",
+            "sourceColumn": "region"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_state-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_state.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_branch",
+        "lineageTag": "dim_branch-lineage",
+        "columns": [
+          {
+            "name": "branch_key",
+            "dataType": "int64",
+            "sourceColumn": "branch_key",
+            "isHidden": true
+          },
+          {
+            "name": "branch_id",
+            "dataType": "string",
+            "sourceColumn": "branch_id"
+          },
+          {
+            "name": "branch_name",
+            "dataType": "string",
+            "sourceColumn": "branch_name"
+          },
+          {
+            "name": "state_key",
+            "dataType": "int64",
+            "sourceColumn": "state_key",
+            "isHidden": true
+          },
+          {
+            "name": "district",
+            "dataType": "string",
+            "sourceColumn": "district"
+          },
+          {
+            "name": "tier",
+            "dataType": "string",
+            "sourceColumn": "tier"
+          },
+          {
+            "name": "opened_date",
+            "dataType": "dateTime",
+            "sourceColumn": "opened_date"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_branch-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_branch.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_product",
+        "lineageTag": "dim_product-lineage",
+        "columns": [
+          {
+            "name": "product_key",
+            "dataType": "int64",
+            "sourceColumn": "product_key",
+            "isHidden": true
+          },
+          {
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id"
+          },
+          {
+            "name": "product_name",
+            "dataType": "string",
+            "sourceColumn": "product_name"
+          },
+          {
+            "name": "product_category",
+            "dataType": "string",
+            "sourceColumn": "product_category"
+          },
+          {
+            "name": "min_tenure_months",
+            "dataType": "int64",
+            "sourceColumn": "min_tenure_months"
+          },
+          {
+            "name": "max_tenure_months",
+            "dataType": "int64",
+            "sourceColumn": "max_tenure_months"
+          },
+          {
+            "name": "min_interest_rate",
+            "dataType": "double",
+            "sourceColumn": "min_interest_rate"
+          },
+          {
+            "name": "max_interest_rate",
+            "dataType": "double",
+            "sourceColumn": "max_interest_rate"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_product-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_product.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_borrower_segment",
+        "lineageTag": "dim_borrower_segment-lineage",
+        "columns": [
+          {
+            "name": "borrower_segment_key",
+            "dataType": "int64",
+            "sourceColumn": "borrower_segment_key",
+            "isHidden": true
+          },
+          {
+            "name": "borrower_segment_id",
+            "dataType": "string",
+            "sourceColumn": "borrower_segment_id"
+          },
+          {
+            "name": "segment_name",
+            "dataType": "string",
+            "sourceColumn": "segment_name"
+          },
+          {
+            "name": "target_group",
+            "dataType": "string",
+            "sourceColumn": "target_group"
+          },
+          {
+            "name": "risk_tier",
+            "dataType": "string",
+            "sourceColumn": "risk_tier"
+          },
+          {
+            "name": "avg_monthly_income",
+            "dataType": "double",
+            "sourceColumn": "avg_monthly_income"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_borrower_segment-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_borrower_segment.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_loan",
+        "lineageTag": "dim_loan-lineage",
+        "columns": [
+          {
+            "name": "loan_key",
+            "dataType": "int64",
+            "sourceColumn": "loan_key",
+            "isHidden": true
+          },
+          {
+            "name": "loan_id",
+            "dataType": "string",
+            "sourceColumn": "loan_id"
+          },
+          {
+            "name": "borrower_id",
+            "dataType": "string",
+            "sourceColumn": "borrower_id"
+          },
+          {
+            "name": "branch_key",
+            "dataType": "int64",
+            "sourceColumn": "branch_key",
+            "isHidden": true
+          },
+          {
+            "name": "product_key",
+            "dataType": "int64",
+            "sourceColumn": "product_key",
+            "isHidden": true
+          },
+          {
+            "name": "borrower_segment_key",
+            "dataType": "int64",
+            "sourceColumn": "borrower_segment_key",
+            "isHidden": true
+          },
+          {
+            "name": "state_key",
+            "dataType": "int64",
+            "sourceColumn": "state_key",
+            "isHidden": true
+          },
+          {
+            "name": "disbursement_date_key",
+            "dataType": "int64",
+            "sourceColumn": "disbursement_date_key",
+            "isHidden": true
+          },
+          {
+            "name": "disbursed_amount",
+            "dataType": "double",
+            "sourceColumn": "disbursed_amount"
+          },
+          {
+            "name": "annual_interest_rate",
+            "dataType": "double",
+            "sourceColumn": "annual_interest_rate"
+          },
+          {
+            "name": "tenure_months",
+            "dataType": "int64",
+            "sourceColumn": "tenure_months"
+          },
+          {
+            "name": "monthly_emi",
+            "dataType": "double",
+            "sourceColumn": "monthly_emi"
+          },
+          {
+            "name": "loan_status",
+            "dataType": "string",
+            "sourceColumn": "loan_status"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_loan-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_loan.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_payment",
+        "lineageTag": "fact_payment-lineage",
+        "columns": [
+          {
+            "name": "payment_key",
+            "dataType": "int64",
+            "sourceColumn": "payment_key",
+            "isHidden": true
+          },
+          {
+            "name": "payment_id",
+            "dataType": "string",
+            "sourceColumn": "payment_id"
+          },
+          {
+            "name": "loan_key",
+            "dataType": "int64",
+            "sourceColumn": "loan_key",
+            "isHidden": true
+          },
+          {
+            "name": "payment_date_key",
+            "dataType": "int64",
+            "sourceColumn": "payment_date_key",
+            "isHidden": true
+          },
+          {
+            "name": "branch_key",
+            "dataType": "int64",
+            "sourceColumn": "branch_key",
+            "isHidden": true
+          },
+          {
+            "name": "product_key",
+            "dataType": "int64",
+            "sourceColumn": "product_key",
+            "isHidden": true
+          },
+          {
+            "name": "state_key",
+            "dataType": "int64",
+            "sourceColumn": "state_key",
+            "isHidden": true
+          },
+          {
+            "name": "borrower_segment_key",
+            "dataType": "int64",
+            "sourceColumn": "borrower_segment_key",
+            "isHidden": true
+          },
+          {
+            "name": "payment_amount",
+            "dataType": "double",
+            "sourceColumn": "payment_amount"
+          },
+          {
+            "name": "payment_channel",
+            "dataType": "string",
+            "sourceColumn": "payment_channel"
+          },
+          {
+            "name": "payment_timestamp",
+            "dataType": "dateTime",
+            "sourceColumn": "payment_timestamp"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_payment-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/fact_payment.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_loan_monthly",
+        "lineageTag": "fact_loan_monthly-lineage",
+        "columns": [
+          {
+            "name": "snapshot_date_key",
+            "dataType": "int64",
+            "sourceColumn": "snapshot_date_key",
+            "isHidden": true
+          },
+          {
+            "name": "loan_key",
+            "dataType": "int64",
+            "sourceColumn": "loan_key",
+            "isHidden": true
+          },
+          {
+            "name": "branch_key",
+            "dataType": "int64",
+            "sourceColumn": "branch_key",
+            "isHidden": true
+          },
+          {
+            "name": "product_key",
+            "dataType": "int64",
+            "sourceColumn": "product_key",
+            "isHidden": true
+          },
+          {
+            "name": "state_key",
+            "dataType": "int64",
+            "sourceColumn": "state_key",
+            "isHidden": true
+          },
+          {
+            "name": "borrower_segment_key",
+            "dataType": "int64",
+            "sourceColumn": "borrower_segment_key",
+            "isHidden": true
+          },
+          {
+            "name": "outstanding_principal",
+            "dataType": "double",
+            "sourceColumn": "outstanding_principal"
+          },
+          {
+            "name": "days_past_due",
+            "dataType": "int64",
+            "sourceColumn": "days_past_due"
+          },
+          {
+            "name": "delinquency_bucket",
+            "dataType": "string",
+            "sourceColumn": "delinquency_bucket"
+          },
+          {
+            "name": "is_active",
+            "dataType": "boolean",
+            "sourceColumn": "is_active"
+          },
+          {
+            "name": "is_npa",
+            "dataType": "boolean",
+            "sourceColumn": "is_npa"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_loan_monthly-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/fact_loan_monthly.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "kpi_portfolio_health",
+        "lineageTag": "kpi_portfolio_health-lineage",
+        "columns": [
+          {
+            "name": "snapshot_date",
+            "dataType": "dateTime",
+            "sourceColumn": "snapshot_date"
+          },
+          {
+            "name": "branch_id",
+            "dataType": "string",
+            "sourceColumn": "branch_id"
+          },
+          {
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id"
+          },
+          {
+            "name": "state_id",
+            "dataType": "string",
+            "sourceColumn": "state_id"
+          },
+          {
+            "name": "total_active_loans",
+            "dataType": "int64",
+            "sourceColumn": "total_active_loans"
+          },
+          {
+            "name": "total_outstanding_principal",
+            "dataType": "double",
+            "sourceColumn": "total_outstanding_principal"
+          },
+          {
+            "name": "par30_principal",
+            "dataType": "double",
+            "sourceColumn": "par30_principal"
+          },
+          {
+            "name": "par30_pct",
+            "dataType": "double",
+            "sourceColumn": "par30_pct"
+          },
+          {
+            "name": "par90_principal",
+            "dataType": "double",
+            "sourceColumn": "par90_principal"
+          },
+          {
+            "name": "par90_pct",
+            "dataType": "double",
+            "sourceColumn": "par90_pct"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "kpi_portfolio_health-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/kpi_portfolio_health.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "kpi_collection_efficiency",
+        "lineageTag": "kpi_collection_efficiency-lineage",
+        "columns": [
+          {
+            "name": "year_month",
+            "dataType": "string",
+            "sourceColumn": "year_month"
+          },
+          {
+            "name": "branch_id",
+            "dataType": "string",
+            "sourceColumn": "branch_id"
+          },
+          {
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id"
+          },
+          {
+            "name": "scheduled_amount_due",
+            "dataType": "double",
+            "sourceColumn": "scheduled_amount_due"
+          },
+          {
+            "name": "current_period_collected",
+            "dataType": "double",
+            "sourceColumn": "current_period_collected"
+          },
+          {
+            "name": "arrears_collected",
+            "dataType": "double",
+            "sourceColumn": "arrears_collected"
+          },
+          {
+            "name": "advance_collected",
+            "dataType": "double",
+            "sourceColumn": "advance_collected"
+          },
+          {
+            "name": "total_amount_collected",
+            "dataType": "double",
+            "sourceColumn": "total_amount_collected"
+          },
+          {
+            "name": "current_collection_efficiency_pct",
+            "dataType": "double",
+            "sourceColumn": "current_collection_efficiency_pct"
+          },
+          {
+            "name": "total_collection_ratio_pct",
+            "dataType": "double",
+            "sourceColumn": "total_collection_ratio_pct"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "kpi_collection_efficiency-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/kpi_collection_efficiency.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "kpi_vintage_curves",
+        "lineageTag": "kpi_vintage_curves-lineage",
+        "columns": [
+          {
+            "name": "cohort_month",
+            "dataType": "string",
+            "sourceColumn": "cohort_month"
+          },
+          {
+            "name": "month_on_book",
+            "dataType": "int64",
+            "sourceColumn": "month_on_book"
+          },
+          {
+            "name": "disbursed_principal",
+            "dataType": "double",
+            "sourceColumn": "disbursed_principal"
+          },
+          {
+            "name": "cumulative_scheduled_due",
+            "dataType": "double",
+            "sourceColumn": "cumulative_scheduled_due"
+          },
+          {
+            "name": "cumulative_amount_paid",
+            "dataType": "double",
+            "sourceColumn": "cumulative_amount_paid"
+          },
+          {
+            "name": "vintage_repayment_rate_pct",
+            "dataType": "double",
+            "sourceColumn": "vintage_repayment_rate_pct"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "kpi_vintage_curves-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/kpi_vintage_curves.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "kpi_digital_collections",
+        "lineageTag": "kpi_digital_collections-lineage",
+        "columns": [
+          {
+            "name": "year_month",
+            "dataType": "string",
+            "sourceColumn": "year_month"
+          },
+          {
+            "name": "state_id",
+            "dataType": "string",
+            "sourceColumn": "state_id"
+          },
+          {
+            "name": "total_collection_value",
+            "dataType": "double",
+            "sourceColumn": "total_collection_value"
+          },
+          {
+            "name": "digital_collection_value",
+            "dataType": "double",
+            "sourceColumn": "digital_collection_value"
+          },
+          {
+            "name": "cash_collection_value",
+            "dataType": "double",
+            "sourceColumn": "cash_collection_value"
+          },
+          {
+            "name": "digital_value_share_pct",
+            "dataType": "double",
+            "sourceColumn": "digital_value_share_pct"
+          },
+          {
+            "name": "upi_value",
+            "dataType": "double",
+            "sourceColumn": "upi_value"
+          },
+          {
+            "name": "bank_transfer_value",
+            "dataType": "double",
+            "sourceColumn": "bank_transfer_value"
+          },
+          {
+            "name": "total_transaction_count",
+            "dataType": "int64",
+            "sourceColumn": "total_transaction_count"
+          },
+          {
+            "name": "digital_transaction_count",
+            "dataType": "int64",
+            "sourceColumn": "digital_transaction_count"
+          },
+          {
+            "name": "cash_transaction_count",
+            "dataType": "int64",
+            "sourceColumn": "cash_transaction_count"
+          },
+          {
+            "name": "digital_count_share_pct",
+            "dataType": "double",
+            "sourceColumn": "digital_count_share_pct"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "kpi_digital_collections-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/kpi_digital_collections.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "stg_quarantined_records",
+        "lineageTag": "stg_quarantined_records-lineage",
+        "columns": [
+          {
+            "name": "quarantine_id",
+            "dataType": "int64",
+            "sourceColumn": "quarantine_id"
+          },
+          {
+            "name": "source_table",
+            "dataType": "string",
+            "sourceColumn": "source_table"
+          },
+          {
+            "name": "record_identifier",
+            "dataType": "string",
+            "sourceColumn": "record_identifier"
+          },
+          {
+            "name": "reason_code",
+            "dataType": "string",
+            "sourceColumn": "reason_code"
+          },
+          {
+            "name": "quarantined_at",
+            "dataType": "dateTime",
+            "sourceColumn": "quarantined_at"
+          },
+          {
+            "name": "payload",
+            "dataType": "string",
+            "sourceColumn": "payload"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "stg_quarantined_records-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/stg_quarantined_records.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "rel_branch_state",
+        "fromTable": "dim_branch",
+        "fromColumn": "state_key",
+        "toTable": "dim_state",
+        "toColumn": "state_key"
+      },
+      {
+        "name": "rel_loan_branch",
+        "fromTable": "dim_loan",
+        "fromColumn": "branch_key",
+        "toTable": "dim_branch",
+        "toColumn": "branch_key"
+      },
+      {
+        "name": "rel_loan_product",
+        "fromTable": "dim_loan",
+        "fromColumn": "product_key",
+        "toTable": "dim_product",
+        "toColumn": "product_key"
+      },
+      {
+        "name": "rel_loan_segment",
+        "fromTable": "dim_loan",
+        "fromColumn": "borrower_segment_key",
+        "toTable": "dim_borrower_segment",
+        "toColumn": "borrower_segment_key"
+      },
+      {
+        "name": "rel_loan_state",
+        "fromTable": "dim_loan",
+        "fromColumn": "state_key",
+        "toTable": "dim_state",
+        "toColumn": "state_key"
+      },
+      {
+        "name": "rel_loan_disb_date",
+        "fromTable": "dim_loan",
+        "fromColumn": "disbursement_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "rel_payment_loan",
+        "fromTable": "fact_payment",
+        "fromColumn": "loan_key",
+        "toTable": "dim_loan",
+        "toColumn": "loan_key"
+      },
+      {
+        "name": "rel_payment_date",
+        "fromTable": "fact_payment",
+        "fromColumn": "payment_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "rel_monthly_loan",
+        "fromTable": "fact_loan_monthly",
+        "fromColumn": "loan_key",
+        "toTable": "dim_loan",
+        "toColumn": "loan_key"
+      },
+      {
+        "name": "rel_monthly_date",
+        "fromTable": "fact_loan_monthly",
+        "fromColumn": "snapshot_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      }
+    ]
+  }
+}

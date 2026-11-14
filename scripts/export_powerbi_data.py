@@ -28,6 +28,8 @@ def export_tables():
         ("fin_warehouse.dim_borrower_segment", "dim_borrower_segment.csv"),
         ("fin_warehouse.dim_loan", "dim_loan.csv"),
         # Facts (Summary & Monthly)
+        ("fin_warehouse.fact_payment", "fact_payment.csv"),
+        ("fin_warehouse.fact_instalment_allocation", "fact_instalment_allocation.csv"),
         ("fin_warehouse.fact_loan_monthly", "fact_loan_monthly.csv"),
         # Pre-calculated KPI Aggregations (for instant Power BI responsiveness)
         ("fin_analytics.kpi_portfolio_health", "kpi_portfolio_health.csv"),

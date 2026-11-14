@@ -1,0 +1,216 @@
+// ============================================================================
+// FINANCIAL INCLUSION ANALYTICS WAREHOUSE — ENTERPRISE DAX MEASURES CATALOGUE
+// Standard: Power BI Tabular / DAX Studio Format
+// Currency: INR (₹), Lakhs (L), Crores (Cr)
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// 1. PORTFOLIO HEALTH & RISK MEASURES
+// ----------------------------------------------------------------------------
+
+MEASURE '_Measures'[Active Loans Count] = 
+    CALCULATE(
+        DISTINCTCOUNT(fact_loan_monthly[loan_id]),
+        fact_loan_monthly[outstanding_principal] > 0
+    )
+    // Format: #,##0
+    // Description: Total count of active loans with positive outstanding principal
+
+MEASURE '_Measures'[Total Outstanding Principal] = 
+    SUM(fact_loan_monthly[outstanding_principal])
+    // Format: ₹ #,##0.00
+    // Description: Gross outstanding principal balance across all active loans
+
+MEASURE '_Measures'[Outstanding Principal (INR Cr)] = 
+    DIVIDE([Total Outstanding Principal], 10000000, 0)
+    // Format: ₹ #,##0.00 "Cr"
+    // Description: Gross outstanding principal normalized into Crores
+
+MEASURE '_Measures'[PAR 30 Principal] = 
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[days_past_due] > 30
+    )
+    // Format: ₹ #,##0.00
+    // Description: Outstanding principal on loans with DPD > 30 days
+
+MEASURE '_Measures'[PAR 30 %] = 
+    DIVIDE([PAR 30 Principal], [Total Outstanding Principal], 0)
+    // Format: 0.00%
+    // Description: Portfolio-at-Risk > 30 days ratio as % of gross principal
+
+MEASURE '_Measures'[PAR 90 Principal] = 
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[days_past_due] > 90
+    )
+    // Format: ₹ #,##0.00
+    // Description: Outstanding principal on Non-Performing Assets (DPD > 90 days)
+
+MEASURE '_Measures'[PAR 90 %] = 
+    DIVIDE([PAR 90 Principal], [Total Outstanding Principal], 0)
+    // Format: 0.00%
+    // Description: Non-Performing Assets ratio (NPA / PAR90)
+
+MEASURE '_Measures'[Current Principal] = 
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[days_past_due] = 0
+    )
+    // Format: ₹ #,##0.00
+    // Description: Non-delinquent outstanding principal (0 DPD)
+
+MEASURE '_Measures'[Delinquency DPD 1-30] = 
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[days_past_due] >= 1,
+        fact_loan_monthly[days_past_due] <= 30
+    )
+    // Format: ₹ #,##0.00
+    // Description: Early-stage arrears outstanding principal
+
+MEASURE '_Measures'[Delinquency DPD 31-60] = 
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[days_past_due] >= 31,
+        fact_loan_monthly[days_past_due] <= 60
+    )
+    // Format: ₹ #,##0.00
+    // Description: Sub-standard 31-60 DPD arrears
+
+MEASURE '_Measures'[Delinquency DPD 61-90] = 
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[days_past_due] >= 61,
+        fact_loan_monthly[days_past_due] <= 90
+    )
+    // Format: ₹ #,##0.00
+    // Description: Doubtful 61-90 DPD arrears
+
+// ----------------------------------------------------------------------------
+// 2. COLLECTION EFFICIENCY & RECOVERY MEASURES
+// ----------------------------------------------------------------------------
+
+MEASURE '_Measures'[Scheduled Billing Due] = 
+    SUM(kpi_collection_efficiency[scheduled_amount_due])
+    // Format: ₹ #,##0.00
+    // Description: Total scheduled instalment billing due in reporting period
+
+MEASURE '_Measures'[Current Period Collected] = 
+    SUM(kpi_collection_efficiency[current_period_collected])
+    // Format: ₹ #,##0.00
+    // Description: On-time cash recovered against current month scheduled dues
+
+MEASURE '_Measures'[Arrears Collected] = 
+    SUM(kpi_collection_efficiency[arrears_collected])
+    // Format: ₹ #,##0.00
+    // Description: Arrears cash recovered against prior-period overdue dues
+
+MEASURE '_Measures'[Advance Collected] = 
+    SUM(kpi_collection_efficiency[advance_collected])
+    // Format: ₹ #,##0.00
+    // Description: Advance cash prepayments against future dues
+
+MEASURE '_Measures'[Total Cash Collected] = 
+    SUM(kpi_collection_efficiency[total_amount_collected])
+    // Format: ₹ #,##0.00
+    // Description: Total gross cash receipts (Current + Arrears + Advance)
+
+MEASURE '_Measures'[Current Period Collection Efficiency %] = 
+    DIVIDE([Current Period Collected], [Scheduled Billing Due], 0)
+    // Format: 0.00%
+    // Description: Primary operational headline efficiency (capped <= 100%)
+
+MEASURE '_Measures'[Total Collection Ratio %] = 
+    DIVIDE([Total Cash Collected], [Scheduled Billing Due], 0)
+    // Format: 0.00%
+    // Description: Gross cash recovery ratio against scheduled billing dues
+
+// ----------------------------------------------------------------------------
+// 3. DIGITAL COLLECTIONS & TRANSFORMATIONS
+// ----------------------------------------------------------------------------
+
+MEASURE '_Measures'[Total Collections Value] = 
+    SUM(kpi_digital_collections[total_collection_value])
+    // Format: ₹ #,##0.00
+
+MEASURE '_Measures'[Digital Collections Value] = 
+    SUM(kpi_digital_collections[digital_collection_value])
+    // Format: ₹ #,##0.00
+
+MEASURE '_Measures'[Cash Collections Value] = 
+    SUM(kpi_digital_collections[cash_collection_value])
+    // Format: ₹ #,##0.00
+
+MEASURE '_Measures'[UPI Value] = 
+    SUM(kpi_digital_collections[upi_value])
+    // Format: ₹ #,##0.00
+
+MEASURE '_Measures'[Bank Transfer Value] = 
+    SUM(kpi_digital_collections[bank_transfer_value])
+    // Format: ₹ #,##0.00
+
+MEASURE '_Measures'[Digital Value Share %] = 
+    DIVIDE([Digital Collections Value], [Total Collections Value], 0)
+    // Format: 0.00%
+    // Description: Share of total collection value received digitally
+
+MEASURE '_Measures'[Digital Count Share %] = 
+    DIVIDE(
+        SUM(kpi_digital_collections[digital_transaction_count]),
+        SUM(kpi_digital_collections[total_transaction_count]),
+        0
+    )
+    // Format: 0.00%
+    // Description: Share of total transaction volume processed digitally
+
+MEASURE '_Measures'[Avg Ticket Size] = 
+    DIVIDE([Total Collections Value], SUM(kpi_digital_collections[total_transaction_count]), 0)
+    // Format: ₹ #,##0.00
+
+// ----------------------------------------------------------------------------
+// 4. REPAYMENT VINTAGE & MATURITY CURVES
+// ----------------------------------------------------------------------------
+
+MEASURE '_Measures'[Cumulative Scheduled Due (Vintage)] = 
+    SUM(kpi_vintage_curves[cumulative_scheduled_due])
+    // Format: ₹ #,##0.00
+
+MEASURE '_Measures'[Cumulative Amount Paid (Vintage)] = 
+    SUM(kpi_vintage_curves[cumulative_amount_paid])
+    // Format: ₹ #,##0.00
+
+MEASURE '_Measures'[Vintage Repayment Rate %] = 
+    DIVIDE([Cumulative Amount Paid (Vintage)], [Cumulative Scheduled Due (Vintage)], 0)
+    // Format: 0.00%
+    // Description: Cumulative cash recovery percentage at Month on Book (MOB) k
+
+// ----------------------------------------------------------------------------
+// 5. DATA QUALITY & QUARANTINE FIREWALL
+// ----------------------------------------------------------------------------
+
+MEASURE '_Measures'[Total Quarantined Records] = 
+    COUNTROWS(stg_quarantined_records)
+    // Format: #,##0
+    // Description: Total anomalous records isolated by staging quality rules
+
+MEASURE '_Measures'[Negative Amount Anomalies] = 
+    CALCULATE(
+        COUNTROWS(stg_quarantined_records),
+        stg_quarantined_records[reason_code] = "NEGATIVE_PAYMENT_AMOUNT"
+    )
+    // Format: #,##0
+
+MEASURE '_Measures'[Pre-dated Payment Anomalies] = 
+    CALCULATE(
+        COUNTROWS(stg_quarantined_records),
+        stg_quarantined_records[reason_code] = "PAYMENT_BEFORE_DISBURSEMENT"
+    )
+    // Format: #,##0
+
+MEASURE '_Measures'[Excess Payment Anomalies] = 
+    CALCULATE(
+        COUNTROWS(stg_quarantined_records),
+        stg_quarantined_records[reason_code] = "EXCESS_INSTALMENT_PAYMENT"
+    )
+    // Format: #,##0
