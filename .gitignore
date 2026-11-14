@@ -5,11 +5,20 @@ __pycache__/
 *.pytest_cache/
 
 # Cloud Credentials & Secrets
-*.json
+*credentials*.json
+*secret*.json
 service_account*.json
-credentials.json
+gcp*.json
+key*.json
 .env
 *.env
+
+# Explicitly track Power BI project configuration files
+!powerbi/**/*.json
+!powerbi/**/*.pbip
+!powerbi/**/*.pbir
+!powerbi/**/*.pbism
+!powerbi/**/*.bim
 
 # Local database files
 *.db

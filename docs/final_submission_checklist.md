@@ -34,10 +34,17 @@ During validation test execution, a discrepancy emerged between the naive SQL wa
 - *Remediation*: The BigQuery SQL logic was refactored to use fixed-point `NUMERIC` types with explicit penny rounding `ROUND(amount_due - allocated, 2) > NUMERIC '0.01'`. The refactored warehouse returned **8.2211%**, bringing the variance down to **0.04 basis points** (₹8,426 on a ₹2.037B portfolio), perfectly matching institutional NBFC-MFI delinquency standards.
 
 ### 1.4 Independent KPI Hand Calculation & Result
-To mathematically certify the warehouse transformation logic, sample facility `LN000001` (₹50,000 principal, 18.0% p.a., 12-month tenure) was deconstructed by hand:
-- Contractual reducing-balance EMI was derived: $\text{EMI} = 50000 \times \frac{0.015(1.015)^{12}}{(1.015)^{12} - 1} = \text{₹}4,584.00$.
-- Month 1 component split: Opening Principal ₹50,000.00 $\to$ Interest ₹750.00, Principal ₹3,834.00, Closing Principal ₹46,166.00.
-- Application of ₹5,000 repayment: ₹4,584.00 allocated to Month 1 (DPD 0); residual ₹416.00 allocated to Month 2 advance principal (₹353.18) and interest (₹62.82), leaving ₹0 unallocated cash.
+To mathematically certify the warehouse transformation logic, two independent hand audits were conducted:
+1. **Facility Amortisation & Cash Waterfall (`LN000001`)**:
+   - Contractual reducing-balance EMI was derived: $\text{EMI} = 50000 \times \frac{0.015(1.015)^{12}}{(1.015)^{12} - 1} = \text{₹}4,584.00$.
+   - Month 1 component split: Opening Principal ₹50,000.00 $\to$ Interest ₹750.00, Principal ₹3,834.00, Closing Principal ₹46,166.00.
+   - Application of ₹5,000 repayment: ₹4,584.00 allocated to Month 1 (DPD 0); residual ₹416.00 allocated to Month 2 advance principal (₹353.18) and interest (₹62.82), leaving ₹0 unallocated cash.
+2. **Dashboard KPI Hand Audit (Bihar Digital Collections Share, Jan 2023)**:
+   - Evaluated all 9 raw transactions for Bihar in Jan 2023 (`TXN00104921`, `TXN00105648`, `TXN00491837`, `TXN00503801`, `TXN00066561`, `TXN00191596`, `TXN00295015`, `TXN00334986`, `TXN00465611`).
+   - Digital Numerator (UPI): ₹964.01 + ₹1,410.67 + ₹2,806.67 = ₹5,181.35.
+   - Total Denominator: ₹5,181.35 (digital) + ₹25,275.26 (cash) = ₹30,456.61.
+   - Manual Division: $5,181.35 / 30,456.61 = \mathbf{17.0122\%}$ (rounds to **17.01%**).
+   - Reconciled against BigQuery warehouse (`17.01%`) and Power BI DAX measure `[Digital Value Share %]` (`17.01%`) with **0.00% variance**.
 - Across the entire warehouse (52,000 facilities), independent Python recalculation verified 40,940 active loans and a PAR30 rate of 8.2215%, fully reconciling with the analytical model.
 
 ### 1.5 Key Business Insights
@@ -105,3 +112,21 @@ python scripts/validate_powerbi_extracts.py
 # 4. Open Power BI Dashboard
 # Double-click powerbi/Financial_Inclusion_Analytics.pbip in Windows Explorer
 ```
+
+
+---
+
+## 4. Power BI Deliverable Status & Verification Transparency
+
+1. **Power BI Project (`.pbip`)**:
+   - Location: `powerbi/Financial_Inclusion_Analytics.pbip`.
+   - Contains complete model definition (`model.bim`) with 14 tables, all dimension relationships, and 33 DAX measures.
+   - Contains complete visual report definitions (`report.json`) across all 5 report pages with cards, combo charts, area charts, donut charts, and drill-through tables.
+   - Configured with a first-class Power Query `Location` parameter allowing seamless portability across workstations.
+2. **Interactive PBIX Generation**:
+   - Microsoft Power BI Desktop (`PBIDesktop.exe`) is installed on the machine.
+   - In headless sandbox execution environments, Windows interactive GUI dialogs (such as interactive login prompts and UI dialog save buttons) require desktop user interaction.
+   - To save the verified report as a binary `.pbix` file:
+     1. Open `powerbi/Financial_Inclusion_Analytics.pbip` in Power BI Desktop.
+     2. Review all 5 pages and slicer interactions.
+     3. Select **File > Save As > Power BI file (*.pbix)** and save to `powerbi/Financial_Inclusion_Analytics.pbix`.

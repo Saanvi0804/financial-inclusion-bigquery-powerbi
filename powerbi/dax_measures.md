@@ -8,23 +8,31 @@ All measures are grouped in a dedicated `_Measures` table or associated fact tab
 ## 1. Portfolio Health & Risk Measures
 
 ### `[Active Loans Count]`
-- **Description**: Count of distinct active loans with outstanding principal as of the selected snapshot date.
+- **Description**: Count of distinct active loans with outstanding principal as of the selected snapshot date (semi-additive).
 - **DAX Formula**:
 ```dax
 Active Loans Count = 
-CALCULATE(
-    DISTINCTCOUNT(fact_loan_monthly[loan_id]),
-    fact_loan_monthly[outstanding_principal] > 0
-)
+VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+RETURN
+    CALCULATE(
+        DISTINCTCOUNT(fact_loan_monthly[loan_key]),
+        fact_loan_monthly[snapshot_date_key] = MaxDate,
+        fact_loan_monthly[outstanding_principal] > 0
+    )
 ```
 - **Format**: `#,##0`
 
 ### `[Total Outstanding Principal]`
-- **Description**: Gross remaining principal balance owed across all active loans.
+- **Description**: Gross remaining principal balance owed across active loans as of the latest selected snapshot.
 - **DAX Formula**:
 ```dax
 Total Outstanding Principal = 
-SUM(fact_loan_monthly[outstanding_principal])
+VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+RETURN
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[snapshot_date_key] = MaxDate
+    )
 ```
 - **Format**: `₹ #,##0.00` (or dynamic format string for Crores `₹ 0.00,, "Cr"`)
 
@@ -42,10 +50,13 @@ DIVIDE([Total Outstanding Principal], 10000000, 0)
 - **DAX Formula**:
 ```dax
 PAR 30 Principal = 
-CALCULATE(
-    SUM(fact_loan_monthly[outstanding_principal]),
-    fact_loan_monthly[days_past_due] > 30
-)
+VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+RETURN
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[snapshot_date_key] = MaxDate,
+        fact_loan_monthly[days_past_due] > 30
+    )
 ```
 - **Format**: `₹ #,##0.00`
 
@@ -63,14 +74,17 @@ DIVIDE(
 - **Format**: `0.00%`
 
 ### `[PAR 90 Principal]`
-- **Description**: Outstanding principal balance on non-performing loans (NPL) with DPD > 90 days.
+- **Description**: Outstanding principal balance on non-performing loans (NPL / Gross NPA) with DPD > 90 days.
 - **DAX Formula**:
 ```dax
 PAR 90 Principal = 
-CALCULATE(
-    SUM(fact_loan_monthly[outstanding_principal]),
-    fact_loan_monthly[days_past_due] > 90
-)
+VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+RETURN
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[snapshot_date_key] = MaxDate,
+        fact_loan_monthly[days_past_due] > 90
+    )
 ```
 - **Format**: `₹ #,##0.00`
 
@@ -92,10 +106,13 @@ DIVIDE(
 - **DAX Formula**:
 ```dax
 Current Principal = 
-CALCULATE(
-    SUM(fact_loan_monthly[outstanding_principal]),
-    fact_loan_monthly[days_past_due] = 0
-)
+VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+RETURN
+    CALCULATE(
+        SUM(fact_loan_monthly[outstanding_principal]),
+        fact_loan_monthly[snapshot_date_key] = MaxDate,
+        fact_loan_monthly[days_past_due] = 0
+    )
 ```
 - **Format**: `₹ #,##0.00`
 

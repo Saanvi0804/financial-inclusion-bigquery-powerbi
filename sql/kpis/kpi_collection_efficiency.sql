@@ -6,8 +6,12 @@ CREATE OR REPLACE TABLE `fin_analytics.kpi_collection_efficiency` AS
 WITH monthly_billing AS (
     SELECT 
         FORMAT_DATE('%Y-%m', i.due_date) AS year_month,
+        CAST(FORMAT_DATE('%Y%m01', i.due_date) AS INT64) AS month_date_key,
+        s.state_id,
         s.state_name,
+        b.branch_id,
         b.branch_name,
+        p.product_id,
         p.product_name,
         ROUND(SUM(i.amount_due), 2) AS scheduled_amount_due
     FROM `fin_staging.stg_instalments` i
@@ -16,13 +20,17 @@ WITH monthly_billing AS (
     LEFT JOIN `fin_warehouse.dim_state` s ON l.state_id = s.state_id
     LEFT JOIN `fin_warehouse.dim_product` p ON l.product_id = p.product_id
     WHERE i.due_date >= DATE '2023-01-01' AND i.due_date <= DATE '2024-12-31'
-    GROUP BY 1, 2, 3, 4
+    GROUP BY 1, 2, 3, 4, 5, 6, 7, 8
 ),
 monthly_allocations AS (
     SELECT 
         FORMAT_DATE('%Y-%m', a.payment_date) AS year_month,
+        CAST(FORMAT_DATE('%Y%m01', a.payment_date) AS INT64) AS month_date_key,
+        s.state_id,
         s.state_name,
+        b.branch_id,
         b.branch_name,
+        p.product_id,
         p.product_name,
         -- Current-month billing collected (instalment due in current month and paid in current month)
         ROUND(SUM(CASE WHEN FORMAT_DATE('%Y-%m', a.due_date) = FORMAT_DATE('%Y-%m', a.payment_date) THEN a.allocated_amount ELSE NUMERIC '0.0' END), 2) AS current_period_collected,
@@ -37,12 +45,16 @@ monthly_allocations AS (
     LEFT JOIN `fin_warehouse.dim_branch` b ON l.branch_id = b.branch_id
     LEFT JOIN `fin_warehouse.dim_state` s ON l.state_id = s.state_id
     LEFT JOIN `fin_warehouse.dim_product` p ON l.product_id = p.product_id
-    GROUP BY 1, 2, 3, 4
+    GROUP BY 1, 2, 3, 4, 5, 6, 7, 8
 )
 SELECT 
     COALESCE(mb.year_month, ma.year_month) AS year_month,
+    COALESCE(mb.month_date_key, ma.month_date_key) AS month_date_key,
+    COALESCE(mb.state_id, ma.state_id) AS state_id,
     COALESCE(mb.state_name, ma.state_name) AS state_name,
+    COALESCE(mb.branch_id, ma.branch_id) AS branch_id,
     COALESCE(mb.branch_name, ma.branch_name) AS branch_name,
+    COALESCE(mb.product_id, ma.product_id) AS product_id,
     COALESCE(mb.product_name, ma.product_name) AS product_name,
     COALESCE(mb.scheduled_amount_due, NUMERIC '0.00') AS scheduled_amount_due,
     COALESCE(ma.current_period_collected, NUMERIC '0.00') AS current_period_collected,
@@ -70,6 +82,6 @@ SELECT
 FROM monthly_billing mb
 FULL OUTER JOIN monthly_allocations ma
     ON mb.year_month = ma.year_month
-   AND mb.state_name = ma.state_name
-   AND mb.branch_name = ma.branch_name
-   AND mb.product_name = ma.product_name;
+   AND mb.branch_id = ma.branch_id
+   AND mb.product_id = ma.product_id
+   AND mb.state_id = ma.state_id;

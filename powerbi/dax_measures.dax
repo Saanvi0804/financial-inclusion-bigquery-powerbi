@@ -5,21 +5,29 @@
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// 1. PORTFOLIO HEALTH & RISK MEASURES
+// 1. PORTFOLIO HEALTH & RISK MEASURES (Semi-Additive Snapshot Logic)
 // ----------------------------------------------------------------------------
 
 MEASURE '_Measures'[Active Loans Count] = 
-    CALCULATE(
-        DISTINCTCOUNT(fact_loan_monthly[loan_id]),
-        fact_loan_monthly[outstanding_principal] > 0
-    )
+    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+    RETURN
+        CALCULATE(
+            DISTINCTCOUNT(fact_loan_monthly[loan_key]),
+            fact_loan_monthly[snapshot_date_key] = MaxDate,
+            fact_loan_monthly[outstanding_principal] > 0
+        )
     // Format: #,##0
-    // Description: Total count of active loans with positive outstanding principal
+    // Description: Total count of active loans with positive outstanding principal as of latest selected snapshot
 
 MEASURE '_Measures'[Total Outstanding Principal] = 
-    SUM(fact_loan_monthly[outstanding_principal])
+    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+    RETURN
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxDate
+        )
     // Format: ₹ #,##0.00
-    // Description: Gross outstanding principal balance across all active loans
+    // Description: Gross outstanding principal balance across active loans at latest snapshot
 
 MEASURE '_Measures'[Outstanding Principal (INR Cr)] = 
     DIVIDE([Total Outstanding Principal], 10000000, 0)
@@ -27,10 +35,13 @@ MEASURE '_Measures'[Outstanding Principal (INR Cr)] =
     // Description: Gross outstanding principal normalized into Crores
 
 MEASURE '_Measures'[PAR 30 Principal] = 
-    CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[days_past_due] > 30
-    )
+    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+    RETURN
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxDate,
+            fact_loan_monthly[days_past_due] > 30
+        )
     // Format: ₹ #,##0.00
     // Description: Outstanding principal on loans with DPD > 30 days
 
@@ -40,10 +51,13 @@ MEASURE '_Measures'[PAR 30 %] =
     // Description: Portfolio-at-Risk > 30 days ratio as % of gross principal
 
 MEASURE '_Measures'[PAR 90 Principal] = 
-    CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[days_past_due] > 90
-    )
+    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+    RETURN
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxDate,
+            fact_loan_monthly[days_past_due] > 90
+        )
     // Format: ₹ #,##0.00
     // Description: Outstanding principal on Non-Performing Assets (DPD > 90 days)
 
@@ -53,37 +67,49 @@ MEASURE '_Measures'[PAR 90 %] =
     // Description: Non-Performing Assets ratio (NPA / PAR90)
 
 MEASURE '_Measures'[Current Principal] = 
-    CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[days_past_due] = 0
-    )
+    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+    RETURN
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxDate,
+            fact_loan_monthly[days_past_due] = 0
+        )
     // Format: ₹ #,##0.00
     // Description: Non-delinquent outstanding principal (0 DPD)
 
 MEASURE '_Measures'[Delinquency DPD 1-30] = 
-    CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[days_past_due] >= 1,
-        fact_loan_monthly[days_past_due] <= 30
-    )
+    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+    RETURN
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxDate,
+            fact_loan_monthly[days_past_due] >= 1,
+            fact_loan_monthly[days_past_due] <= 30
+        )
     // Format: ₹ #,##0.00
     // Description: Early-stage arrears outstanding principal
 
 MEASURE '_Measures'[Delinquency DPD 31-60] = 
-    CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[days_past_due] >= 31,
-        fact_loan_monthly[days_past_due] <= 60
-    )
+    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+    RETURN
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxDate,
+            fact_loan_monthly[days_past_due] >= 31,
+            fact_loan_monthly[days_past_due] <= 60
+        )
     // Format: ₹ #,##0.00
     // Description: Sub-standard 31-60 DPD arrears
 
 MEASURE '_Measures'[Delinquency DPD 61-90] = 
-    CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[days_past_due] >= 61,
-        fact_loan_monthly[days_past_due] <= 90
-    )
+    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
+    RETURN
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxDate,
+            fact_loan_monthly[days_past_due] >= 61,
+            fact_loan_monthly[days_past_due] <= 90
+        )
     // Format: ₹ #,##0.00
     // Description: Doubtful 61-90 DPD arrears
 
@@ -119,7 +145,7 @@ MEASURE '_Measures'[Total Cash Collected] =
 MEASURE '_Measures'[Current Period Collection Efficiency %] = 
     DIVIDE([Current Period Collected], [Scheduled Billing Due], 0)
     // Format: 0.00%
-    // Description: Primary operational headline efficiency (capped <= 100%)
+    // Description: Primary operational headline efficiency (strictly current billing collected / current billing due)
 
 MEASURE '_Measures'[Total Collection Ratio %] = 
     DIVIDE([Total Cash Collected], [Scheduled Billing Due], 0)
@@ -153,7 +179,7 @@ MEASURE '_Measures'[Bank Transfer Value] =
 MEASURE '_Measures'[Digital Value Share %] = 
     DIVIDE([Digital Collections Value], [Total Collections Value], 0)
     // Format: 0.00%
-    // Description: Share of total collection value received digitally
+    // Description: Share of total collection value received digitally (denominator = total collections value)
 
 MEASURE '_Measures'[Digital Count Share %] = 
     DIVIDE(
@@ -162,7 +188,7 @@ MEASURE '_Measures'[Digital Count Share %] =
         0
     )
     // Format: 0.00%
-    // Description: Share of total transaction volume processed digitally
+    // Description: Share of total transaction volume processed digitally (denominator = total transaction count)
 
 MEASURE '_Measures'[Avg Ticket Size] = 
     DIVIDE([Total Collections Value], SUM(kpi_digital_collections[total_transaction_count]), 0)

@@ -12,6 +12,16 @@ The dashboard is delivered in two standard enterprise formats:
 
 All visual components are connected to the validated Kimball star schema and reconciled analytical KPI tables in `data/powerbi_extracts/`.
 
+### 1.1 Portable Data Loading via `Location` Parameter
+The semantic model uses a designated Power Query text parameter named `Location` in `model.bim`. If opening the report on a different machine or directory:
+1. Open `powerbi/Financial_Inclusion_Analytics.pbip` in Power BI Desktop.
+2. Click **Home > Transform Data > Edit Parameters**.
+3. Set `Location` to your repository root path (e.g., `D:\projects\financial-inclusion-bigquery-powerbi`).
+4. Click **OK** and **Apply Changes**. All tables refresh automatically from `data/powerbi_extracts/`.
+
+### 1.2 Dimension Relationships & Cross-Filtering
+All KPI tables (`kpi_portfolio_health`, `kpi_collection_efficiency`, `kpi_vintage_curves`, `kpi_digital_collections`) connect directly to dimension tables (`dim_branch`, `dim_product`, `dim_state`, `dim_date`) via conformed identifiers (`branch_id`, `product_id`, `state_id`, and `date_key`). Slicers on `dim_date[calendar_year]`, `dim_state[state_name]`, `dim_branch[branch_name]`, and `dim_product[product_name]` immediately filter all KPI visuals, cards, and matrices without ambiguity.
+
 ---
 
 ## 2. Global Styling, Theme & Design Standards

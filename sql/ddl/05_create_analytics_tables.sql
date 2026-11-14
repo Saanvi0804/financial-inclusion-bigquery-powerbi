@@ -5,10 +5,13 @@ CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_portfolio_health` (
     year_month STRING OPTIONS(description="Reporting calendar period (YYYY-MM)"),
     snapshot_date DATE OPTIONS(description="Month-end snapshot date"),
     snapshot_date_key INT64 OPTIONS(description="FK to dim_date"),
+    state_id STRING OPTIONS(description="FK to dim_state (e.g. ST_MH)"),
     state_name STRING OPTIONS(description="State name"),
     region STRING OPTIONS(description="Indian geographic region"),
+    branch_id STRING OPTIONS(description="FK to dim_branch (e.g. BR001)"),
     branch_name STRING OPTIONS(description="Branch office name"),
     branch_location_type STRING OPTIONS(description="Urban, Semi-Urban, Rural"),
+    product_id STRING OPTIONS(description="FK to dim_product (e.g. PRD_MFI)"),
     product_name STRING OPTIONS(description="Loan product name"),
     product_category STRING OPTIONS(description="Microfinance, Agri, MSME, Personal, Education"),
     borrower_segment STRING OPTIONS(description="Borrower demographic category"),
@@ -25,12 +28,16 @@ CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_portfolio_health` (
     par30_pct NUMERIC(7, 4) OPTIONS(description="PAR30 ratio percentage: (PAR30 Principal / Total Outstanding Principal) * 100"),
     par90_pct NUMERIC(7, 4) OPTIONS(description="PAR90 ratio percentage: (PAR90 Principal / Total Outstanding Principal) * 100")
 )
-CLUSTER BY year_month, state_name, product_name;
+CLUSTER BY year_month, state_id, product_id;
 
 CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_collection_efficiency` (
     year_month STRING OPTIONS(description="Reporting billing month (YYYY-MM)"),
+    month_date_key INT64 OPTIONS(description="FK to dim_date for month start (YYYYMM01)"),
+    state_id STRING OPTIONS(description="FK to dim_state"),
     state_name STRING OPTIONS(description="State name"),
+    branch_id STRING OPTIONS(description="FK to dim_branch"),
     branch_name STRING OPTIONS(description="Branch office name"),
+    product_id STRING OPTIONS(description="FK to dim_product"),
     product_name STRING OPTIONS(description="Loan product name"),
     scheduled_amount_due NUMERIC(14, 2) OPTIONS(description="Contractual billing due in current month"),
     current_period_collected NUMERIC(14, 2) OPTIONS(description="Cash collected against current-month billing"),
@@ -41,10 +48,12 @@ CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_collection_efficiency` (
     total_collection_ratio_pct NUMERIC(7, 2) OPTIONS(description="Total cash collection ratio (can exceed 100% on recovery drives)"),
     collection_efficiency_pct NUMERIC(7, 2) OPTIONS(description="Standard collection efficiency percentage")
 )
-CLUSTER BY year_month, branch_name;
+CLUSTER BY year_month, branch_id;
 
 CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_vintage_curves` (
     cohort_month STRING OPTIONS(description="Origination disbursement month (YYYY-MM)"),
+    cohort_date_key INT64 OPTIONS(description="FK to dim_date for cohort month start (YYYYMM01)"),
+    product_id STRING OPTIONS(description="FK to dim_product"),
     product_name STRING OPTIONS(description="Loan product name"),
     product_category STRING OPTIONS(description="Product category"),
     month_on_book INT64 OPTIONS(description="Tenure seasoning index (MOB 1, 2, ..., 24)"),
@@ -55,10 +64,12 @@ CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_vintage_curves` (
     cumulative_amount_paid NUMERIC(14, 2) OPTIONS(description="Cumulative cash collections through MOB"),
     vintage_repayment_rate_pct NUMERIC(7, 2) OPTIONS(description="Cumulative collection percentage: (Cum Paid / Cum Due) * 100")
 )
-CLUSTER BY cohort_month, product_name;
+CLUSTER BY cohort_month, product_id;
 
 CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_digital_collections` (
     year_month STRING OPTIONS(description="Calendar transaction month (YYYY-MM)"),
+    month_date_key INT64 OPTIONS(description="FK to dim_date for month start (YYYYMM01)"),
+    state_id STRING OPTIONS(description="FK to dim_state"),
     state_name STRING OPTIONS(description="State name"),
     total_collection_value NUMERIC(14, 2) OPTIONS(description="Total collection volume across all channels in INR"),
     total_transaction_count INT64 OPTIONS(description="Total count of repayment transactions"),
@@ -83,4 +94,4 @@ CREATE TABLE IF NOT EXISTS `fin_analytics.kpi_digital_collections` (
     yoy_digital_value_share_pts NUMERIC(7, 2) OPTIONS(description="Year-on-Year percentage point change"),
     yoy_digital_value_growth_pct NUMERIC(7, 2) OPTIONS(description="Year-on-Year relative growth rate")
 )
-CLUSTER BY year_month, state_name;
+CLUSTER BY year_month, state_id;

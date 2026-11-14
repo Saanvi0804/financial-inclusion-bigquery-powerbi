@@ -9,6 +9,17 @@
     },
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
     "sourceQueryCulture": "en-US",
+    "expressions": [
+      {
+        "name": "Location",
+        "kind": "m",
+        "expression": [
+          "\"C:/Users/Saanvi Shetty/Desktop/projects/financial-inclusion-bigquery-powerbi\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+        ],
+        "lineageTag": "param-location-root",
+        "description": "Root directory path for financial-inclusion-bigquery-powerbi. Update this parameter in 'Home > Transform Data > Edit Parameters' if moving to a different folder or machine."
+      }
+    ],
     "tables": [
       {
         "name": "_Measures",
@@ -39,12 +50,12 @@
         "measures": [
           {
             "name": "Active Loans Count",
-            "expression": "CALCULATE(DISTINCTCOUNT(fact_loan_monthly[loan_key]), fact_loan_monthly[outstanding_principal] > 0)",
+            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(DISTINCTCOUNT(fact_loan_monthly[loan_key]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[outstanding_principal] > 0)",
             "formatString": "#,##0"
           },
           {
             "name": "Total Outstanding Principal",
-            "expression": "SUM(fact_loan_monthly[outstanding_principal])",
+            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate)",
             "formatString": "\"\u20b9\"\\ #,##0.00"
           },
           {
@@ -54,7 +65,7 @@
           },
           {
             "name": "PAR 30 Principal",
-            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] > 30)",
+            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] > 30)",
             "formatString": "\"\u20b9\"\\ #,##0.00"
           },
           {
@@ -64,7 +75,7 @@
           },
           {
             "name": "PAR 90 Principal",
-            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] > 90)",
+            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] > 90)",
             "formatString": "\"\u20b9\"\\ #,##0.00"
           },
           {
@@ -74,22 +85,22 @@
           },
           {
             "name": "Current Principal",
-            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] = 0)",
+            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] = 0)",
             "formatString": "\"\u20b9\"\\ #,##0.00"
           },
           {
             "name": "Delinquency DPD 1-30",
-            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] >= 1, fact_loan_monthly[days_past_due] <= 30)",
+            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] >= 1, fact_loan_monthly[days_past_due] <= 30)",
             "formatString": "\"\u20b9\"\\ #,##0.00"
           },
           {
             "name": "Delinquency DPD 31-60",
-            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] >= 31, fact_loan_monthly[days_past_due] <= 60)",
+            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] >= 31, fact_loan_monthly[days_past_due] <= 60)",
             "formatString": "\"\u20b9\"\\ #,##0.00"
           },
           {
             "name": "Delinquency DPD 61-90",
-            "expression": "CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[days_past_due] >= 61, fact_loan_monthly[days_past_due] <= 90)",
+            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] >= 61, fact_loan_monthly[days_past_due] <= 90)",
             "formatString": "\"\u20b9\"\\ #,##0.00"
           },
           {
@@ -210,24 +221,19 @@
             "isHidden": true
           },
           {
-            "name": "date",
+            "name": "full_date",
             "dataType": "dateTime",
-            "sourceColumn": "date"
+            "sourceColumn": "full_date"
           },
           {
-            "name": "year",
+            "name": "day_of_month",
             "dataType": "int64",
-            "sourceColumn": "year"
+            "sourceColumn": "day_of_month"
           },
           {
-            "name": "quarter",
+            "name": "month_number",
             "dataType": "int64",
-            "sourceColumn": "quarter"
-          },
-          {
-            "name": "month",
-            "dataType": "int64",
-            "sourceColumn": "month"
+            "sourceColumn": "month_number"
           },
           {
             "name": "month_name",
@@ -235,24 +241,24 @@
             "sourceColumn": "month_name"
           },
           {
-            "name": "day",
-            "dataType": "int64",
-            "sourceColumn": "day"
-          },
-          {
-            "name": "day_of_week",
-            "dataType": "int64",
-            "sourceColumn": "day_of_week"
-          },
-          {
-            "name": "day_name",
+            "name": "year_month",
             "dataType": "string",
-            "sourceColumn": "day_name"
+            "sourceColumn": "year_month"
           },
           {
-            "name": "is_weekend",
-            "dataType": "boolean",
-            "sourceColumn": "is_weekend"
+            "name": "quarter_number",
+            "dataType": "int64",
+            "sourceColumn": "quarter_number"
+          },
+          {
+            "name": "quarter_name",
+            "dataType": "string",
+            "sourceColumn": "quarter_name"
+          },
+          {
+            "name": "calendar_year",
+            "dataType": "int64",
+            "sourceColumn": "calendar_year"
           },
           {
             "name": "financial_year",
@@ -263,6 +269,16 @@
             "name": "financial_quarter",
             "dataType": "string",
             "sourceColumn": "financial_quarter"
+          },
+          {
+            "name": "is_weekend",
+            "dataType": "boolean",
+            "sourceColumn": "is_weekend"
+          },
+          {
+            "name": "is_month_end",
+            "dataType": "boolean",
+            "sourceColumn": "is_month_end"
           }
         ],
         "partitions": [
@@ -273,7 +289,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_date.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_date.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -316,7 +334,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_state.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_state.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -346,25 +366,14 @@
             "sourceColumn": "branch_name"
           },
           {
-            "name": "state_key",
-            "dataType": "int64",
-            "sourceColumn": "state_key",
-            "isHidden": true
-          },
-          {
-            "name": "district",
+            "name": "state_id",
             "dataType": "string",
-            "sourceColumn": "district"
+            "sourceColumn": "state_id"
           },
           {
-            "name": "tier",
+            "name": "location_type",
             "dataType": "string",
-            "sourceColumn": "tier"
-          },
-          {
-            "name": "opened_date",
-            "dataType": "dateTime",
-            "sourceColumn": "opened_date"
+            "sourceColumn": "location_type"
           }
         ],
         "partitions": [
@@ -375,7 +384,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_branch.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_branch.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -405,29 +416,29 @@
             "sourceColumn": "product_name"
           },
           {
-            "name": "product_category",
+            "name": "category",
             "dataType": "string",
-            "sourceColumn": "product_category"
+            "sourceColumn": "category"
           },
           {
-            "name": "min_tenure_months",
-            "dataType": "int64",
-            "sourceColumn": "min_tenure_months"
-          },
-          {
-            "name": "max_tenure_months",
-            "dataType": "int64",
-            "sourceColumn": "max_tenure_months"
-          },
-          {
-            "name": "min_interest_rate",
+            "name": "min_rate",
             "dataType": "double",
-            "sourceColumn": "min_interest_rate"
+            "sourceColumn": "min_rate"
           },
           {
-            "name": "max_interest_rate",
+            "name": "max_rate",
             "dataType": "double",
-            "sourceColumn": "max_interest_rate"
+            "sourceColumn": "max_rate"
+          },
+          {
+            "name": "min_tenure",
+            "dataType": "int64",
+            "sourceColumn": "min_tenure"
+          },
+          {
+            "name": "max_tenure",
+            "dataType": "int64",
+            "sourceColumn": "max_tenure"
           }
         ],
         "partitions": [
@@ -438,7 +449,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_product.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_product.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -458,29 +471,24 @@
             "isHidden": true
           },
           {
-            "name": "borrower_segment_id",
+            "name": "borrower_segment",
             "dataType": "string",
-            "sourceColumn": "borrower_segment_id"
+            "sourceColumn": "borrower_segment"
           },
           {
-            "name": "segment_name",
+            "name": "income_band",
             "dataType": "string",
-            "sourceColumn": "segment_name"
+            "sourceColumn": "income_band"
           },
           {
-            "name": "target_group",
+            "name": "location_type",
             "dataType": "string",
-            "sourceColumn": "target_group"
+            "sourceColumn": "location_type"
           },
           {
-            "name": "risk_tier",
+            "name": "occupation_category",
             "dataType": "string",
-            "sourceColumn": "risk_tier"
-          },
-          {
-            "name": "avg_monthly_income",
-            "dataType": "double",
-            "sourceColumn": "avg_monthly_income"
+            "sourceColumn": "occupation_category"
           }
         ],
         "partitions": [
@@ -491,7 +499,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_borrower_segment.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_borrower_segment.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -521,28 +531,24 @@
             "sourceColumn": "borrower_id"
           },
           {
-            "name": "branch_key",
-            "dataType": "int64",
-            "sourceColumn": "branch_key",
-            "isHidden": true
+            "name": "branch_id",
+            "dataType": "string",
+            "sourceColumn": "branch_id"
           },
           {
-            "name": "product_key",
-            "dataType": "int64",
-            "sourceColumn": "product_key",
-            "isHidden": true
+            "name": "state_id",
+            "dataType": "string",
+            "sourceColumn": "state_id"
           },
           {
-            "name": "borrower_segment_key",
-            "dataType": "int64",
-            "sourceColumn": "borrower_segment_key",
-            "isHidden": true
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id"
           },
           {
-            "name": "state_key",
-            "dataType": "int64",
-            "sourceColumn": "state_key",
-            "isHidden": true
+            "name": "disbursement_date",
+            "dataType": "dateTime",
+            "sourceColumn": "disbursement_date"
           },
           {
             "name": "disbursement_date_key",
@@ -551,9 +557,9 @@
             "isHidden": true
           },
           {
-            "name": "disbursed_amount",
+            "name": "principal_amount",
             "dataType": "double",
-            "sourceColumn": "disbursed_amount"
+            "sourceColumn": "principal_amount"
           },
           {
             "name": "annual_interest_rate",
@@ -564,11 +570,6 @@
             "name": "tenure_months",
             "dataType": "int64",
             "sourceColumn": "tenure_months"
-          },
-          {
-            "name": "monthly_emi",
-            "dataType": "double",
-            "sourceColumn": "monthly_emi"
           },
           {
             "name": "loan_status",
@@ -584,7 +585,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/dim_loan.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_loan.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -604,15 +607,20 @@
             "isHidden": true
           },
           {
-            "name": "payment_id",
+            "name": "transaction_id",
             "dataType": "string",
-            "sourceColumn": "payment_id"
+            "sourceColumn": "transaction_id"
           },
           {
             "name": "loan_key",
             "dataType": "int64",
             "sourceColumn": "loan_key",
             "isHidden": true
+          },
+          {
+            "name": "payment_date",
+            "dataType": "dateTime",
+            "sourceColumn": "payment_date"
           },
           {
             "name": "payment_date_key",
@@ -627,15 +635,15 @@
             "isHidden": true
           },
           {
-            "name": "product_key",
-            "dataType": "int64",
-            "sourceColumn": "product_key",
-            "isHidden": true
-          },
-          {
             "name": "state_key",
             "dataType": "int64",
             "sourceColumn": "state_key",
+            "isHidden": true
+          },
+          {
+            "name": "product_key",
+            "dataType": "int64",
+            "sourceColumn": "product_key",
             "isHidden": true
           },
           {
@@ -655,9 +663,14 @@
             "sourceColumn": "payment_channel"
           },
           {
-            "name": "payment_timestamp",
-            "dataType": "dateTime",
-            "sourceColumn": "payment_timestamp"
+            "name": "raw_payment_amount",
+            "dataType": "double",
+            "sourceColumn": "raw_payment_amount"
+          },
+          {
+            "name": "raw_amount_unit",
+            "dataType": "string",
+            "sourceColumn": "raw_amount_unit"
           }
         ],
         "partitions": [
@@ -668,7 +681,126 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/fact_payment.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/fact_payment.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "in",
+                "    #\"Promoted Headers\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_instalment_allocation",
+        "lineageTag": "fact_instalment_allocation-lineage",
+        "columns": [
+          {
+            "name": "allocation_key",
+            "dataType": "int64",
+            "sourceColumn": "allocation_key",
+            "isHidden": true
+          },
+          {
+            "name": "transaction_id",
+            "dataType": "string",
+            "sourceColumn": "transaction_id"
+          },
+          {
+            "name": "instalment_id",
+            "dataType": "string",
+            "sourceColumn": "instalment_id"
+          },
+          {
+            "name": "loan_key",
+            "dataType": "int64",
+            "sourceColumn": "loan_key",
+            "isHidden": true
+          },
+          {
+            "name": "payment_date",
+            "dataType": "dateTime",
+            "sourceColumn": "payment_date"
+          },
+          {
+            "name": "payment_date_key",
+            "dataType": "int64",
+            "sourceColumn": "payment_date_key",
+            "isHidden": true
+          },
+          {
+            "name": "due_date",
+            "dataType": "dateTime",
+            "sourceColumn": "due_date"
+          },
+          {
+            "name": "due_date_key",
+            "dataType": "int64",
+            "sourceColumn": "due_date_key",
+            "isHidden": true
+          },
+          {
+            "name": "branch_key",
+            "dataType": "int64",
+            "sourceColumn": "branch_key",
+            "isHidden": true
+          },
+          {
+            "name": "state_key",
+            "dataType": "int64",
+            "sourceColumn": "state_key",
+            "isHidden": true
+          },
+          {
+            "name": "product_key",
+            "dataType": "int64",
+            "sourceColumn": "product_key",
+            "isHidden": true
+          },
+          {
+            "name": "borrower_segment_key",
+            "dataType": "int64",
+            "sourceColumn": "borrower_segment_key",
+            "isHidden": true
+          },
+          {
+            "name": "instalment_number",
+            "dataType": "int64",
+            "sourceColumn": "instalment_number"
+          },
+          {
+            "name": "allocated_amount",
+            "dataType": "double",
+            "sourceColumn": "allocated_amount"
+          },
+          {
+            "name": "allocated_principal",
+            "dataType": "double",
+            "sourceColumn": "allocated_principal"
+          },
+          {
+            "name": "allocated_interest",
+            "dataType": "double",
+            "sourceColumn": "allocated_interest"
+          },
+          {
+            "name": "payment_channel",
+            "dataType": "string",
+            "sourceColumn": "payment_channel"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_instalment_allocation-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/fact_instalment_allocation.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -682,15 +814,31 @@
         "lineageTag": "fact_loan_monthly-lineage",
         "columns": [
           {
-            "name": "snapshot_date_key",
+            "name": "snapshot_key",
             "dataType": "int64",
-            "sourceColumn": "snapshot_date_key",
+            "sourceColumn": "snapshot_key",
             "isHidden": true
+          },
+          {
+            "name": "loan_id",
+            "dataType": "string",
+            "sourceColumn": "loan_id"
           },
           {
             "name": "loan_key",
             "dataType": "int64",
             "sourceColumn": "loan_key",
+            "isHidden": true
+          },
+          {
+            "name": "snapshot_date",
+            "dataType": "dateTime",
+            "sourceColumn": "snapshot_date"
+          },
+          {
+            "name": "snapshot_date_key",
+            "dataType": "int64",
+            "sourceColumn": "snapshot_date_key",
             "isHidden": true
           },
           {
@@ -700,15 +848,15 @@
             "isHidden": true
           },
           {
-            "name": "product_key",
-            "dataType": "int64",
-            "sourceColumn": "product_key",
-            "isHidden": true
-          },
-          {
             "name": "state_key",
             "dataType": "int64",
             "sourceColumn": "state_key",
+            "isHidden": true
+          },
+          {
+            "name": "product_key",
+            "dataType": "int64",
+            "sourceColumn": "product_key",
             "isHidden": true
           },
           {
@@ -723,24 +871,34 @@
             "sourceColumn": "outstanding_principal"
           },
           {
+            "name": "instalments_due",
+            "dataType": "int64",
+            "sourceColumn": "instalments_due"
+          },
+          {
+            "name": "instalments_paid",
+            "dataType": "int64",
+            "sourceColumn": "instalments_paid"
+          },
+          {
+            "name": "amount_due",
+            "dataType": "double",
+            "sourceColumn": "amount_due"
+          },
+          {
+            "name": "amount_paid",
+            "dataType": "double",
+            "sourceColumn": "amount_paid"
+          },
+          {
             "name": "days_past_due",
             "dataType": "int64",
             "sourceColumn": "days_past_due"
           },
           {
-            "name": "delinquency_bucket",
-            "dataType": "string",
-            "sourceColumn": "delinquency_bucket"
-          },
-          {
-            "name": "is_active",
-            "dataType": "boolean",
-            "sourceColumn": "is_active"
-          },
-          {
-            "name": "is_npa",
-            "dataType": "boolean",
-            "sourceColumn": "is_npa"
+            "name": "overdue_amount",
+            "dataType": "double",
+            "sourceColumn": "overdue_amount"
           }
         ],
         "partitions": [
@@ -751,7 +909,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/fact_loan_monthly.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/fact_loan_monthly.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -765,19 +925,20 @@
         "lineageTag": "kpi_portfolio_health-lineage",
         "columns": [
           {
+            "name": "year_month",
+            "dataType": "string",
+            "sourceColumn": "year_month"
+          },
+          {
             "name": "snapshot_date",
             "dataType": "dateTime",
             "sourceColumn": "snapshot_date"
           },
           {
-            "name": "branch_id",
-            "dataType": "string",
-            "sourceColumn": "branch_id"
-          },
-          {
-            "name": "product_id",
-            "dataType": "string",
-            "sourceColumn": "product_id"
+            "name": "snapshot_date_key",
+            "dataType": "int64",
+            "sourceColumn": "snapshot_date_key",
+            "isHidden": true
           },
           {
             "name": "state_id",
@@ -785,9 +946,59 @@
             "sourceColumn": "state_id"
           },
           {
+            "name": "state_name",
+            "dataType": "string",
+            "sourceColumn": "state_name"
+          },
+          {
+            "name": "region",
+            "dataType": "string",
+            "sourceColumn": "region"
+          },
+          {
+            "name": "branch_id",
+            "dataType": "string",
+            "sourceColumn": "branch_id"
+          },
+          {
+            "name": "branch_name",
+            "dataType": "string",
+            "sourceColumn": "branch_name"
+          },
+          {
+            "name": "branch_location_type",
+            "dataType": "string",
+            "sourceColumn": "branch_location_type"
+          },
+          {
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id"
+          },
+          {
+            "name": "product_name",
+            "dataType": "string",
+            "sourceColumn": "product_name"
+          },
+          {
+            "name": "product_category",
+            "dataType": "string",
+            "sourceColumn": "product_category"
+          },
+          {
+            "name": "borrower_segment",
+            "dataType": "string",
+            "sourceColumn": "borrower_segment"
+          },
+          {
             "name": "total_active_loans",
             "dataType": "int64",
             "sourceColumn": "total_active_loans"
+          },
+          {
+            "name": "total_cumulative_loans",
+            "dataType": "int64",
+            "sourceColumn": "total_cumulative_loans"
           },
           {
             "name": "total_outstanding_principal",
@@ -795,19 +1006,44 @@
             "sourceColumn": "total_outstanding_principal"
           },
           {
+            "name": "principal_current",
+            "dataType": "double",
+            "sourceColumn": "principal_current"
+          },
+          {
+            "name": "principal_dpd_1_30",
+            "dataType": "double",
+            "sourceColumn": "principal_dpd_1_30"
+          },
+          {
+            "name": "principal_dpd_31_60",
+            "dataType": "double",
+            "sourceColumn": "principal_dpd_31_60"
+          },
+          {
+            "name": "principal_dpd_61_90",
+            "dataType": "double",
+            "sourceColumn": "principal_dpd_61_90"
+          },
+          {
+            "name": "principal_dpd_90_plus",
+            "dataType": "double",
+            "sourceColumn": "principal_dpd_90_plus"
+          },
+          {
             "name": "par30_principal",
             "dataType": "double",
             "sourceColumn": "par30_principal"
           },
           {
-            "name": "par30_pct",
-            "dataType": "double",
-            "sourceColumn": "par30_pct"
-          },
-          {
             "name": "par90_principal",
             "dataType": "double",
             "sourceColumn": "par90_principal"
+          },
+          {
+            "name": "par30_pct",
+            "dataType": "double",
+            "sourceColumn": "par30_pct"
           },
           {
             "name": "par90_pct",
@@ -823,7 +1059,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/kpi_portfolio_health.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/kpi_portfolio_health.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -842,14 +1080,40 @@
             "sourceColumn": "year_month"
           },
           {
+            "name": "month_date_key",
+            "dataType": "int64",
+            "sourceColumn": "month_date_key",
+            "isHidden": true
+          },
+          {
+            "name": "state_id",
+            "dataType": "string",
+            "sourceColumn": "state_id"
+          },
+          {
+            "name": "state_name",
+            "dataType": "string",
+            "sourceColumn": "state_name"
+          },
+          {
             "name": "branch_id",
             "dataType": "string",
             "sourceColumn": "branch_id"
           },
           {
+            "name": "branch_name",
+            "dataType": "string",
+            "sourceColumn": "branch_name"
+          },
+          {
             "name": "product_id",
             "dataType": "string",
             "sourceColumn": "product_id"
+          },
+          {
+            "name": "product_name",
+            "dataType": "string",
+            "sourceColumn": "product_name"
           },
           {
             "name": "scheduled_amount_due",
@@ -877,14 +1141,19 @@
             "sourceColumn": "total_amount_collected"
           },
           {
-            "name": "current_collection_efficiency_pct",
+            "name": "current_period_efficiency_pct",
             "dataType": "double",
-            "sourceColumn": "current_collection_efficiency_pct"
+            "sourceColumn": "current_period_efficiency_pct"
           },
           {
             "name": "total_collection_ratio_pct",
             "dataType": "double",
             "sourceColumn": "total_collection_ratio_pct"
+          },
+          {
+            "name": "collection_efficiency_pct",
+            "dataType": "double",
+            "sourceColumn": "collection_efficiency_pct"
           }
         ],
         "partitions": [
@@ -895,7 +1164,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/kpi_collection_efficiency.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/kpi_collection_efficiency.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -914,14 +1185,45 @@
             "sourceColumn": "cohort_month"
           },
           {
+            "name": "cohort_date_key",
+            "dataType": "int64",
+            "sourceColumn": "cohort_date_key",
+            "isHidden": true
+          },
+          {
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id"
+          },
+          {
+            "name": "product_name",
+            "dataType": "string",
+            "sourceColumn": "product_name"
+          },
+          {
+            "name": "product_category",
+            "dataType": "string",
+            "sourceColumn": "product_category"
+          },
+          {
             "name": "month_on_book",
             "dataType": "int64",
             "sourceColumn": "month_on_book"
           },
           {
-            "name": "disbursed_principal",
+            "name": "total_cohort_loans",
+            "dataType": "int64",
+            "sourceColumn": "total_cohort_loans"
+          },
+          {
+            "name": "scheduled_due_mob",
             "dataType": "double",
-            "sourceColumn": "disbursed_principal"
+            "sourceColumn": "scheduled_due_mob"
+          },
+          {
+            "name": "amount_paid_mob",
+            "dataType": "double",
+            "sourceColumn": "amount_paid_mob"
           },
           {
             "name": "cumulative_scheduled_due",
@@ -947,7 +1249,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/kpi_vintage_curves.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/kpi_vintage_curves.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -966,9 +1270,20 @@
             "sourceColumn": "year_month"
           },
           {
+            "name": "month_date_key",
+            "dataType": "int64",
+            "sourceColumn": "month_date_key",
+            "isHidden": true
+          },
+          {
             "name": "state_id",
             "dataType": "string",
             "sourceColumn": "state_id"
+          },
+          {
+            "name": "state_name",
+            "dataType": "string",
+            "sourceColumn": "state_name"
           },
           {
             "name": "total_collection_value",
@@ -976,34 +1291,14 @@
             "sourceColumn": "total_collection_value"
           },
           {
-            "name": "digital_collection_value",
-            "dataType": "double",
-            "sourceColumn": "digital_collection_value"
-          },
-          {
-            "name": "cash_collection_value",
-            "dataType": "double",
-            "sourceColumn": "cash_collection_value"
-          },
-          {
-            "name": "digital_value_share_pct",
-            "dataType": "double",
-            "sourceColumn": "digital_value_share_pct"
-          },
-          {
-            "name": "upi_value",
-            "dataType": "double",
-            "sourceColumn": "upi_value"
-          },
-          {
-            "name": "bank_transfer_value",
-            "dataType": "double",
-            "sourceColumn": "bank_transfer_value"
-          },
-          {
             "name": "total_transaction_count",
             "dataType": "int64",
             "sourceColumn": "total_transaction_count"
+          },
+          {
+            "name": "digital_collection_value",
+            "dataType": "double",
+            "sourceColumn": "digital_collection_value"
           },
           {
             "name": "digital_transaction_count",
@@ -1011,14 +1306,94 @@
             "sourceColumn": "digital_transaction_count"
           },
           {
+            "name": "cash_collection_value",
+            "dataType": "double",
+            "sourceColumn": "cash_collection_value"
+          },
+          {
             "name": "cash_transaction_count",
             "dataType": "int64",
             "sourceColumn": "cash_transaction_count"
           },
           {
+            "name": "upi_value",
+            "dataType": "double",
+            "sourceColumn": "upi_value"
+          },
+          {
+            "name": "upi_count",
+            "dataType": "int64",
+            "sourceColumn": "upi_count"
+          },
+          {
+            "name": "bank_transfer_value",
+            "dataType": "double",
+            "sourceColumn": "bank_transfer_value"
+          },
+          {
+            "name": "bank_transfer_count",
+            "dataType": "int64",
+            "sourceColumn": "bank_transfer_count"
+          },
+          {
+            "name": "avg_ticket_upi",
+            "dataType": "double",
+            "sourceColumn": "avg_ticket_upi"
+          },
+          {
+            "name": "avg_ticket_bank_transfer",
+            "dataType": "double",
+            "sourceColumn": "avg_ticket_bank_transfer"
+          },
+          {
+            "name": "avg_ticket_cash",
+            "dataType": "double",
+            "sourceColumn": "avg_ticket_cash"
+          },
+          {
+            "name": "avg_ticket_overall",
+            "dataType": "double",
+            "sourceColumn": "avg_ticket_overall"
+          },
+          {
+            "name": "digital_value_share_pct",
+            "dataType": "double",
+            "sourceColumn": "digital_value_share_pct"
+          },
+          {
             "name": "digital_count_share_pct",
             "dataType": "double",
             "sourceColumn": "digital_count_share_pct"
+          },
+          {
+            "name": "prev_month_digital_value_share",
+            "dataType": "double",
+            "sourceColumn": "prev_month_digital_value_share"
+          },
+          {
+            "name": "mom_digital_value_share_pts",
+            "dataType": "double",
+            "sourceColumn": "mom_digital_value_share_pts"
+          },
+          {
+            "name": "mom_digital_value_growth_pct",
+            "dataType": "double",
+            "sourceColumn": "mom_digital_value_growth_pct"
+          },
+          {
+            "name": "prev_year_digital_value_share",
+            "dataType": "double",
+            "sourceColumn": "prev_year_digital_value_share"
+          },
+          {
+            "name": "yoy_digital_value_share_pts",
+            "dataType": "double",
+            "sourceColumn": "yoy_digital_value_share_pts"
+          },
+          {
+            "name": "yoy_digital_value_growth_pct",
+            "dataType": "double",
+            "sourceColumn": "yoy_digital_value_growth_pct"
           }
         ],
         "partitions": [
@@ -1029,7 +1404,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/kpi_digital_collections.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/kpi_digital_collections.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -1044,8 +1421,18 @@
         "columns": [
           {
             "name": "quarantine_id",
-            "dataType": "int64",
+            "dataType": "string",
             "sourceColumn": "quarantine_id"
+          },
+          {
+            "name": "batch_run_id",
+            "dataType": "string",
+            "sourceColumn": "batch_run_id"
+          },
+          {
+            "name": "quarantined_at",
+            "dataType": "dateTime",
+            "sourceColumn": "quarantined_at"
           },
           {
             "name": "source_table",
@@ -1063,14 +1450,9 @@
             "sourceColumn": "reason_code"
           },
           {
-            "name": "quarantined_at",
-            "dataType": "dateTime",
-            "sourceColumn": "quarantined_at"
-          },
-          {
-            "name": "payload",
+            "name": "raw_payload",
             "dataType": "string",
-            "sourceColumn": "payload"
+            "sourceColumn": "raw_payload"
           }
         ],
         "partitions": [
@@ -1081,7 +1463,9 @@
               "type": "m",
               "expression": [
                 "let",
-                "    Source = Csv.Document(File.Contents(Text.Combine({Location, \"/data/powerbi_extracts/stg_quarantined_records.csv\"})), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
+                "    FilePath = CleanLocation & \"/data/powerbi_extracts/stg_quarantined_records.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
                 "in",
                 "    #\"Promoted Headers\""
@@ -1093,39 +1477,207 @@
     ],
     "relationships": [
       {
-        "name": "rel_branch_state",
-        "fromTable": "dim_branch",
-        "fromColumn": "state_key",
-        "toTable": "dim_state",
-        "toColumn": "state_key"
+        "name": "rel_pay_date",
+        "fromTable": "fact_payment",
+        "fromColumn": "payment_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
       },
       {
-        "name": "rel_loan_branch",
-        "fromTable": "dim_loan",
+        "name": "rel_pay_loan",
+        "fromTable": "fact_payment",
+        "fromColumn": "loan_key",
+        "toTable": "dim_loan",
+        "toColumn": "loan_key"
+      },
+      {
+        "name": "rel_pay_branch",
+        "fromTable": "fact_payment",
         "fromColumn": "branch_key",
         "toTable": "dim_branch",
         "toColumn": "branch_key"
       },
       {
-        "name": "rel_loan_product",
-        "fromTable": "dim_loan",
+        "name": "rel_pay_product",
+        "fromTable": "fact_payment",
         "fromColumn": "product_key",
         "toTable": "dim_product",
         "toColumn": "product_key"
       },
       {
-        "name": "rel_loan_segment",
-        "fromTable": "dim_loan",
+        "name": "rel_pay_state",
+        "fromTable": "fact_payment",
+        "fromColumn": "state_key",
+        "toTable": "dim_state",
+        "toColumn": "state_key"
+      },
+      {
+        "name": "rel_pay_segment",
+        "fromTable": "fact_payment",
         "fromColumn": "borrower_segment_key",
         "toTable": "dim_borrower_segment",
         "toColumn": "borrower_segment_key"
       },
       {
-        "name": "rel_loan_state",
-        "fromTable": "dim_loan",
+        "name": "rel_snap_date",
+        "fromTable": "fact_loan_monthly",
+        "fromColumn": "snapshot_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "rel_snap_loan",
+        "fromTable": "fact_loan_monthly",
+        "fromColumn": "loan_key",
+        "toTable": "dim_loan",
+        "toColumn": "loan_key"
+      },
+      {
+        "name": "rel_snap_branch",
+        "fromTable": "fact_loan_monthly",
+        "fromColumn": "branch_key",
+        "toTable": "dim_branch",
+        "toColumn": "branch_key"
+      },
+      {
+        "name": "rel_snap_product",
+        "fromTable": "fact_loan_monthly",
+        "fromColumn": "product_key",
+        "toTable": "dim_product",
+        "toColumn": "product_key"
+      },
+      {
+        "name": "rel_snap_state",
+        "fromTable": "fact_loan_monthly",
         "fromColumn": "state_key",
         "toTable": "dim_state",
         "toColumn": "state_key"
+      },
+      {
+        "name": "rel_snap_segment",
+        "fromTable": "fact_loan_monthly",
+        "fromColumn": "borrower_segment_key",
+        "toTable": "dim_borrower_segment",
+        "toColumn": "borrower_segment_key"
+      },
+      {
+        "name": "rel_alloc_due_date",
+        "fromTable": "fact_instalment_allocation",
+        "fromColumn": "due_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "rel_alloc_loan",
+        "fromTable": "fact_instalment_allocation",
+        "fromColumn": "loan_key",
+        "toTable": "dim_loan",
+        "toColumn": "loan_key"
+      },
+      {
+        "name": "rel_alloc_branch",
+        "fromTable": "fact_instalment_allocation",
+        "fromColumn": "branch_key",
+        "toTable": "dim_branch",
+        "toColumn": "branch_key"
+      },
+      {
+        "name": "rel_alloc_product",
+        "fromTable": "fact_instalment_allocation",
+        "fromColumn": "product_key",
+        "toTable": "dim_product",
+        "toColumn": "product_key"
+      },
+      {
+        "name": "rel_alloc_state",
+        "fromTable": "fact_instalment_allocation",
+        "fromColumn": "state_key",
+        "toTable": "dim_state",
+        "toColumn": "state_key"
+      },
+      {
+        "name": "rel_kpi_ph_date",
+        "fromTable": "kpi_portfolio_health",
+        "fromColumn": "snapshot_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "rel_kpi_ph_branch",
+        "fromTable": "kpi_portfolio_health",
+        "fromColumn": "branch_id",
+        "toTable": "dim_branch",
+        "toColumn": "branch_id"
+      },
+      {
+        "name": "rel_kpi_ph_product",
+        "fromTable": "kpi_portfolio_health",
+        "fromColumn": "product_id",
+        "toTable": "dim_product",
+        "toColumn": "product_id"
+      },
+      {
+        "name": "rel_kpi_ph_state",
+        "fromTable": "kpi_portfolio_health",
+        "fromColumn": "state_id",
+        "toTable": "dim_state",
+        "toColumn": "state_id"
+      },
+      {
+        "name": "rel_kpi_ce_date",
+        "fromTable": "kpi_collection_efficiency",
+        "fromColumn": "month_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "rel_kpi_ce_branch",
+        "fromTable": "kpi_collection_efficiency",
+        "fromColumn": "branch_id",
+        "toTable": "dim_branch",
+        "toColumn": "branch_id"
+      },
+      {
+        "name": "rel_kpi_ce_product",
+        "fromTable": "kpi_collection_efficiency",
+        "fromColumn": "product_id",
+        "toTable": "dim_product",
+        "toColumn": "product_id"
+      },
+      {
+        "name": "rel_kpi_ce_state",
+        "fromTable": "kpi_collection_efficiency",
+        "fromColumn": "state_id",
+        "toTable": "dim_state",
+        "toColumn": "state_id"
+      },
+      {
+        "name": "rel_kpi_dc_date",
+        "fromTable": "kpi_digital_collections",
+        "fromColumn": "month_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "rel_kpi_dc_state",
+        "fromTable": "kpi_digital_collections",
+        "fromColumn": "state_id",
+        "toTable": "dim_state",
+        "toColumn": "state_id"
+      },
+      {
+        "name": "rel_kpi_vc_date",
+        "fromTable": "kpi_vintage_curves",
+        "fromColumn": "cohort_date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key"
+      },
+      {
+        "name": "rel_kpi_vc_product",
+        "fromTable": "kpi_vintage_curves",
+        "fromColumn": "product_id",
+        "toTable": "dim_product",
+        "toColumn": "product_id"
       },
       {
         "name": "rel_loan_disb_date",
@@ -1135,32 +1687,25 @@
         "toColumn": "date_key"
       },
       {
-        "name": "rel_payment_loan",
-        "fromTable": "fact_payment",
-        "fromColumn": "loan_key",
-        "toTable": "dim_loan",
-        "toColumn": "loan_key"
+        "name": "rel_loan_branch",
+        "fromTable": "dim_loan",
+        "fromColumn": "branch_id",
+        "toTable": "dim_branch",
+        "toColumn": "branch_id"
       },
       {
-        "name": "rel_payment_date",
-        "fromTable": "fact_payment",
-        "fromColumn": "payment_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
+        "name": "rel_loan_product",
+        "fromTable": "dim_loan",
+        "fromColumn": "product_id",
+        "toTable": "dim_product",
+        "toColumn": "product_id"
       },
       {
-        "name": "rel_monthly_loan",
-        "fromTable": "fact_loan_monthly",
-        "fromColumn": "loan_key",
-        "toTable": "dim_loan",
-        "toColumn": "loan_key"
-      },
-      {
-        "name": "rel_monthly_date",
-        "fromTable": "fact_loan_monthly",
-        "fromColumn": "snapshot_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
+        "name": "rel_loan_state",
+        "fromTable": "dim_loan",
+        "fromColumn": "state_id",
+        "toTable": "dim_state",
+        "toColumn": "state_id"
       }
     ]
   }

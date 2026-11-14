@@ -5,6 +5,8 @@ CREATE OR REPLACE TABLE `fin_analytics.kpi_vintage_curves` AS
 WITH cohort_instalments AS (
     SELECT 
         FORMAT_DATE('%Y-%m', l.disbursement_date) AS cohort_month,
+        CAST(FORMAT_DATE('%Y%m01', l.disbursement_date) AS INT64) AS cohort_date_key,
+        p.product_id,
         p.product_name,
         p.category AS product_category,
         i.instalment_number AS month_on_book,
@@ -15,11 +17,13 @@ WITH cohort_instalments AS (
     JOIN `fin_staging.stg_loans` l ON i.loan_id = l.loan_id
     LEFT JOIN `fin_warehouse.dim_product` p ON l.product_id = p.product_id
     WHERE i.due_date <= DATE '2024-12-31' -- Observed data window
-    GROUP BY 1, 2, 3, 4
+    GROUP BY 1, 2, 3, 4, 5, 6
 ),
 cumulative_vintages AS (
     SELECT 
         cohort_month,
+        cohort_date_key,
+        product_id,
         product_name,
         product_category,
         month_on_book,
@@ -27,17 +31,19 @@ cumulative_vintages AS (
         scheduled_due_mob,
         amount_paid_mob,
         SUM(scheduled_due_mob) OVER (
-            PARTITION BY cohort_month, product_name 
+            PARTITION BY cohort_month, product_id 
             ORDER BY month_on_book
         ) AS cumulative_scheduled_due,
         SUM(amount_paid_mob) OVER (
-            PARTITION BY cohort_month, product_name 
+            PARTITION BY cohort_month, product_id 
             ORDER BY month_on_book
         ) AS cumulative_amount_paid
     FROM cohort_instalments
 )
 SELECT 
     cohort_month,
+    cohort_date_key,
+    product_id,
     product_name,
     product_category,
     month_on_book,
@@ -51,4 +57,4 @@ SELECT
         2
     ) AS vintage_repayment_rate_pct
 FROM cumulative_vintages
-ORDER BY cohort_month, product_name, month_on_book;
+ORDER BY cohort_month, product_id, month_on_book;

@@ -6,10 +6,13 @@ SELECT
     d.year_month,
     f.snapshot_date,
     f.snapshot_date_key,
+    s.state_id,
     s.state_name,
     s.region,
+    b.branch_id,
     b.branch_name,
     b.location_type AS branch_location_type,
+    p.product_id,
     p.product_name,
     p.category AS product_category,
     bs.borrower_segment,
@@ -44,5 +47,6 @@ JOIN `fin_warehouse.dim_product` p ON f.product_key = p.product_key
 JOIN `fin_warehouse.dim_borrower_segment` bs ON f.borrower_segment_key = bs.borrower_segment_key
 GROUP BY 
     d.year_month, f.snapshot_date, f.snapshot_date_key,
-    s.state_name, s.region, b.branch_name, b.location_type,
-    p.product_name, p.category, bs.borrower_segment;
+    s.state_id, s.state_name, s.region,
+    b.branch_id, b.branch_name, b.location_type,
+    p.product_id, p.product_name, p.category, bs.borrower_segment;

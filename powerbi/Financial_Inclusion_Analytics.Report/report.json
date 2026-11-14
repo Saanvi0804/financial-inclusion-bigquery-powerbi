@@ -1,0 +1,352 @@
+{
+  "config": "{\"version\": \"5.50\", \"themeCollection\": {\"baseTheme\": {\"name\": \"FinancialWarehouseTheme\", \"version\": \"1.0\", \"type\": 2}}}",
+  "layoutOptimization": 0,
+  "sections": [
+    {
+      "id": "Section_PortfolioHealth",
+      "name": "Section_PortfolioHealth",
+      "displayName": "1. Portfolio Health & Risk",
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 800,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Financial Inclusion Analytics \\u2014 Portfolio Health & Delinquency\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
+        },
+        {
+          "x": 840,
+          "y": 15,
+          "width": 200,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_date.calendar_year\"}]}}}"
+        },
+        {
+          "x": 1050,
+          "y": 15,
+          "width": 210,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_state.state_name\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Active Loans Count\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#1E40AF\"}}]}}}"
+        },
+        {
+          "x": 270,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Outstanding Principal (INR Cr)\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#0F172A\"}}]}}}"
+        },
+        {
+          "x": 520,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.PAR 30 %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#D97706\"}}]}}}"
+        },
+        {
+          "x": 770,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.PAR 90 %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#DC2626\"}}]}}}"
+        },
+        {
+          "x": 1020,
+          "y": 70,
+          "width": 240,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#059669\"}}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 170,
+          "width": 600,
+          "height": 280,
+          "config": "{\"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_date.financial_quarter\"}], \"Y\": [{\"queryRef\": \"_Measures.Total Outstanding Principal\"}, {\"queryRef\": \"_Measures.PAR 30 Principal\"}]}}}"
+        },
+        {
+          "x": 640,
+          "y": 170,
+          "width": 620,
+          "height": 280,
+          "config": "{\"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_date.financial_quarter\"}], \"Y\": [{\"queryRef\": \"_Measures.Current Principal\"}, {\"queryRef\": \"_Measures.Delinquency DPD 1-30\"}, {\"queryRef\": \"_Measures.Delinquency DPD 31-60\"}, {\"queryRef\": \"_Measures.Delinquency DPD 61-90\"}, {\"queryRef\": \"_Measures.PAR 90 Principal\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 460,
+          "width": 600,
+          "height": 240,
+          "config": "{\"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_product.product_name\"}], \"Y\": [{\"queryRef\": \"_Measures.Total Outstanding Principal\"}]}}}"
+        },
+        {
+          "x": 640,
+          "y": 460,
+          "width": 620,
+          "height": 240,
+          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_state.state_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Active Loans Count\"}, {\"queryRef\": \"_Measures.Outstanding Principal (INR Cr)\"}, {\"queryRef\": \"_Measures.PAR 30 %\"}, {\"queryRef\": \"_Measures.PAR 90 %\"}]}}}"
+        }
+      ]
+    },
+    {
+      "id": "Section_CollectionEfficiency",
+      "name": "Section_CollectionEfficiency",
+      "displayName": "2. Collection Efficiency & Billing",
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 800,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Monthly Collection Efficiency & Arrears Cash Recovery\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
+        },
+        {
+          "x": 840,
+          "y": 15,
+          "width": 200,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_branch.branch_name\"}]}}}"
+        },
+        {
+          "x": 1050,
+          "y": 15,
+          "width": 210,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_product.product_name\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}]}}}"
+        },
+        {
+          "x": 270,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Current Period Collected\"}]}}}"
+        },
+        {
+          "x": 520,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Arrears Collected\"}]}}}"
+        },
+        {
+          "x": 770,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Advance Collected\"}]}}}"
+        },
+        {
+          "x": 1020,
+          "y": 70,
+          "width": 240,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 170,
+          "width": 700,
+          "height": 530,
+          "config": "{\"singleVisual\": {\"visualType\": \"lineClusteredColumnComboChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_collection_efficiency.year_month\"}], \"ColumnValues\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}, {\"queryRef\": \"_Measures.Total Cash Collected\"}], \"LineValues\": [{\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}}}"
+        },
+        {
+          "x": 740,
+          "y": 170,
+          "width": 520,
+          "height": 530,
+          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_branch.branch_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}, {\"queryRef\": \"_Measures.Current Period Collected\"}, {\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}}}"
+        }
+      ]
+    },
+    {
+      "id": "Section_VintageCurves",
+      "name": "Section_VintageCurves",
+      "displayName": "3. Repayment Vintage Curves",
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 800,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Cohort Repayment Vintage Analysis (Months-on-Book 1 to 24)\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
+        },
+        {
+          "x": 840,
+          "y": 15,
+          "width": 420,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_product.product_name\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 70,
+          "width": 1240,
+          "height": 340,
+          "config": "{\"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_vintage_curves.month_on_book\"}], \"Series\": [{\"queryRef\": \"kpi_vintage_curves.cohort_month\"}], \"Y\": [{\"queryRef\": \"_Measures.Vintage Repayment Rate %\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 420,
+          "width": 1240,
+          "height": 280,
+          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"kpi_vintage_curves.cohort_month\"}], \"Columns\": [{\"queryRef\": \"kpi_vintage_curves.month_on_book\"}], \"Values\": [{\"queryRef\": \"_Measures.Vintage Repayment Rate %\"}]}}}"
+        }
+      ]
+    },
+    {
+      "id": "Section_DigitalCollections",
+      "name": "Section_DigitalCollections",
+      "displayName": "4. Digital Collections & Transformation",
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 800,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Digital Collections & Cash-to-Digital UPI Transition\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
+        },
+        {
+          "x": 840,
+          "y": 15,
+          "width": 420,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_state.state_name\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Digital Value Share %\"}]}}}"
+        },
+        {
+          "x": 270,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Digital Count Share %\"}]}}}"
+        },
+        {
+          "x": 520,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.UPI Value\"}]}}}"
+        },
+        {
+          "x": 770,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Bank Transfer Value\"}]}}}"
+        },
+        {
+          "x": 1020,
+          "y": 70,
+          "width": 240,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Cash Collections Value\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 170,
+          "width": 700,
+          "height": 530,
+          "config": "{\"singleVisual\": {\"visualType\": \"stackedAreaChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_digital_collections.year_month\"}], \"Y\": [{\"queryRef\": \"_Measures.UPI Value\"}, {\"queryRef\": \"_Measures.Bank Transfer Value\"}, {\"queryRef\": \"_Measures.Cash Collections Value\"}]}}}"
+        },
+        {
+          "x": 740,
+          "y": 170,
+          "width": 520,
+          "height": 530,
+          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_state.state_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Total Collections Value\"}, {\"queryRef\": \"_Measures.Digital Collections Value\"}, {\"queryRef\": \"_Measures.Digital Value Share %\"}]}}}"
+        }
+      ]
+    },
+    {
+      "id": "Section_DataQuality",
+      "name": "Section_DataQuality",
+      "displayName": "5. Data Quality & Quarantine Firewall",
+      "width": 1280,
+      "height": 720,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "width": 1240,
+          "height": 45,
+          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Data Quality Quarantine Firewall & Anomaly Surveillance\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Quarantined Records\"}]}}}"
+        },
+        {
+          "x": 270,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Negative Amount Anomalies\"}]}}}"
+        },
+        {
+          "x": 520,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Pre-dated Payment Anomalies\"}]}}}"
+        },
+        {
+          "x": 770,
+          "y": 70,
+          "width": 230,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Excess Payment Anomalies\"}]}}}"
+        },
+        {
+          "x": 1020,
+          "y": 70,
+          "width": 240,
+          "height": 90,
+          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Quarantined Records\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 170,
+          "width": 500,
+          "height": 530,
+          "config": "{\"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"stg_quarantined_records.reason_code\"}], \"Y\": [{\"queryRef\": \"_Measures.Total Quarantined Records\"}]}}}"
+        },
+        {
+          "x": 540,
+          "y": 170,
+          "width": 720,
+          "height": 530,
+          "config": "{\"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"stg_quarantined_records.quarantine_id\"}, {\"queryRef\": \"stg_quarantined_records.source_table\"}, {\"queryRef\": \"stg_quarantined_records.record_identifier\"}, {\"queryRef\": \"stg_quarantined_records.reason_code\"}, {\"queryRef\": \"stg_quarantined_records.quarantined_at\"}]}}}"
+        }
+      ]
+    }
+  ]
+}

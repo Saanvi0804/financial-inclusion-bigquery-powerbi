@@ -5,6 +5,8 @@ CREATE OR REPLACE TABLE `fin_analytics.kpi_digital_collections` AS
 WITH channel_txns AS (
     SELECT 
         d.year_month,
+        CAST(FORMAT_DATE('%Y%m01', d.full_date) AS INT64) AS month_date_key,
+        COALESCE(s.state_id, 'ALL') AS state_id,
         COALESCE(s.state_name, 'All States') AS state_name,
         f.payment_channel,
         COUNT(*) AS txn_count,
@@ -12,11 +14,13 @@ WITH channel_txns AS (
     FROM `fin_warehouse.fact_payment` f
     JOIN `fin_warehouse.dim_date` d ON f.payment_date_key = d.date_key
     JOIN `fin_warehouse.dim_state` s ON f.state_key = s.state_key
-    GROUP BY d.year_month, s.state_name, f.payment_channel
+    GROUP BY d.year_month, month_date_key, s.state_id, s.state_name, f.payment_channel
 ),
 state_monthly_totals AS (
     SELECT 
         year_month,
+        month_date_key,
+        state_id,
         state_name,
         -- Total Collections
         SUM(total_amount) AS total_collection_value,
@@ -41,7 +45,7 @@ state_monthly_totals AS (
                           SUM(CASE WHEN payment_channel = 'Cash' THEN txn_count ELSE 0 END)), 2) AS avg_ticket_cash,
         ROUND(SAFE_DIVIDE(SUM(total_amount), SUM(txn_count)), 2) AS avg_ticket_overall
     FROM channel_txns
-    GROUP BY year_month, state_name
+    GROUP BY year_month, month_date_key, state_id, state_name
 ),
 shares_computed AS (
     SELECT 
@@ -53,26 +57,26 @@ shares_computed AS (
 SELECT 
     sc.*,
     -- Month-on-Month (MoM) Changes
-    LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_name ORDER BY year_month) AS prev_month_digital_value_share,
+    LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month) AS prev_month_digital_value_share,
     ROUND(
-        digital_value_share_pct - LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_name ORDER BY year_month), 
+        digital_value_share_pct - LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month), 
         2
     ) AS mom_digital_value_share_pts,
     ROUND(
-        SAFE_DIVIDE((digital_value_share_pct - LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_name ORDER BY year_month)) * NUMERIC '100.0',
-                    LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_name ORDER BY year_month)),
+        SAFE_DIVIDE((digital_value_share_pct - LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month)) * NUMERIC '100.0',
+                    LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month)),
         2
     ) AS mom_digital_value_growth_pct,
     -- Year-on-Year (YoY) Changes
-    LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_name ORDER BY year_month) AS prev_year_digital_value_share,
+    LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month) AS prev_year_digital_value_share,
     ROUND(
-        digital_value_share_pct - LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_name ORDER BY year_month), 
+        digital_value_share_pct - LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month), 
         2
     ) AS yoy_digital_value_share_pts,
     ROUND(
-        SAFE_DIVIDE((digital_value_share_pct - LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_name ORDER BY year_month)) * NUMERIC '100.0',
-                    LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_name ORDER BY year_month)),
+        SAFE_DIVIDE((digital_value_share_pct - LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month)) * NUMERIC '100.0',
+                    LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month)),
         2
     ) AS yoy_digital_value_growth_pct
 FROM shares_computed sc
-ORDER BY year_month, state_name;
+ORDER BY year_month, state_id;

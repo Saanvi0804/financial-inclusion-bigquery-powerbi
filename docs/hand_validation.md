@@ -4,6 +4,7 @@ This document provides:
 1. An exhaustive mathematical step-by-step derivation of reducing-balance EMI amortisation and payment allocation for a sample loan.
 2. The root-cause investigation and resolution of the historical PAR30 discrepancy (Warehouse 8.2306% vs Python 8.2215%).
 3. The approved institutional financial definition implemented in Google BigQuery.
+4. An independent hand check of a dashboard KPI using a small, traceable subset of actual source records.
 
 ---
 
@@ -86,12 +87,12 @@ By tracing loan-by-loan delinquent classification on 2024-12-31 between independ
    ```
    Since `3412.84 < 3412.84` is `FALSE`, Python correctly treats the loan as non-delinquent.
 
-### 2.4 Approved Institutional Financial Standard & BigQuery Implementation
-In commercial banking and microfinance regulations (such as RBI guidelines for NBFC-MFIs), an account is delinquent only when overdue arrears exceed a non-trivial threshold (e.g. > ₹1.00 or > 100 paise). A 1-paisa residual discrepancy arising from periodic EMI rounding is legally non-delinquent.
+### 2.4 Portfolio Accounting Standard & BigQuery Implementation
+In loan portfolio accounting, an instalment is classified as delinquent only when the unpaid balance exceeds an operational materiality tolerance threshold ($\epsilon$). Because standard reducing-balance EMI schedules generate periodic sub-cent rounding residuals across multi-year amortisation schedules, financial systems apply an explicit fixed-point decimal tolerance (set here to $\epsilon = \text{₹}0.01$, or 1 paisa) to distinguish genuine payment defaults from binary floating-point representation artifacts.
 
 In Google BigQuery:
-1. All financial values are stored in fixed-point **`NUMERIC`** (38 digits of precision, 9 decimal places), eliminating IEEE 754 floating-point drift.
-2. The overdue condition explicitly applies rounding:
+1. All financial values are stored in fixed-point **`NUMERIC`** (38 digits of precision, 9 decimal places), eliminating IEEE 754 floating-point representation drift.
+2. The overdue condition explicitly applies fixed rounding:
    ```sql
    ROUND(i.amount_due - COALESCE(SUM(a.allocated_amount), NUMERIC '0.0'), 2) > NUMERIC '0.01'
    ```
@@ -105,3 +106,61 @@ In Google BigQuery:
 | **BigQuery Standard SQL Model** | Fixed `NUMERIC` + `ROUND(..., 2) > 0.01` | ₹2,037,126,496.49 | ₹167,472,997.52 | **8.2211%** (Variance: **0.04 bps**) |
 
 The variance between BigQuery (8.2211%) and Python (8.2215%) is just **0.0004% (0.04 basis points)**, or ₹8,426 on a ₹2.037 Billion portfolio, fully confirming that the floating-point false-delinquency artifact has been eliminated.
+
+---
+
+## 3. Independent Hand Check of Dashboard KPI (Traceable Source Record Check)
+
+To independently audit the calculations driving the analytical dashboard, a KPI was hand-calculated from raw atomic transactions for a compact, traceable subset:
+
+### 3.1 Target KPI, Period, and Filter
+- **Selected KPI**: **Digital Collections Value Share %** (`[Digital Value Share %]`)
+- **Reporting Period**: **January 2023 (`2023-01`)**
+- **Dimension Filter**: **State of Bihar (`ST_BR`, `state_key = 1`)**
+
+### 3.2 Traceable Source Records (`fact_payment`)
+In January 2023, exactly **9 repayment transactions** were received across all branches in Bihar:
+
+| # | Transaction ID | Payment Date | Payment Channel | Classification | Payment Amount (INR) |
+|---|---|---|---|---|---|
+| 1 | `TXN00104921` | 2023-01-30 | UPI | **Digital** | ₹964.01 |
+| 2 | `TXN00105648` | 2023-01-30 | Cash | Cash | ₹1,996.67 |
+| 3 | `TXN00491837` | 2023-01-30 | Cash | Cash | ₹5,908.81 |
+| 4 | `TXN00503801` | 2023-01-30 | Cash | Cash | ₹2,071.06 |
+| 5 | `TXN00066561` | 2023-01-31 | Cash | Cash | ₹3,141.44 |
+| 6 | `TXN00191596` | 2023-01-31 | UPI | **Digital** | ₹1,410.67 |
+| 7 | `TXN00295015` | 2023-01-31 | Cash | Cash | ₹5,080.55 |
+| 8 | `TXN00334986` | 2023-01-31 | UPI | **Digital** | ₹2,806.67 |
+| 9 | `TXN00465611` | 2023-01-31 | Cash | Cash | ₹7,076.73 |
+| **Total** | | | | | **₹30,456.61** |
+
+### 3.3 Metric Derivations & Formulas
+
+#### A. Numerator: Digital Collections Value ($V_{\text{digital}}$)
+The digital stream comprises all transactions executed via UPI and Bank Transfer:
+$$V_{\text{digital}} = \text{TXN00104921} + \text{TXN00191596} + \text{TXN00334986}$$
+$$V_{\text{digital}} = 964.01 + 1410.67 + 2806.67 = \mathbf{\text{₹}5,181.35}$$
+
+#### B. Cash Collections Value ($V_{\text{cash}}$)
+$$V_{\text{cash}} = 1996.67 + 5908.81 + 2071.06 + 3141.44 + 5080.55 + 7076.73 = \mathbf{\text{₹}25,275.26}$$
+
+#### C. Denominator: Total Collections Value ($V_{\text{total}}$)
+$$V_{\text{total}} = V_{\text{digital}} + V_{\text{cash}} = 5181.35 + 25275.26 = \mathbf{\text{₹}30,456.61}$$
+
+#### D. Core KPI Formula
+$$\text{Digital Value Share \%} = \frac{V_{\text{digital}}}{V_{\text{total}}} \times 100\%$$
+
+### 3.4 Step-by-Step Manual Arithmetic
+$$\text{Digital Value Share \%} = \frac{5,181.35}{30,456.61} \times 100\%$$
+$$\frac{5,181.35}{30,456.61} = 0.17012238059...$$
+$$0.17012238059... \times 100\% = \mathbf{17.0122\%} \quad (\text{rounds to } \mathbf{17.01\%})$$
+
+### 3.5 Comparison Against Warehouse and Power BI
+
+| Engine / Layer | Implementation Expression | Metric Value | Match Status |
+|---|---|---|---|
+| **Manual Hand Arithmetic** | Direct manual sum & division of 9 source transactions | **17.01%** (17.0122%) | **Ground Truth Baseline** |
+| **BigQuery Warehouse** | `fin_analytics.kpi_digital_collections.digital_value_share_pct` | **17.01%** | **Exact Match (0.00% diff)** |
+| **Power BI DAX Measure** | `DIVIDE([Digital Collections Value], [Total Collections Value], 0)` | **17.01%** | **Exact Match (0.00% diff)** |
+
+This independent calculation confirms that the aggregation logic, data types, and DAX calculations produce identical results from atomic transactions through to the dashboard visual cards.
