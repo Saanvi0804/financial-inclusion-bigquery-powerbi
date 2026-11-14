@@ -1,0 +1,7 @@
+product_key,product_id,product_name,category,min_rate,max_rate,min_tenure,max_tenure
+1,PRD_AGR,Kisan Agri Crop & Dairy Loan,Agriculture,12.0,16.0,12,18
+2,PRD_EDU,Vocational Skill & Higher Education Loan,Education,11.0,15.0,18,36
+3,PRD_MFI,Joint Liability Group Microfinance Loan,Microfinance,18.0,24.0,12,24
+4,PRD_PER,Emergency & Consumption Personal Loan,Personal,20.0,26.0,12,24
+5,PRD_SMB,MSME Small Enterprise Working Capital,MSME,16.0,22.0,18,36
+-1,UNKNOWN_PRODUCT,Unrecognised Loan Product,Other,0.0,0.0,0,0

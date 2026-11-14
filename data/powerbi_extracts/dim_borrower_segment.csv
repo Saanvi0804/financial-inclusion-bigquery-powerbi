@@ -1,0 +1,302 @@
+borrower_segment_key,borrower_segment,income_band,location_type,occupation_category
+1,Informal Sector Worker,1.5L-3L,Rural,Agriculture & Dairy
+2,Informal Sector Worker,1.5L-3L,Rural,Artisan & Small Manufacturing
+3,Informal Sector Worker,1.5L-3L,Rural,Retail & Petty Trade
+4,Informal Sector Worker,1.5L-3L,Rural,Salaried Employment
+5,Informal Sector Worker,1.5L-3L,Rural,Services & Transport
+6,Informal Sector Worker,1.5L-3L,Semi-Urban,Agriculture & Dairy
+7,Informal Sector Worker,1.5L-3L,Semi-Urban,Artisan & Small Manufacturing
+8,Informal Sector Worker,1.5L-3L,Semi-Urban,Retail & Petty Trade
+9,Informal Sector Worker,1.5L-3L,Semi-Urban,Salaried Employment
+10,Informal Sector Worker,1.5L-3L,Semi-Urban,Services & Transport
+11,Informal Sector Worker,1.5L-3L,Urban,Agriculture & Dairy
+12,Informal Sector Worker,1.5L-3L,Urban,Artisan & Small Manufacturing
+13,Informal Sector Worker,1.5L-3L,Urban,Retail & Petty Trade
+14,Informal Sector Worker,1.5L-3L,Urban,Salaried Employment
+15,Informal Sector Worker,1.5L-3L,Urban,Services & Transport
+16,Informal Sector Worker,3L-5L,Rural,Agriculture & Dairy
+17,Informal Sector Worker,3L-5L,Rural,Artisan & Small Manufacturing
+18,Informal Sector Worker,3L-5L,Rural,Retail & Petty Trade
+19,Informal Sector Worker,3L-5L,Rural,Salaried Employment
+20,Informal Sector Worker,3L-5L,Rural,Services & Transport
+21,Informal Sector Worker,3L-5L,Semi-Urban,Agriculture & Dairy
+22,Informal Sector Worker,3L-5L,Semi-Urban,Artisan & Small Manufacturing
+23,Informal Sector Worker,3L-5L,Semi-Urban,Retail & Petty Trade
+24,Informal Sector Worker,3L-5L,Semi-Urban,Salaried Employment
+25,Informal Sector Worker,3L-5L,Semi-Urban,Services & Transport
+26,Informal Sector Worker,3L-5L,Urban,Agriculture & Dairy
+27,Informal Sector Worker,3L-5L,Urban,Artisan & Small Manufacturing
+28,Informal Sector Worker,3L-5L,Urban,Retail & Petty Trade
+29,Informal Sector Worker,3L-5L,Urban,Salaried Employment
+30,Informal Sector Worker,3L-5L,Urban,Services & Transport
+31,Informal Sector Worker,<1.5L,Rural,Agriculture & Dairy
+32,Informal Sector Worker,<1.5L,Rural,Artisan & Small Manufacturing
+33,Informal Sector Worker,<1.5L,Rural,Retail & Petty Trade
+34,Informal Sector Worker,<1.5L,Rural,Salaried Employment
+35,Informal Sector Worker,<1.5L,Rural,Services & Transport
+36,Informal Sector Worker,<1.5L,Semi-Urban,Agriculture & Dairy
+37,Informal Sector Worker,<1.5L,Semi-Urban,Artisan & Small Manufacturing
+38,Informal Sector Worker,<1.5L,Semi-Urban,Retail & Petty Trade
+39,Informal Sector Worker,<1.5L,Semi-Urban,Salaried Employment
+40,Informal Sector Worker,<1.5L,Semi-Urban,Services & Transport
+41,Informal Sector Worker,<1.5L,Urban,Agriculture & Dairy
+42,Informal Sector Worker,<1.5L,Urban,Artisan & Small Manufacturing
+43,Informal Sector Worker,<1.5L,Urban,Retail & Petty Trade
+44,Informal Sector Worker,<1.5L,Urban,Salaried Employment
+45,Informal Sector Worker,<1.5L,Urban,Services & Transport
+46,Informal Sector Worker,>5L,Rural,Agriculture & Dairy
+47,Informal Sector Worker,>5L,Rural,Artisan & Small Manufacturing
+48,Informal Sector Worker,>5L,Rural,Retail & Petty Trade
+49,Informal Sector Worker,>5L,Rural,Salaried Employment
+50,Informal Sector Worker,>5L,Rural,Services & Transport
+51,Informal Sector Worker,>5L,Semi-Urban,Agriculture & Dairy
+52,Informal Sector Worker,>5L,Semi-Urban,Artisan & Small Manufacturing
+53,Informal Sector Worker,>5L,Semi-Urban,Retail & Petty Trade
+54,Informal Sector Worker,>5L,Semi-Urban,Salaried Employment
+55,Informal Sector Worker,>5L,Semi-Urban,Services & Transport
+56,Informal Sector Worker,>5L,Urban,Agriculture & Dairy
+57,Informal Sector Worker,>5L,Urban,Artisan & Small Manufacturing
+58,Informal Sector Worker,>5L,Urban,Retail & Petty Trade
+59,Informal Sector Worker,>5L,Urban,Salaried Employment
+60,Informal Sector Worker,>5L,Urban,Services & Transport
+61,Micro-entrepreneur,1.5L-3L,Rural,Agriculture & Dairy
+62,Micro-entrepreneur,1.5L-3L,Rural,Artisan & Small Manufacturing
+63,Micro-entrepreneur,1.5L-3L,Rural,Retail & Petty Trade
+64,Micro-entrepreneur,1.5L-3L,Rural,Salaried Employment
+65,Micro-entrepreneur,1.5L-3L,Rural,Services & Transport
+66,Micro-entrepreneur,1.5L-3L,Semi-Urban,Agriculture & Dairy
+67,Micro-entrepreneur,1.5L-3L,Semi-Urban,Artisan & Small Manufacturing
+68,Micro-entrepreneur,1.5L-3L,Semi-Urban,Retail & Petty Trade
+69,Micro-entrepreneur,1.5L-3L,Semi-Urban,Salaried Employment
+70,Micro-entrepreneur,1.5L-3L,Semi-Urban,Services & Transport
+71,Micro-entrepreneur,1.5L-3L,Urban,Agriculture & Dairy
+72,Micro-entrepreneur,1.5L-3L,Urban,Artisan & Small Manufacturing
+73,Micro-entrepreneur,1.5L-3L,Urban,Retail & Petty Trade
+74,Micro-entrepreneur,1.5L-3L,Urban,Salaried Employment
+75,Micro-entrepreneur,1.5L-3L,Urban,Services & Transport
+76,Micro-entrepreneur,3L-5L,Rural,Agriculture & Dairy
+77,Micro-entrepreneur,3L-5L,Rural,Artisan & Small Manufacturing
+78,Micro-entrepreneur,3L-5L,Rural,Retail & Petty Trade
+79,Micro-entrepreneur,3L-5L,Rural,Salaried Employment
+80,Micro-entrepreneur,3L-5L,Rural,Services & Transport
+81,Micro-entrepreneur,3L-5L,Semi-Urban,Agriculture & Dairy
+82,Micro-entrepreneur,3L-5L,Semi-Urban,Artisan & Small Manufacturing
+83,Micro-entrepreneur,3L-5L,Semi-Urban,Retail & Petty Trade
+84,Micro-entrepreneur,3L-5L,Semi-Urban,Salaried Employment
+85,Micro-entrepreneur,3L-5L,Semi-Urban,Services & Transport
+86,Micro-entrepreneur,3L-5L,Urban,Agriculture & Dairy
+87,Micro-entrepreneur,3L-5L,Urban,Artisan & Small Manufacturing
+88,Micro-entrepreneur,3L-5L,Urban,Retail & Petty Trade
+89,Micro-entrepreneur,3L-5L,Urban,Salaried Employment
+90,Micro-entrepreneur,3L-5L,Urban,Services & Transport
+91,Micro-entrepreneur,<1.5L,Rural,Agriculture & Dairy
+92,Micro-entrepreneur,<1.5L,Rural,Artisan & Small Manufacturing
+93,Micro-entrepreneur,<1.5L,Rural,Retail & Petty Trade
+94,Micro-entrepreneur,<1.5L,Rural,Salaried Employment
+95,Micro-entrepreneur,<1.5L,Rural,Services & Transport
+96,Micro-entrepreneur,<1.5L,Semi-Urban,Agriculture & Dairy
+97,Micro-entrepreneur,<1.5L,Semi-Urban,Artisan & Small Manufacturing
+98,Micro-entrepreneur,<1.5L,Semi-Urban,Retail & Petty Trade
+99,Micro-entrepreneur,<1.5L,Semi-Urban,Salaried Employment
+100,Micro-entrepreneur,<1.5L,Semi-Urban,Services & Transport
+101,Micro-entrepreneur,<1.5L,Urban,Agriculture & Dairy
+102,Micro-entrepreneur,<1.5L,Urban,Artisan & Small Manufacturing
+103,Micro-entrepreneur,<1.5L,Urban,Retail & Petty Trade
+104,Micro-entrepreneur,<1.5L,Urban,Salaried Employment
+105,Micro-entrepreneur,<1.5L,Urban,Services & Transport
+106,Micro-entrepreneur,>5L,Rural,Agriculture & Dairy
+107,Micro-entrepreneur,>5L,Rural,Artisan & Small Manufacturing
+108,Micro-entrepreneur,>5L,Rural,Retail & Petty Trade
+109,Micro-entrepreneur,>5L,Rural,Salaried Employment
+110,Micro-entrepreneur,>5L,Rural,Services & Transport
+111,Micro-entrepreneur,>5L,Semi-Urban,Agriculture & Dairy
+112,Micro-entrepreneur,>5L,Semi-Urban,Artisan & Small Manufacturing
+113,Micro-entrepreneur,>5L,Semi-Urban,Retail & Petty Trade
+114,Micro-entrepreneur,>5L,Semi-Urban,Salaried Employment
+115,Micro-entrepreneur,>5L,Semi-Urban,Services & Transport
+116,Micro-entrepreneur,>5L,Urban,Agriculture & Dairy
+117,Micro-entrepreneur,>5L,Urban,Artisan & Small Manufacturing
+118,Micro-entrepreneur,>5L,Urban,Retail & Petty Trade
+119,Micro-entrepreneur,>5L,Urban,Salaried Employment
+120,Micro-entrepreneur,>5L,Urban,Services & Transport
+121,Salaried Low Income,1.5L-3L,Rural,Agriculture & Dairy
+122,Salaried Low Income,1.5L-3L,Rural,Artisan & Small Manufacturing
+123,Salaried Low Income,1.5L-3L,Rural,Retail & Petty Trade
+124,Salaried Low Income,1.5L-3L,Rural,Salaried Employment
+125,Salaried Low Income,1.5L-3L,Rural,Services & Transport
+126,Salaried Low Income,1.5L-3L,Semi-Urban,Agriculture & Dairy
+127,Salaried Low Income,1.5L-3L,Semi-Urban,Artisan & Small Manufacturing
+128,Salaried Low Income,1.5L-3L,Semi-Urban,Retail & Petty Trade
+129,Salaried Low Income,1.5L-3L,Semi-Urban,Salaried Employment
+130,Salaried Low Income,1.5L-3L,Semi-Urban,Services & Transport
+131,Salaried Low Income,1.5L-3L,Urban,Agriculture & Dairy
+132,Salaried Low Income,1.5L-3L,Urban,Artisan & Small Manufacturing
+133,Salaried Low Income,1.5L-3L,Urban,Retail & Petty Trade
+134,Salaried Low Income,1.5L-3L,Urban,Salaried Employment
+135,Salaried Low Income,1.5L-3L,Urban,Services & Transport
+136,Salaried Low Income,3L-5L,Rural,Agriculture & Dairy
+137,Salaried Low Income,3L-5L,Rural,Artisan & Small Manufacturing
+138,Salaried Low Income,3L-5L,Rural,Retail & Petty Trade
+139,Salaried Low Income,3L-5L,Rural,Salaried Employment
+140,Salaried Low Income,3L-5L,Rural,Services & Transport
+141,Salaried Low Income,3L-5L,Semi-Urban,Agriculture & Dairy
+142,Salaried Low Income,3L-5L,Semi-Urban,Artisan & Small Manufacturing
+143,Salaried Low Income,3L-5L,Semi-Urban,Retail & Petty Trade
+144,Salaried Low Income,3L-5L,Semi-Urban,Salaried Employment
+145,Salaried Low Income,3L-5L,Semi-Urban,Services & Transport
+146,Salaried Low Income,3L-5L,Urban,Agriculture & Dairy
+147,Salaried Low Income,3L-5L,Urban,Artisan & Small Manufacturing
+148,Salaried Low Income,3L-5L,Urban,Retail & Petty Trade
+149,Salaried Low Income,3L-5L,Urban,Salaried Employment
+150,Salaried Low Income,3L-5L,Urban,Services & Transport
+151,Salaried Low Income,<1.5L,Rural,Agriculture & Dairy
+152,Salaried Low Income,<1.5L,Rural,Artisan & Small Manufacturing
+153,Salaried Low Income,<1.5L,Rural,Retail & Petty Trade
+154,Salaried Low Income,<1.5L,Rural,Salaried Employment
+155,Salaried Low Income,<1.5L,Rural,Services & Transport
+156,Salaried Low Income,<1.5L,Semi-Urban,Agriculture & Dairy
+157,Salaried Low Income,<1.5L,Semi-Urban,Artisan & Small Manufacturing
+158,Salaried Low Income,<1.5L,Semi-Urban,Retail & Petty Trade
+159,Salaried Low Income,<1.5L,Semi-Urban,Salaried Employment
+160,Salaried Low Income,<1.5L,Semi-Urban,Services & Transport
+161,Salaried Low Income,<1.5L,Urban,Agriculture & Dairy
+162,Salaried Low Income,<1.5L,Urban,Artisan & Small Manufacturing
+163,Salaried Low Income,<1.5L,Urban,Retail & Petty Trade
+164,Salaried Low Income,<1.5L,Urban,Salaried Employment
+165,Salaried Low Income,<1.5L,Urban,Services & Transport
+166,Salaried Low Income,>5L,Rural,Agriculture & Dairy
+167,Salaried Low Income,>5L,Rural,Artisan & Small Manufacturing
+168,Salaried Low Income,>5L,Rural,Retail & Petty Trade
+169,Salaried Low Income,>5L,Rural,Salaried Employment
+170,Salaried Low Income,>5L,Rural,Services & Transport
+171,Salaried Low Income,>5L,Semi-Urban,Agriculture & Dairy
+172,Salaried Low Income,>5L,Semi-Urban,Artisan & Small Manufacturing
+173,Salaried Low Income,>5L,Semi-Urban,Retail & Petty Trade
+174,Salaried Low Income,>5L,Semi-Urban,Salaried Employment
+175,Salaried Low Income,>5L,Semi-Urban,Services & Transport
+176,Salaried Low Income,>5L,Urban,Agriculture & Dairy
+177,Salaried Low Income,>5L,Urban,Artisan & Small Manufacturing
+178,Salaried Low Income,>5L,Urban,Retail & Petty Trade
+179,Salaried Low Income,>5L,Urban,Salaried Employment
+180,Salaried Low Income,>5L,Urban,Services & Transport
+181,Smallholder Farmer,1.5L-3L,Rural,Agriculture & Dairy
+182,Smallholder Farmer,1.5L-3L,Rural,Artisan & Small Manufacturing
+183,Smallholder Farmer,1.5L-3L,Rural,Retail & Petty Trade
+184,Smallholder Farmer,1.5L-3L,Rural,Salaried Employment
+185,Smallholder Farmer,1.5L-3L,Rural,Services & Transport
+186,Smallholder Farmer,1.5L-3L,Semi-Urban,Agriculture & Dairy
+187,Smallholder Farmer,1.5L-3L,Semi-Urban,Artisan & Small Manufacturing
+188,Smallholder Farmer,1.5L-3L,Semi-Urban,Retail & Petty Trade
+189,Smallholder Farmer,1.5L-3L,Semi-Urban,Salaried Employment
+190,Smallholder Farmer,1.5L-3L,Semi-Urban,Services & Transport
+191,Smallholder Farmer,1.5L-3L,Urban,Agriculture & Dairy
+192,Smallholder Farmer,1.5L-3L,Urban,Artisan & Small Manufacturing
+193,Smallholder Farmer,1.5L-3L,Urban,Retail & Petty Trade
+194,Smallholder Farmer,1.5L-3L,Urban,Salaried Employment
+195,Smallholder Farmer,1.5L-3L,Urban,Services & Transport
+196,Smallholder Farmer,3L-5L,Rural,Agriculture & Dairy
+197,Smallholder Farmer,3L-5L,Rural,Artisan & Small Manufacturing
+198,Smallholder Farmer,3L-5L,Rural,Retail & Petty Trade
+199,Smallholder Farmer,3L-5L,Rural,Salaried Employment
+200,Smallholder Farmer,3L-5L,Rural,Services & Transport
+201,Smallholder Farmer,3L-5L,Semi-Urban,Agriculture & Dairy
+202,Smallholder Farmer,3L-5L,Semi-Urban,Artisan & Small Manufacturing
+203,Smallholder Farmer,3L-5L,Semi-Urban,Retail & Petty Trade
+204,Smallholder Farmer,3L-5L,Semi-Urban,Salaried Employment
+205,Smallholder Farmer,3L-5L,Semi-Urban,Services & Transport
+206,Smallholder Farmer,3L-5L,Urban,Agriculture & Dairy
+207,Smallholder Farmer,3L-5L,Urban,Artisan & Small Manufacturing
+208,Smallholder Farmer,3L-5L,Urban,Retail & Petty Trade
+209,Smallholder Farmer,3L-5L,Urban,Salaried Employment
+210,Smallholder Farmer,3L-5L,Urban,Services & Transport
+211,Smallholder Farmer,<1.5L,Rural,Agriculture & Dairy
+212,Smallholder Farmer,<1.5L,Rural,Artisan & Small Manufacturing
+213,Smallholder Farmer,<1.5L,Rural,Retail & Petty Trade
+214,Smallholder Farmer,<1.5L,Rural,Salaried Employment
+215,Smallholder Farmer,<1.5L,Rural,Services & Transport
+216,Smallholder Farmer,<1.5L,Semi-Urban,Agriculture & Dairy
+217,Smallholder Farmer,<1.5L,Semi-Urban,Artisan & Small Manufacturing
+218,Smallholder Farmer,<1.5L,Semi-Urban,Retail & Petty Trade
+219,Smallholder Farmer,<1.5L,Semi-Urban,Salaried Employment
+220,Smallholder Farmer,<1.5L,Semi-Urban,Services & Transport
+221,Smallholder Farmer,<1.5L,Urban,Agriculture & Dairy
+222,Smallholder Farmer,<1.5L,Urban,Artisan & Small Manufacturing
+223,Smallholder Farmer,<1.5L,Urban,Retail & Petty Trade
+224,Smallholder Farmer,<1.5L,Urban,Salaried Employment
+225,Smallholder Farmer,<1.5L,Urban,Services & Transport
+226,Smallholder Farmer,>5L,Rural,Agriculture & Dairy
+227,Smallholder Farmer,>5L,Rural,Artisan & Small Manufacturing
+228,Smallholder Farmer,>5L,Rural,Retail & Petty Trade
+229,Smallholder Farmer,>5L,Rural,Salaried Employment
+230,Smallholder Farmer,>5L,Rural,Services & Transport
+231,Smallholder Farmer,>5L,Semi-Urban,Agriculture & Dairy
+232,Smallholder Farmer,>5L,Semi-Urban,Artisan & Small Manufacturing
+233,Smallholder Farmer,>5L,Semi-Urban,Retail & Petty Trade
+234,Smallholder Farmer,>5L,Semi-Urban,Salaried Employment
+235,Smallholder Farmer,>5L,Semi-Urban,Services & Transport
+236,Smallholder Farmer,>5L,Urban,Agriculture & Dairy
+237,Smallholder Farmer,>5L,Urban,Artisan & Small Manufacturing
+238,Smallholder Farmer,>5L,Urban,Retail & Petty Trade
+239,Smallholder Farmer,>5L,Urban,Salaried Employment
+240,Smallholder Farmer,>5L,Urban,Services & Transport
+241,Women Self-Help Group,1.5L-3L,Rural,Agriculture & Dairy
+242,Women Self-Help Group,1.5L-3L,Rural,Artisan & Small Manufacturing
+243,Women Self-Help Group,1.5L-3L,Rural,Retail & Petty Trade
+244,Women Self-Help Group,1.5L-3L,Rural,Salaried Employment
+245,Women Self-Help Group,1.5L-3L,Rural,Services & Transport
+246,Women Self-Help Group,1.5L-3L,Semi-Urban,Agriculture & Dairy
+247,Women Self-Help Group,1.5L-3L,Semi-Urban,Artisan & Small Manufacturing
+248,Women Self-Help Group,1.5L-3L,Semi-Urban,Retail & Petty Trade
+249,Women Self-Help Group,1.5L-3L,Semi-Urban,Salaried Employment
+250,Women Self-Help Group,1.5L-3L,Semi-Urban,Services & Transport
+251,Women Self-Help Group,1.5L-3L,Urban,Agriculture & Dairy
+252,Women Self-Help Group,1.5L-3L,Urban,Artisan & Small Manufacturing
+253,Women Self-Help Group,1.5L-3L,Urban,Retail & Petty Trade
+254,Women Self-Help Group,1.5L-3L,Urban,Salaried Employment
+255,Women Self-Help Group,1.5L-3L,Urban,Services & Transport
+256,Women Self-Help Group,3L-5L,Rural,Agriculture & Dairy
+257,Women Self-Help Group,3L-5L,Rural,Artisan & Small Manufacturing
+258,Women Self-Help Group,3L-5L,Rural,Retail & Petty Trade
+259,Women Self-Help Group,3L-5L,Rural,Salaried Employment
+260,Women Self-Help Group,3L-5L,Rural,Services & Transport
+261,Women Self-Help Group,3L-5L,Semi-Urban,Agriculture & Dairy
+262,Women Self-Help Group,3L-5L,Semi-Urban,Artisan & Small Manufacturing
+263,Women Self-Help Group,3L-5L,Semi-Urban,Retail & Petty Trade
+264,Women Self-Help Group,3L-5L,Semi-Urban,Salaried Employment
+265,Women Self-Help Group,3L-5L,Semi-Urban,Services & Transport
+266,Women Self-Help Group,3L-5L,Urban,Agriculture & Dairy
+267,Women Self-Help Group,3L-5L,Urban,Artisan & Small Manufacturing
+268,Women Self-Help Group,3L-5L,Urban,Retail & Petty Trade
+269,Women Self-Help Group,3L-5L,Urban,Salaried Employment
+270,Women Self-Help Group,3L-5L,Urban,Services & Transport
+271,Women Self-Help Group,<1.5L,Rural,Agriculture & Dairy
+272,Women Self-Help Group,<1.5L,Rural,Artisan & Small Manufacturing
+273,Women Self-Help Group,<1.5L,Rural,Retail & Petty Trade
+274,Women Self-Help Group,<1.5L,Rural,Salaried Employment
+275,Women Self-Help Group,<1.5L,Rural,Services & Transport
+276,Women Self-Help Group,<1.5L,Semi-Urban,Agriculture & Dairy
+277,Women Self-Help Group,<1.5L,Semi-Urban,Artisan & Small Manufacturing
+278,Women Self-Help Group,<1.5L,Semi-Urban,Retail & Petty Trade
+279,Women Self-Help Group,<1.5L,Semi-Urban,Salaried Employment
+280,Women Self-Help Group,<1.5L,Semi-Urban,Services & Transport
+281,Women Self-Help Group,<1.5L,Urban,Agriculture & Dairy
+282,Women Self-Help Group,<1.5L,Urban,Artisan & Small Manufacturing
+283,Women Self-Help Group,<1.5L,Urban,Retail & Petty Trade
+284,Women Self-Help Group,<1.5L,Urban,Salaried Employment
+285,Women Self-Help Group,<1.5L,Urban,Services & Transport
+286,Women Self-Help Group,>5L,Rural,Agriculture & Dairy
+287,Women Self-Help Group,>5L,Rural,Artisan & Small Manufacturing
+288,Women Self-Help Group,>5L,Rural,Retail & Petty Trade
+289,Women Self-Help Group,>5L,Rural,Salaried Employment
+290,Women Self-Help Group,>5L,Rural,Services & Transport
+291,Women Self-Help Group,>5L,Semi-Urban,Agriculture & Dairy
+292,Women Self-Help Group,>5L,Semi-Urban,Artisan & Small Manufacturing
+293,Women Self-Help Group,>5L,Semi-Urban,Retail & Petty Trade
+294,Women Self-Help Group,>5L,Semi-Urban,Salaried Employment
+295,Women Self-Help Group,>5L,Semi-Urban,Services & Transport
+296,Women Self-Help Group,>5L,Urban,Agriculture & Dairy
+297,Women Self-Help Group,>5L,Urban,Artisan & Small Manufacturing
+298,Women Self-Help Group,>5L,Urban,Retail & Petty Trade
+299,Women Self-Help Group,>5L,Urban,Salaried Employment
+300,Women Self-Help Group,>5L,Urban,Services & Transport
+-1,Unknown Segment,Unknown Income,Unknown,Unknown

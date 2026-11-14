@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -e
+
+echo "==============================================================================="
+echo "Financial Inclusion Analytics Warehouse -- BigQuery + Power BI Migration"
+echo "Complete End-to-End Execution Pipeline"
+echo "==============================================================================="
+
+echo ""
+echo "[Step 1/6] Generating synthetic portfolio datasets (52,000 loans, 533k txns)..."
+python scripts/generate_data.py
+
+echo ""
+echo "[Step 2/6] Ingesting raw tables with metadata and audit logging into BigQuery..."
+python scripts/ingest_bigquery.py
+
+echo ""
+echo "[Step 3/6] Running BigQuery Standard SQL transformations (Staging, Dims, Facts, KPIs)..."
+python scripts/run_pipeline.py
+
+echo ""
+echo "[Step 4/6] Profiling warehouse and generating exhaustive data quality report..."
+python scripts/profile_data.py
+
+echo ""
+echo "[Step 5/6] Running independent Python financial verification and PAR30 reconciliation..."
+python scripts/verify_recalculation.py
+
+echo ""
+echo "[Step 6/6] Executing automated enterprise test suite (64 Pytest tests)..."
+python -m pytest tests -v
+
+echo ""
+echo "==============================================================================="
+echo "Pipeline execution successfully completed with 100% verification!"
+echo "==============================================================================="

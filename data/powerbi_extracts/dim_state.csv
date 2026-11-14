@@ -1,0 +1,12 @@
+state_key,state_id,state_name,region
+1,ST_BR,Bihar,East
+2,ST_GJ,Gujarat,West
+3,ST_KA,Karnataka,South
+4,ST_MH,Maharashtra,West
+5,ST_MP,Madhya Pradesh,Central
+6,ST_OD,Odisha,East
+7,ST_RJ,Rajasthan,North
+8,ST_TN,Tamil Nadu,South
+9,ST_UP,Uttar Pradesh,North
+10,ST_WB,West Bengal,East
+-1,UNKNOWN_STATE,Unknown State,Unknown
