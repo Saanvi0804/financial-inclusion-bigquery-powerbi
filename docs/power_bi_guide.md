@@ -4,9 +4,11 @@ This document outlines the visual layout, UX architecture, DAX integration, and 
 
 ---
 
-## 1. Connecting Power BI to Google BigQuery
+## 1. Connecting Power BI to Warehouse Data
 
-### Method A: Live DirectQuery / Import via Google BigQuery Connector
+> **Deployment Note**: The validated local implementation uses **Method B** (Curated Extracts produced directly by the local DuckDB pipeline), powering the included `Financial_Inclusion_Analytics.pbip` project with zero cloud dependencies. Method A is documented as an architectural reference for connecting Power BI directly to Google BigQuery if deployed to Google Cloud Platform in the future.
+
+### Method A: Cloud DirectQuery / Import via Google BigQuery Connector (Cloud Reference)
 1. Open **Power BI Desktop**.
 2. Click **Get Data** -> **More...** -> **Database** -> **Google BigQuery** -> **Connect**.
 3. Sign in with your Google Cloud organizational account or service account.

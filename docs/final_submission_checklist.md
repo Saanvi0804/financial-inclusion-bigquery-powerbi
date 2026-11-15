@@ -1,8 +1,16 @@
 # Final Submission Checklist & Technical Assignment Write-Up
 
-**Project**: Financial Inclusion Analytics Warehouse (BigQuery + Power BI)  
+**Project**: Financial Inclusion Analytics Warehouse (BigQuery-Compatible SQL on DuckDB + Power BI)  
 **Submission Package**: `submission/Financial_Inclusion_Analytics_Submission.zip`  
-**Status**: 100% Production-Ready, Reconciled, and Verified
+**Execution Environment**: Local In-Process DuckDB Engine (`data/warehouse/financial_inclusion_bigquery.duckdb`)  
+**Status**: 100% Production-Ready, Reconciled, and Locally Verified
+
+> **Database Implementation Disclosure**:
+> - **Actual Execution Engine**: DuckDB is the actual local database engine that ingested all raw data, executed all SQL transformations, and stored the 4-layer analytical warehouse.
+> - **Local Validation**: The entire project was developed, executed, profiled, and verified 100% locally.
+> - **Cloud Status**: Google BigQuery was **not** deployed or executed in an active Google Cloud project.
+> - **BigQuery Compatibility**: BigQuery compatibility is claimed strictly for the SQL transformation models (`sql/ddl/`, `sql/staging/`, `sql/dimensions/`, `sql/facts/`, `sql/kpis/`), which were authored and verified to adhere to BigQuery Standard SQL syntax (e.g., standard window functions, `QUALIFY`, `STRUCT`, `TIMESTAMP` functions).
+> - **Power BI Ingestion**: Power BI Desktop consumes curated data extracts (`data/powerbi_extracts/`) generated directly by the DuckDB pipeline.
 
 ---
 
@@ -51,6 +59,46 @@ To mathematically certify the warehouse transformation logic, two independent ha
 1. **The Digital Leap**: Digital collections surged from 32.24% in January 2023 to **80.94%** in December 2024 (+48.70 percentage points), driven by rapid rural UPI adoption.
 2. **Portfolio Seasoning & Credit Risk**: The gross active portfolio expanded to ₹203.71 Cr across 40,940 borrowers. PAR30 stabilized at 8.22%, while gross NPA (PAR90) remained well-managed at 2.77%.
 3. **Operational Robustness & Anomaly Recovery**: Headline collection efficiency averaged 97.4%. When Branch 25 suffered an operational gateway failure in Oct 2024 (0% efficiency), the field operations team successfully recovered overdue arrears in November (96.8% efficiency), maintaining credit health.
+
+### 1.6 Seeded Detections, Untested Scenarios & Production Blind Spots (Issues Missed / Limitations)
+
+A rigorous engineering assessment requires transparently distinguishing between anomalies that were actively tested and resolved versus systemic blind spots that exist in the architecture or remain unaddressed in the current batch test suite.
+
+#### A. Seeded Anomalies Successfully Detected & Isolated (10 of 10)
+As detailed in Section 1.1, the ingestion firewall and staging models systematically tested, intercepted, and quarantined 1,681 defective source payloads with zero leakage into the analytical warehouse:
+1. Negative repayment amounts ($A < 0$).
+2. Pre-dated payments occurring before loan disbursement.
+3. Repayments referencing non-existent loan facilities.
+4. Overpayments exceeding total remaining facility balance.
+5. Zero-amount transaction receipts.
+6. Ingestion deduplication via surrogate window ranking.
+7. Paise-to-Rupee unit denomination inconsistencies (100x scaling).
+8. Superfluous contractual instalments beyond contractual maturity.
+9. Raw core-banking DPD corruption bypassed via independent amortisation schedule recomputation.
+10. Regional POS gateway network outage detection (`BR025` in October 2024).
+
+#### B. Architectural Scenarios Not Independently Tested in Current Suite
+The automated test suite certifies all dimensional relationships, FIFO accounting conservation, and historical snapshots, but does not independently evaluate:
+1. **Slowly Changing Dimensions (SCD Type 2)**: Borrower socioeconomic attributes (such as annual income band, household size, or employment classification) are modeled as Type 1 (overwrite / current state) dimensions. Historical attribute shifts at the exact time of loan disbursement are not retained in an audit ledger.
+2. **High-Frequency Concurrent Ingestion**: The batch pipeline assumes sequential partition loading. Concurrency race conditions, distributed streaming locks, or out-of-order intraday micro-batches were not tested in the local DuckDB environment.
+
+#### C. Potential Blind Spots the Current Ingestion Pipeline May Not Detect
+In production financial inclusion operations, several real-world data issues cannot be identified purely through row-level validation rules:
+
+1. **Partial-Month Extraction Cutoffs & Trailing Stub Periods**:
+   - *The Phenomenon*: The current synthetic dataset concludes on February 10, 2025. In January 2025 (31 days active, ₹78.28 L recovered) and February 2025 (10 days active, ₹7.48 L recovered), loan origination had ceased, resulting in `scheduled_amount_due = ₹0.00`. All cash collected represented trailing arrears recovery.
+   - *The Blind Spot*: The ingestion pipeline cannot infer whether a trailing 10-day period represents a collection collapse or an incomplete calendar extraction stub. To automated row-level checks, February 2025 is valid because transaction formats are valid, but without contextual metadata, executive dashboards can misinterpret the drop.
+   - *Production Remediation*: Maintain a conformed `dim_reporting_calendar` or pipeline metadata table that tags reporting months as `CLOSED`, `PARTIAL_STUB`, or `IN_PROGRESS`, enabling BI layers to conditionally annotate or filter incomplete reporting windows.
+
+2. **Offline Doorstep Cash Collections Never Ingested Upstream**:
+   - *The Phenomenon*: In rural microfinance operations, field loan officers frequently collect cash repayments in areas with zero cellular connectivity. If a field agent collects cash but fails to synchronize their device, or if manual receipt slips are delayed, no transaction payload is ever emitted to the staging pipeline.
+   - *The Blind Spot*: A downstream data warehouse can only validate and quarantine records that reach its ingestion boundary. It cannot detect transactions that were never captured upstream.
+   - *Production Remediation*: Implement dual-entry reconciliation between branch physical cash register audits (bank branch safe deposits) and transactional ledger entries, supplemented by field receipt reconciliation logs and variance alerting.
+
+3. **Incorrect Aggregation of Pre-Cumulated Metrics at Coarser Grains**:
+   - *The Phenomenon*: Aggregate KPI tables such as `kpi_vintage_curves` store data at grain `(cohort_month, product_id, month_on_book)`. The column `cumulative_amount_paid` is pre-accumulated from MOB 1 through $k$.
+   - *The Blind Spot*: If an external analyst or naive BI visual queries `SUM(cumulative_amount_paid)` without explicitly slicing or filtering by `month_on_book`, the query calculates a triangular multi-period sum across all 24 progressive monthly snapshots, inflating cash totals (e.g. ₹20.73B vs ₹2.42B actual).
+   - *Production Remediation*: In addition to dynamic DAX measures (which resolve to the latest valid MOB per cohort), production data models should expose pure non-cumulative incremental values (`amount_paid_mob`) as base physical columns and encapsulate cumulative totals inside semantic views or window calculations, preventing naive double counting.
 
 ---
 
@@ -120,7 +168,9 @@ python scripts/validate_powerbi_extracts.py
 
 1. **Power BI Project (`.pbip`)**:
    - Location: `powerbi/Financial_Inclusion_Analytics.pbip`.
-   - Contains complete model definition (`model.bim`) with 14 tables, all dimension relationships, and 33 DAX measures.
+   - Contains complete model definition (`model.bim`) with 14 tables, 34 relationships, and 38 DAX measures.
+   - Ambiguous multi-path cycles (`fact_payment -> dim_loan -> dim_date` vs `fact_payment -> dim_date`) resolved by setting `rel_loan_disb_date`, `rel_loan_branch`, `rel_loan_product`, and `rel_loan_state` to **Inactive**.
+   - Role-playing dates fully supported via DAX measures (`[Total Disbursed Principal]`, `[Loans Disbursed Count]`, `[Payments by Loan Disbursement Date]`) using `USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key])`.
    - Contains complete visual report definitions (`report.json`) across all 5 report pages with cards, combo charts, area charts, donut charts, and drill-through tables.
    - Configured with a first-class Power Query `Location` parameter allowing seamless portability across workstations.
 2. **Interactive PBIX Generation**:

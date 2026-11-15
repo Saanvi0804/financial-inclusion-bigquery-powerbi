@@ -281,6 +281,31 @@ def generate_pbip():
                             "name": "Excess Payment Anomalies",
                             "expression": "CALCULATE(COUNTROWS(stg_quarantined_records), stg_quarantined_records[reason_code] = \"EXCESS_INSTALMENT_PAYMENT\")",
                             "formatString": "#,##0"
+                        },
+                        {
+                            "name": "Loans Disbursed Count",
+                            "expression": "CALCULATE(DISTINCTCOUNT(dim_loan[loan_key]), USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key]))",
+                            "formatString": "#,##0"
+                        },
+                        {
+                            "name": "Total Disbursed Principal",
+                            "expression": "CALCULATE(SUM(dim_loan[principal_amount]), USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key]))",
+                            "formatString": "\"₹\"\\ #,##0.00"
+                        },
+                        {
+                            "name": "Disbursed Principal (INR Cr)",
+                            "expression": "DIVIDE([Total Disbursed Principal], 10000000, 0)",
+                            "formatString": "\"₹\"\\ #,##0.00\\ \"Cr\""
+                        },
+                        {
+                            "name": "Payments by Loan Disbursement Date",
+                            "expression": "CALCULATE(SUM(fact_payment[payment_amount]), USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key]))",
+                            "formatString": "\"₹\"\\ #,##0.00"
+                        },
+                        {
+                            "name": "Allocations by Cash Payment Date",
+                            "expression": "CALCULATE(SUM(fact_instalment_allocation[allocated_amount]), USERELATIONSHIP(fact_instalment_allocation[payment_date_key], dim_date[date_key]))",
+                            "formatString": "\"₹\"\\ #,##0.00"
                         }
                     ]
                 }
@@ -570,38 +595,40 @@ def generate_pbip():
         {"name": "rel_snap_state", "fromTable": "fact_loan_monthly", "fromColumn": "state_key", "toTable": "dim_state", "toColumn": "state_key"},
         {"name": "rel_snap_segment", "fromTable": "fact_loan_monthly", "fromColumn": "borrower_segment_key", "toTable": "dim_borrower_segment", "toColumn": "borrower_segment_key"},
 
-        # fact_instalment_allocation
-        {"name": "rel_alloc_due_date", "fromTable": "fact_instalment_allocation", "fromColumn": "due_date_key", "toTable": "dim_date", "toColumn": "date_key"},
-        {"name": "rel_alloc_loan", "fromTable": "fact_instalment_allocation", "fromColumn": "loan_key", "toTable": "dim_loan", "toColumn": "loan_key"},
-        {"name": "rel_alloc_branch", "fromTable": "fact_instalment_allocation", "fromColumn": "branch_key", "toTable": "dim_branch", "toColumn": "branch_key"},
-        {"name": "rel_alloc_product", "fromTable": "fact_instalment_allocation", "fromColumn": "product_key", "toTable": "dim_product", "toColumn": "product_key"},
-        {"name": "rel_alloc_state", "fromTable": "fact_instalment_allocation", "fromColumn": "state_key", "toTable": "dim_state", "toColumn": "state_key"},
+        # fact_instalment_allocation (Active role: contractual Due Date; Inactive role: Cash Payment Date)
+        {"name": "rel_alloc_due_date", "fromTable": "fact_instalment_allocation", "fromColumn": "due_date_key", "toTable": "dim_date", "toColumn": "date_key", "isActive": True},
+        {"name": "rel_alloc_pay_date", "fromTable": "fact_instalment_allocation", "fromColumn": "payment_date_key", "toTable": "dim_date", "toColumn": "date_key", "isActive": False},
+        {"name": "rel_alloc_loan", "fromTable": "fact_instalment_allocation", "fromColumn": "loan_key", "toTable": "dim_loan", "toColumn": "loan_key", "isActive": True},
+        {"name": "rel_alloc_branch", "fromTable": "fact_instalment_allocation", "fromColumn": "branch_key", "toTable": "dim_branch", "toColumn": "branch_key", "isActive": True},
+        {"name": "rel_alloc_product", "fromTable": "fact_instalment_allocation", "fromColumn": "product_key", "toTable": "dim_product", "toColumn": "product_key", "isActive": True},
+        {"name": "rel_alloc_state", "fromTable": "fact_instalment_allocation", "fromColumn": "state_key", "toTable": "dim_state", "toColumn": "state_key", "isActive": True},
 
         # kpi_portfolio_health (Direct Many-to-One to Dimensions)
-        {"name": "rel_kpi_ph_date", "fromTable": "kpi_portfolio_health", "fromColumn": "snapshot_date_key", "toTable": "dim_date", "toColumn": "date_key"},
-        {"name": "rel_kpi_ph_branch", "fromTable": "kpi_portfolio_health", "fromColumn": "branch_id", "toTable": "dim_branch", "toColumn": "branch_id"},
-        {"name": "rel_kpi_ph_product", "fromTable": "kpi_portfolio_health", "fromColumn": "product_id", "toTable": "dim_product", "toColumn": "product_id"},
-        {"name": "rel_kpi_ph_state", "fromTable": "kpi_portfolio_health", "fromColumn": "state_id", "toTable": "dim_state", "toColumn": "state_id"},
+        {"name": "rel_kpi_ph_date", "fromTable": "kpi_portfolio_health", "fromColumn": "snapshot_date_key", "toTable": "dim_date", "toColumn": "date_key", "isActive": True},
+        {"name": "rel_kpi_ph_branch", "fromTable": "kpi_portfolio_health", "fromColumn": "branch_id", "toTable": "dim_branch", "toColumn": "branch_id", "isActive": True},
+        {"name": "rel_kpi_ph_product", "fromTable": "kpi_portfolio_health", "fromColumn": "product_id", "toTable": "dim_product", "toColumn": "product_id", "isActive": True},
+        {"name": "rel_kpi_ph_state", "fromTable": "kpi_portfolio_health", "fromColumn": "state_id", "toTable": "dim_state", "toColumn": "state_id", "isActive": True},
 
         # kpi_collection_efficiency (Direct Many-to-One to Dimensions)
-        {"name": "rel_kpi_ce_date", "fromTable": "kpi_collection_efficiency", "fromColumn": "month_date_key", "toTable": "dim_date", "toColumn": "date_key"},
-        {"name": "rel_kpi_ce_branch", "fromTable": "kpi_collection_efficiency", "fromColumn": "branch_id", "toTable": "dim_branch", "toColumn": "branch_id"},
-        {"name": "rel_kpi_ce_product", "fromTable": "kpi_collection_efficiency", "fromColumn": "product_id", "toTable": "dim_product", "toColumn": "product_id"},
-        {"name": "rel_kpi_ce_state", "fromTable": "kpi_collection_efficiency", "fromColumn": "state_id", "toTable": "dim_state", "toColumn": "state_id"},
+        {"name": "rel_kpi_ce_date", "fromTable": "kpi_collection_efficiency", "fromColumn": "month_date_key", "toTable": "dim_date", "toColumn": "date_key", "isActive": True},
+        {"name": "rel_kpi_ce_branch", "fromTable": "kpi_collection_efficiency", "fromColumn": "branch_id", "toTable": "dim_branch", "toColumn": "branch_id", "isActive": True},
+        {"name": "rel_kpi_ce_product", "fromTable": "kpi_collection_efficiency", "fromColumn": "product_id", "toTable": "dim_product", "toColumn": "product_id", "isActive": True},
+        {"name": "rel_kpi_ce_state", "fromTable": "kpi_collection_efficiency", "fromColumn": "state_id", "toTable": "dim_state", "toColumn": "state_id", "isActive": True},
 
         # kpi_digital_collections (Direct Many-to-One to Dimensions)
-        {"name": "rel_kpi_dc_date", "fromTable": "kpi_digital_collections", "fromColumn": "month_date_key", "toTable": "dim_date", "toColumn": "date_key"},
-        {"name": "rel_kpi_dc_state", "fromTable": "kpi_digital_collections", "fromColumn": "state_id", "toTable": "dim_state", "toColumn": "state_id"},
+        {"name": "rel_kpi_dc_date", "fromTable": "kpi_digital_collections", "fromColumn": "month_date_key", "toTable": "dim_date", "toColumn": "date_key", "isActive": True},
+        {"name": "rel_kpi_dc_state", "fromTable": "kpi_digital_collections", "fromColumn": "state_id", "toTable": "dim_state", "toColumn": "state_id", "isActive": True},
 
         # kpi_vintage_curves (Direct Many-to-One to Dimensions)
-        {"name": "rel_kpi_vc_date", "fromTable": "kpi_vintage_curves", "fromColumn": "cohort_date_key", "toTable": "dim_date", "toColumn": "date_key"},
-        {"name": "rel_kpi_vc_product", "fromTable": "kpi_vintage_curves", "fromColumn": "product_id", "toTable": "dim_product", "toColumn": "product_id"},
+        {"name": "rel_kpi_vc_date", "fromTable": "kpi_vintage_curves", "fromColumn": "cohort_date_key", "toTable": "dim_date", "toColumn": "date_key", "isActive": True},
+        {"name": "rel_kpi_vc_product", "fromTable": "kpi_vintage_curves", "fromColumn": "product_id", "toTable": "dim_product", "toColumn": "product_id", "isActive": True},
 
-        # dim_loan
-        {"name": "rel_loan_disb_date", "fromTable": "dim_loan", "fromColumn": "disbursement_date_key", "toTable": "dim_date", "toColumn": "date_key"},
-        {"name": "rel_loan_branch", "fromTable": "dim_loan", "fromColumn": "branch_id", "toTable": "dim_branch", "toColumn": "branch_id"},
-        {"name": "rel_loan_product", "fromTable": "dim_loan", "fromColumn": "product_id", "toTable": "dim_product", "toColumn": "product_id"},
-        {"name": "rel_loan_state", "fromTable": "dim_loan", "fromColumn": "state_id", "toTable": "dim_state", "toColumn": "state_id"}
+        # dim_loan (Inactive snowflake relationships to eliminate multi-path ambiguity with granular facts)
+        # Use USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key]) in DAX for disbursement analysis
+        {"name": "rel_loan_disb_date", "fromTable": "dim_loan", "fromColumn": "disbursement_date_key", "toTable": "dim_date", "toColumn": "date_key", "isActive": False},
+        {"name": "rel_loan_branch", "fromTable": "dim_loan", "fromColumn": "branch_id", "toTable": "dim_branch", "toColumn": "branch_id", "isActive": False},
+        {"name": "rel_loan_product", "fromTable": "dim_loan", "fromColumn": "product_id", "toTable": "dim_product", "toColumn": "product_id", "isActive": False},
+        {"name": "rel_loan_state", "fromTable": "dim_loan", "fromColumn": "state_id", "toTable": "dim_state", "toColumn": "state_id", "isActive": False}
     ]
 
     with open(model_bim_path, "w", encoding="utf-8") as f:

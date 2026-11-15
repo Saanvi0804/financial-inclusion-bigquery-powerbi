@@ -41,3 +41,9 @@ Thumbs.db
 
 # Power BI local cache / user files
 *.pbix.temp
+**/.pbi/
+**/.pbi/**
+cache.abf
+
+# Submission archives (kept locally for submission, excluded from Git to comply with GitHub 100MB limit)
+submission/*.zip

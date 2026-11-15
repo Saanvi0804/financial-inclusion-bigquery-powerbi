@@ -1,6 +1,8 @@
-# BigQuery Architecture & Technical Design Specification
+# Data Warehouse Architecture & Technical Design Specification
 
-This document details the enterprise architecture, dataset design, partitioning and clustering strategies, data movement pipeline, and security governance for the **Financial Inclusion Analytics Warehouse** on Google BigQuery.
+This document details the enterprise architecture, dataset design, partitioning and clustering strategies, data movement pipeline, and security governance for the **Financial Inclusion Analytics Warehouse**.
+
+> **Implementation Note**: The analytical pipeline and warehouse models are implemented and executed locally using an embedded **DuckDB** analytical engine (`data/warehouse/financial_inclusion_bigquery.duckdb`), executing transformation scripts authored in **BigQuery-compatible Standard SQL**. The project was not deployed to Google Cloud Platform. Power BI consumes curated CSV extracts produced by the local DuckDB pipeline.
 
 ---
 

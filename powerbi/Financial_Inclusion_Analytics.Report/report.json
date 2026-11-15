@@ -1,5 +1,5 @@
 {
-  "config": "{\"version\": \"5.50\", \"themeCollection\": {\"baseTheme\": {\"name\": \"FinancialWarehouseTheme\", \"version\": \"1.0\", \"type\": 2}}}",
+  "config": "{\"version\": \"5.66\", \"themeCollection\": {\"baseTheme\": {\"name\": \"CY24SU10\", \"version\": {\"visual\": \"1.8.86\", \"report\": \"2.0.86\", \"page\": \"1.3.86\"}, \"type\": 2}}, \"activeSectionName\": \"Section_PortfolioHealth\"}",
   "layoutOptimization": 0,
   "sections": [
     {
@@ -11,87 +11,151 @@
       "visualContainers": [
         {
           "x": 20,
-          "y": 15,
-          "width": 800,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Financial Inclusion Analytics \\u2014 Portfolio Health & Delinquency\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
-        },
-        {
-          "x": 840,
-          "y": 15,
-          "width": 200,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_date.calendar_year\"}]}}}"
-        },
-        {
-          "x": 1050,
-          "y": 15,
-          "width": 210,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_state.state_name\"}]}}}"
+          "y": 10,
+          "width": 1236,
+          "height": 30,
+          "z": 0,
+          "config": "{\"name\": \"ba4dedec1de347db97c1\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 0, \"width\": 1236, \"height\": 30}}], \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Portfolio Health & Risk Exposure\", \"textStyle\": {\"fontSize\": \"11.5pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}, {\"value\": \"   |   Asset Quality, PAR Surveillance & Delinquency Aging Monitor\", \"textStyle\": {\"fontSize\": \"8.5pt\", \"fontWeight\": \"normal\", \"color\": \"#64748B\"}}]}]}}]}}}"
         },
         {
           "x": 20,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Active Loans Count\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#1E40AF\"}}]}}}"
+          "y": 46,
+          "width": 297,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"b8be7998a32b4539b35a\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 46, \"z\": 1000, \"width\": 297, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_date.calendar_year\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_date\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"calendar_year\"}, \"Name\": \"dim_date.calendar_year\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_date\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Year'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_date\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"calendar_year\"}, \"Name\": \"dim_date.calendar_year\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Year\", \"Name\": \"dim_date.calendar_year\", \"Type\": 2048}]}}"
         },
         {
-          "x": 270,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Outstanding Principal (INR Cr)\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#0F172A\"}}]}}}"
+          "x": 333,
+          "y": 46,
+          "width": 297,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"0d1b086d77034fc2b3e5\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 333, \"y\": 46, \"z\": 1000, \"width\": 297, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_state.state_name\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"State\", \"Name\": \"dim_state.state_name\", \"Type\": 2048}]}}"
         },
         {
-          "x": 520,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.PAR 30 %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#D97706\"}}]}}}"
+          "x": 646,
+          "y": 46,
+          "width": 297,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"f5bcf0920869419bb47b\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 646, \"y\": 46, \"z\": 1000, \"width\": 297, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_branch.branch_name\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_branch\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"branch_name\"}, \"Name\": \"dim_branch.branch_name\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_branch\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Branch'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_branch\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"branch_name\"}, \"Name\": \"dim_branch.branch_name\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Branch\", \"Name\": \"dim_branch.branch_name\", \"Type\": 2048}]}}"
         },
         {
-          "x": 770,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.PAR 90 %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#DC2626\"}}]}}}"
+          "x": 959,
+          "y": 46,
+          "width": 297,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"ab4cdcc62e404debb256\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 959, \"y\": 46, \"z\": 1000, \"width\": 297, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_product.product_name\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"product_name\"}, \"Name\": \"dim_product.product_name\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Product'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"product_name\"}, \"Name\": \"dim_product.product_name\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Product\", \"Name\": \"dim_product.product_name\", \"Type\": 2048}]}}"
         },
         {
-          "x": 1020,
-          "y": 70,
-          "width": 240,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"color\": \"#059669\"}}]}}}"
+          "x": 22,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"6705b8b53fce471b8a08\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 22, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Loans Count\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Loans Count\"}, \"Name\": \"_Measures.Total Loans Count\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Total Loans'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1E40AF'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Total Loans'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Total Loans'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Loans Count\"}, \"Name\": \"_Measures.Total Loans Count\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Total Loans\", \"Name\": \"_Measures.Total Loans Count\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 230,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"48c0a258309f4f6d80a3\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 230, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Active Loans Count\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Active Loans Count\"}, \"Name\": \"_Measures.Active Loans Count\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Active Loans'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#0F172A'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Active Loans'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Active Loans'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Active Loans Count\"}, \"Name\": \"_Measures.Active Loans Count\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Active Loans\", \"Name\": \"_Measures.Active Loans Count\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 438,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"0a135ba157d0405294e8\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 438, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Disbursed Principal (INR Cr)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Disbursed Principal (INR Cr)\"}, \"Name\": \"_Measures.Disbursed Principal (INR Cr)\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Gross Disbursed'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#0D9488'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Gross Disbursed'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Gross Disbursed'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Disbursed Principal (INR Cr)\"}, \"Name\": \"_Measures.Disbursed Principal (INR Cr)\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Gross Disbursed\", \"Name\": \"_Measures.Disbursed Principal (INR Cr)\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 646,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"a8f2dafc4a18446ea087\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 646, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Outstanding Principal (INR Cr)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Outstanding Principal (INR Cr)\"}, \"Name\": \"_Measures.Outstanding Principal (INR Cr)\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Gross Outstanding'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#2563EB'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Gross Outstanding'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Gross Outstanding'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Outstanding Principal (INR Cr)\"}, \"Name\": \"_Measures.Outstanding Principal (INR Cr)\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Gross Outstanding\", \"Name\": \"_Measures.Outstanding Principal (INR Cr)\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 854,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"216e44b0ea0f45f2aac5\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 854, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.PAR 30 %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 30 %\"}, \"Name\": \"_Measures.PAR 30 %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'PAR 30 Ratio'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#D97706'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'PAR 30 Ratio'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'PAR 30 Ratio'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 30 %\"}, \"Name\": \"_Measures.PAR 30 %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"PAR 30 Ratio\", \"Name\": \"_Measures.PAR 30 %\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 1062,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"ccfbd74486a847d5aaae\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1062, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.PAR 90 %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 90 %\"}, \"Name\": \"_Measures.PAR 90 %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'PAR 90 Ratio'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#DC2626'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'PAR 90 Ratio'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'PAR 90 Ratio'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 90 %\"}, \"Name\": \"_Measures.PAR 90 %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"PAR 90 Ratio\", \"Name\": \"_Measures.PAR 90 %\", \"Type\": 1}]}}"
         },
         {
           "x": 20,
-          "y": 170,
-          "width": 600,
-          "height": 280,
-          "config": "{\"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_date.financial_quarter\"}], \"Y\": [{\"queryRef\": \"_Measures.Total Outstanding Principal\"}, {\"queryRef\": \"_Measures.PAR 30 Principal\"}]}}}"
+          "y": 190,
+          "width": 610,
+          "height": 236,
+          "z": 2,
+          "config": "{\"name\": \"633438eb06ae416c8574\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 190, \"z\": 3000, \"width\": 610, \"height\": 236}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_date.year_month\", \"active\": true}], \"Y\": [{\"queryRef\": \"_Measures.Total Outstanding Principal\"}, {\"queryRef\": \"_Measures.PAR 30 Principal\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"dim_date\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"year_month\"}, \"Name\": \"dim_date.year_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Outstanding Principal\"}, \"Name\": \"_Measures.Total Outstanding Principal\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 30 Principal\"}, \"Name\": \"_Measures.PAR 30 Principal\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Monthly Outstanding & PAR 30 Trend'\"}}}}}], \"categoryAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}], \"valueAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Monthly Outstanding & PAR 30 Trend'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Monthly Outstanding & PAR 30 Trend'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"dim_date\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"year_month\"}, \"Name\": \"dim_date.year_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Outstanding Principal\"}, \"Name\": \"_Measures.Total Outstanding Principal\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 30 Principal\"}, \"Name\": \"_Measures.PAR 30 Principal\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1, 2]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"year_month\", \"Name\": \"dim_date.year_month\", \"Type\": 2048}, {\"Restatement\": \"Total Outstanding Principal\", \"Name\": \"_Measures.Total Outstanding Principal\", \"Type\": 1}, {\"Restatement\": \"PAR 30 Principal\", \"Name\": \"_Measures.PAR 30 Principal\", \"Type\": 1}]}}"
         },
         {
-          "x": 640,
-          "y": 170,
-          "width": 620,
-          "height": 280,
-          "config": "{\"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_date.financial_quarter\"}], \"Y\": [{\"queryRef\": \"_Measures.Current Principal\"}, {\"queryRef\": \"_Measures.Delinquency DPD 1-30\"}, {\"queryRef\": \"_Measures.Delinquency DPD 31-60\"}, {\"queryRef\": \"_Measures.Delinquency DPD 61-90\"}, {\"queryRef\": \"_Measures.PAR 90 Principal\"}]}}}"
+          "x": 646,
+          "y": 190,
+          "width": 610,
+          "height": 236,
+          "z": 2,
+          "config": "{\"name\": \"898f78b00a4c4fafbb83\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 646, \"y\": 190, \"z\": 3000, \"width\": 610, \"height\": 236}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_date.year_month\", \"active\": true}], \"Y\": [{\"queryRef\": \"_Measures.Current Principal\"}, {\"queryRef\": \"_Measures.Delinquency DPD 1-30\"}, {\"queryRef\": \"_Measures.Delinquency DPD 31-60\"}, {\"queryRef\": \"_Measures.Delinquency DPD 61-90\"}, {\"queryRef\": \"_Measures.PAR 90 Principal\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"dim_date\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"year_month\"}, \"Name\": \"dim_date.year_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Principal\"}, \"Name\": \"_Measures.Current Principal\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Delinquency DPD 1-30\"}, \"Name\": \"_Measures.Delinquency DPD 1-30\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Delinquency DPD 31-60\"}, \"Name\": \"_Measures.Delinquency DPD 31-60\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Delinquency DPD 61-90\"}, \"Name\": \"_Measures.Delinquency DPD 61-90\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 90 Principal\"}, \"Name\": \"_Measures.PAR 90 Principal\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Delinquency Aging by DPD Buckets'\"}}}}}], \"categoryAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}], \"valueAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Delinquency Aging by DPD Buckets'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Delinquency Aging by DPD Buckets'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"dim_date\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"year_month\"}, \"Name\": \"dim_date.year_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Principal\"}, \"Name\": \"_Measures.Current Principal\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Delinquency DPD 1-30\"}, \"Name\": \"_Measures.Delinquency DPD 1-30\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Delinquency DPD 31-60\"}, \"Name\": \"_Measures.Delinquency DPD 31-60\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Delinquency DPD 61-90\"}, \"Name\": \"_Measures.Delinquency DPD 61-90\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 90 Principal\"}, \"Name\": \"_Measures.PAR 90 Principal\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2, 3, 4, 5]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1, 2, 3, 4, 5]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"year_month\", \"Name\": \"dim_date.year_month\", \"Type\": 2048}, {\"Restatement\": \"Current Principal\", \"Name\": \"_Measures.Current Principal\", \"Type\": 1}, {\"Restatement\": \"Delinquency DPD 1-30\", \"Name\": \"_Measures.Delinquency DPD 1-30\", \"Type\": 1}, {\"Restatement\": \"Delinquency DPD 31-60\", \"Name\": \"_Measures.Delinquency DPD 31-60\", \"Type\": 1}, {\"Restatement\": \"Delinquency DPD 61-90\", \"Name\": \"_Measures.Delinquency DPD 61-90\", \"Type\": 1}, {\"Restatement\": \"PAR 90 Principal\", \"Name\": \"_Measures.PAR 90 Principal\", \"Type\": 1}]}}"
         },
         {
           "x": 20,
-          "y": 460,
-          "width": 600,
-          "height": 240,
-          "config": "{\"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_product.product_name\"}], \"Y\": [{\"queryRef\": \"_Measures.Total Outstanding Principal\"}]}}}"
+          "y": 444,
+          "width": 450,
+          "height": 260,
+          "z": 2,
+          "config": "{\"name\": \"a1beea6852a049189a5d\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 444, \"z\": 3000, \"width\": 450, \"height\": 260}}], \"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"dim_product.product_name\", \"active\": true}], \"Y\": [{\"queryRef\": \"_Measures.Total Outstanding Principal\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"dim_product\", \"Type\": 0}, {\"Name\": \"v\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"product_name\"}, \"Name\": \"dim_product.product_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v\"}}, \"Property\": \"Total Outstanding Principal\"}, \"Name\": \"_Measures.Total Outstanding Principal\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Outstanding by Loan Product'\"}}}}}], \"labels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"labelStyle\": {\"expr\": {\"Literal\": {\"Value\": \"'Percentage'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"9D\"}}}}}], \"legend\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"position\": {\"expr\": {\"Literal\": {\"Value\": \"'Right'\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Outstanding by Loan Product'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Outstanding by Loan Product'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"dim_product\", \"Type\": 0}, {\"Name\": \"v\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"product_name\"}, \"Name\": \"dim_product.product_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v\"}}, \"Property\": \"Total Outstanding Principal\"}, \"Name\": \"_Measures.Total Outstanding Principal\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"product_name\", \"Name\": \"dim_product.product_name\", \"Type\": 2048}, {\"Restatement\": \"Total Outstanding Principal\", \"Name\": \"_Measures.Total Outstanding Principal\", \"Type\": 1}]}}"
         },
         {
-          "x": 640,
-          "y": 460,
-          "width": 620,
-          "height": 240,
-          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_state.state_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Active Loans Count\"}, {\"queryRef\": \"_Measures.Outstanding Principal (INR Cr)\"}, {\"queryRef\": \"_Measures.PAR 30 %\"}, {\"queryRef\": \"_Measures.PAR 90 %\"}]}}}"
+          "x": 486,
+          "y": 444,
+          "width": 770,
+          "height": 260,
+          "z": 2,
+          "config": "{\"name\": \"da00e39b661e4b0ba5fd\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 486, \"y\": 444, \"z\": 3000, \"width\": 770, \"height\": 260}}], \"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_state.state_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Active Loans Count\"}, {\"queryRef\": \"_Measures.Outstanding Principal (INR Cr)\"}, {\"queryRef\": \"_Measures.PAR 30 %\"}, {\"queryRef\": \"_Measures.PAR 90 %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"r\", \"Entity\": \"dim_state\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Active Loans Count\"}, \"Name\": \"_Measures.Active Loans Count\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Outstanding Principal (INR Cr)\"}, \"Name\": \"_Measures.Outstanding Principal (INR Cr)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 30 %\"}, \"Name\": \"_Measures.PAR 30 %\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 90 %\"}, \"Name\": \"_Measures.PAR 90 %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State Portfolio Risk Breakdown'\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State Portfolio Risk Breakdown'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State Portfolio Risk Breakdown'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"r\", \"Entity\": \"dim_state\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Active Loans Count\"}, \"Name\": \"_Measures.Active Loans Count\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Outstanding Principal (INR Cr)\"}, \"Name\": \"_Measures.Outstanding Principal (INR Cr)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 30 %\"}, \"Name\": \"_Measures.PAR 30 %\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"PAR 90 %\"}, \"Name\": \"_Measures.PAR 90 %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2, 3, 4]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Rows\": [0], \"Values\": [1, 2, 3, 4]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"state_name\", \"Name\": \"dim_state.state_name\", \"Type\": 2048}, {\"Restatement\": \"Active Loans Count\", \"Name\": \"_Measures.Active Loans Count\", \"Type\": 1}, {\"Restatement\": \"Outstanding Principal (INR Cr)\", \"Name\": \"_Measures.Outstanding Principal (INR Cr)\", \"Type\": 1}, {\"Restatement\": \"PAR 30 %\", \"Name\": \"_Measures.PAR 30 %\", \"Type\": 1}, {\"Restatement\": \"PAR 90 %\", \"Name\": \"_Measures.PAR 90 %\", \"Type\": 1}]}}"
         }
       ]
     },
@@ -104,73 +168,131 @@
       "visualContainers": [
         {
           "x": 20,
-          "y": 15,
-          "width": 800,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Monthly Collection Efficiency & Arrears Cash Recovery\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
-        },
-        {
-          "x": 840,
-          "y": 15,
-          "width": 200,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_branch.branch_name\"}]}}}"
-        },
-        {
-          "x": 1050,
-          "y": 15,
-          "width": 210,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_product.product_name\"}]}}}"
+          "y": 10,
+          "width": 1236,
+          "height": 30,
+          "z": 0,
+          "config": "{\"name\": \"845e8dbc802f49499ec7\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 0, \"width\": 1236, \"height\": 30}}], \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Collection Performance & Billing Cash Recovery\", \"textStyle\": {\"fontSize\": \"11.5pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}, {\"value\": \"   |   Scheduled Instalments, Realised Receipts & Operational Efficiency\", \"textStyle\": {\"fontSize\": \"8.5pt\", \"fontWeight\": \"normal\", \"color\": \"#64748B\"}}]}]}}]}}}"
         },
         {
           "x": 20,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}]}}}"
+          "y": 46,
+          "width": 297,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"bebb063ba03245379b8d\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 46, \"z\": 1000, \"width\": 297, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"kpi_collection_efficiency.year_month\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_collection_efficiency\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"year_month\"}, \"Name\": \"kpi_collection_efficiency.year_month\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_collection_efficiency\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Billing Month'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_collection_efficiency\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"year_month\"}, \"Name\": \"kpi_collection_efficiency.year_month\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Billing Month\", \"Name\": \"kpi_collection_efficiency.year_month\", \"Type\": 2048}]}}"
         },
         {
-          "x": 270,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Current Period Collected\"}]}}}"
+          "x": 333,
+          "y": 46,
+          "width": 297,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"e5d358bdb4924221aea7\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 333, \"y\": 46, \"z\": 1000, \"width\": 297, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_state.state_name\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"State\", \"Name\": \"dim_state.state_name\", \"Type\": 2048}]}}"
         },
         {
-          "x": 520,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Arrears Collected\"}]}}}"
+          "x": 646,
+          "y": 46,
+          "width": 297,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"ae575c40ee514c198893\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 646, \"y\": 46, \"z\": 1000, \"width\": 297, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_branch.branch_name\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_branch\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"branch_name\"}, \"Name\": \"dim_branch.branch_name\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_branch\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Branch'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_branch\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"branch_name\"}, \"Name\": \"dim_branch.branch_name\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Branch\", \"Name\": \"dim_branch.branch_name\", \"Type\": 2048}]}}"
         },
         {
-          "x": 770,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Advance Collected\"}]}}}"
+          "x": 959,
+          "y": 46,
+          "width": 297,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"fc86260fe3de48be99d4\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 959, \"y\": 46, \"z\": 1000, \"width\": 297, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_product.product_name\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"product_name\"}, \"Name\": \"dim_product.product_name\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Product'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"product_name\"}, \"Name\": \"dim_product.product_name\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Product\", \"Name\": \"dim_product.product_name\", \"Type\": 2048}]}}"
         },
         {
-          "x": 1020,
-          "y": 70,
-          "width": 240,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}}}"
+          "x": 22,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"dab2ca0bc94443c98564\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 22, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Scheduled Billing Due\"}, \"Name\": \"_Measures.Scheduled Billing Due\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Scheduled Due'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#0F172A'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Scheduled Due'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Scheduled Due'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Scheduled Billing Due\"}, \"Name\": \"_Measures.Scheduled Billing Due\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Scheduled Due\", \"Name\": \"_Measures.Scheduled Billing Due\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 230,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"32a31d2f63584361b747\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 230, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Cash Collected\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Cash Collected\"}, \"Name\": \"_Measures.Total Cash Collected\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Total Collected'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#059669'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Total Collected'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Total Collected'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Cash Collected\"}, \"Name\": \"_Measures.Total Cash Collected\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Total Collected\", \"Name\": \"_Measures.Total Cash Collected\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 438,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"61a42ebf0d99408497e4\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 438, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Current Period Collected\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collected\"}, \"Name\": \"_Measures.Current Period Collected\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Current Dues Paid'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#2563EB'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Current Dues Paid'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Current Dues Paid'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collected\"}, \"Name\": \"_Measures.Current Period Collected\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Current Dues Paid\", \"Name\": \"_Measures.Current Period Collected\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 646,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"968b303aa6004aa89d1f\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 646, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Arrears Collected\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Arrears Collected\"}, \"Name\": \"_Measures.Arrears Collected\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Arrears Recovered'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#D97706'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Arrears Recovered'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Arrears Recovered'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Arrears Collected\"}, \"Name\": \"_Measures.Arrears Collected\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Arrears Recovered\", \"Name\": \"_Measures.Arrears Collected\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 854,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"9d7c478884da4b838328\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 854, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Advance Collected\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Advance Collected\"}, \"Name\": \"_Measures.Advance Collected\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Advance Payments'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#7C3AED'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Advance Payments'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Advance Payments'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Advance Collected\"}, \"Name\": \"_Measures.Advance Collected\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Advance Payments\", \"Name\": \"_Measures.Advance Collected\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 1062,
+          "y": 106,
+          "width": 192,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"0145f3f0a7494400b561\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1062, \"y\": 106, \"z\": 2000, \"width\": 192, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collection Efficiency %\"}, \"Name\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Collection Efficiency %'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#059669'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Collection Efficiency %'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Collection Efficiency %'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collection Efficiency %\"}, \"Name\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Collection Efficiency %\", \"Name\": \"_Measures.Current Period Collection Efficiency %\", \"Type\": 1}]}}"
         },
         {
           "x": 20,
-          "y": 170,
-          "width": 700,
-          "height": 530,
-          "config": "{\"singleVisual\": {\"visualType\": \"lineClusteredColumnComboChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_collection_efficiency.year_month\"}], \"ColumnValues\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}, {\"queryRef\": \"_Measures.Total Cash Collected\"}], \"LineValues\": [{\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}}}"
+          "y": 190,
+          "width": 670,
+          "height": 514,
+          "z": 2,
+          "config": "{\"name\": \"a8b0ad6242d04fdf80f0\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 190, \"z\": 3000, \"width\": 670, \"height\": 514}}], \"singleVisual\": {\"visualType\": \"lineClusteredColumnComboChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_collection_efficiency.year_month\", \"active\": true}], \"Y\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}, {\"queryRef\": \"_Measures.Total Cash Collected\"}], \"Y2\": [{\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"kpi_collection_efficiency\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"year_month\"}, \"Name\": \"kpi_collection_efficiency.year_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Scheduled Billing Due\"}, \"Name\": \"_Measures.Scheduled Billing Due\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Cash Collected\"}, \"Name\": \"_Measures.Total Cash Collected\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collection Efficiency %\"}, \"Name\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Billing Due vs Cash Collected & Efficiency'\"}}}}}], \"categoryAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}], \"valueAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Billing Due vs Cash Collected & Efficiency'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Billing Due vs Cash Collected & Efficiency'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"kpi_collection_efficiency\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"year_month\"}, \"Name\": \"kpi_collection_efficiency.year_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Scheduled Billing Due\"}, \"Name\": \"_Measures.Scheduled Billing Due\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Cash Collected\"}, \"Name\": \"_Measures.Total Cash Collected\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collection Efficiency %\"}, \"Name\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2, 3]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1, 2], \"Y2\": [3]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"year_month\", \"Name\": \"kpi_collection_efficiency.year_month\", \"Type\": 2048}, {\"Restatement\": \"Scheduled Billing Due\", \"Name\": \"_Measures.Scheduled Billing Due\", \"Type\": 1}, {\"Restatement\": \"Total Cash Collected\", \"Name\": \"_Measures.Total Cash Collected\", \"Type\": 1}, {\"Restatement\": \"Current Period Collection Efficiency %\", \"Name\": \"_Measures.Current Period Collection Efficiency %\", \"Type\": 1}]}}"
         },
         {
-          "x": 740,
-          "y": 170,
-          "width": 520,
-          "height": 530,
-          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_branch.branch_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}, {\"queryRef\": \"_Measures.Current Period Collected\"}, {\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}}}"
+          "x": 706,
+          "y": 190,
+          "width": 550,
+          "height": 514,
+          "z": 2,
+          "config": "{\"name\": \"47f26f8e25a142c5a20a\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 706, \"y\": 190, \"z\": 3000, \"width\": 550, \"height\": 514}}], \"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_branch.branch_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Scheduled Billing Due\"}, {\"queryRef\": \"_Measures.Current Period Collected\"}, {\"queryRef\": \"_Measures.Arrears Collected\"}, {\"queryRef\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"r\", \"Entity\": \"dim_branch\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"branch_name\"}, \"Name\": \"dim_branch.branch_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Scheduled Billing Due\"}, \"Name\": \"_Measures.Scheduled Billing Due\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collected\"}, \"Name\": \"_Measures.Current Period Collected\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Arrears Collected\"}, \"Name\": \"_Measures.Arrears Collected\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collection Efficiency %\"}, \"Name\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Branch Collection & Arrears Performance'\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Branch Collection & Arrears Performance'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Branch Collection & Arrears Performance'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"r\", \"Entity\": \"dim_branch\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"branch_name\"}, \"Name\": \"dim_branch.branch_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Scheduled Billing Due\"}, \"Name\": \"_Measures.Scheduled Billing Due\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collected\"}, \"Name\": \"_Measures.Current Period Collected\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Arrears Collected\"}, \"Name\": \"_Measures.Arrears Collected\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Current Period Collection Efficiency %\"}, \"Name\": \"_Measures.Current Period Collection Efficiency %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2, 3, 4]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Rows\": [0], \"Values\": [1, 2, 3, 4]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"branch_name\", \"Name\": \"dim_branch.branch_name\", \"Type\": 2048}, {\"Restatement\": \"Scheduled Billing Due\", \"Name\": \"_Measures.Scheduled Billing Due\", \"Type\": 1}, {\"Restatement\": \"Current Period Collected\", \"Name\": \"_Measures.Current Period Collected\", \"Type\": 1}, {\"Restatement\": \"Arrears Collected\", \"Name\": \"_Measures.Arrears Collected\", \"Type\": 1}, {\"Restatement\": \"Current Period Collection Efficiency %\", \"Name\": \"_Measures.Current Period Collection Efficiency %\", \"Type\": 1}]}}"
         }
       ]
     },
@@ -183,31 +305,91 @@
       "visualContainers": [
         {
           "x": 20,
-          "y": 15,
-          "width": 800,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Cohort Repayment Vintage Analysis (Months-on-Book 1 to 24)\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
-        },
-        {
-          "x": 840,
-          "y": 15,
-          "width": 420,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_product.product_name\"}]}}}"
+          "y": 10,
+          "width": 1236,
+          "height": 30,
+          "z": 0,
+          "config": "{\"name\": \"ac8c52b3443242bc9be1\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 0, \"width\": 1236, \"height\": 30}}], \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Disbursement Cohort Repayment Vintage Analysis\", \"textStyle\": {\"fontSize\": \"11.5pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}, {\"value\": \"   |   Cumulative Repayment Velocity by Month-on-Book (MOB 1 to 24)\", \"textStyle\": {\"fontSize\": \"8.5pt\", \"fontWeight\": \"normal\", \"color\": \"#64748B\"}}]}]}}]}}}"
         },
         {
           "x": 20,
-          "y": 70,
-          "width": 1240,
-          "height": 340,
-          "config": "{\"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_vintage_curves.month_on_book\"}], \"Series\": [{\"queryRef\": \"kpi_vintage_curves.cohort_month\"}], \"Y\": [{\"queryRef\": \"_Measures.Vintage Repayment Rate %\"}]}}}"
+          "y": 46,
+          "width": 610,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"58d75783135c49978023\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 46, \"z\": 1000, \"width\": 610, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_product.product_name\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"product_name\"}, \"Name\": \"dim_product.product_name\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Credit Product'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_product\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"product_name\"}, \"Name\": \"dim_product.product_name\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Credit Product\", \"Name\": \"dim_product.product_name\", \"Type\": 2048}]}}"
+        },
+        {
+          "x": 646,
+          "y": 46,
+          "width": 610,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"0abf2bed7a06458aa653\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 646, \"y\": 46, \"z\": 1000, \"width\": 610, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"kpi_vintage_curves.cohort_month\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_vintage_curves\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"cohort_month\"}, \"Name\": \"kpi_vintage_curves.cohort_month\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_vintage_curves\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Disbursement Cohort Month'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_vintage_curves\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"cohort_month\"}, \"Name\": \"kpi_vintage_curves.cohort_month\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Disbursement Cohort Month\", \"Name\": \"kpi_vintage_curves.cohort_month\", \"Type\": 2048}]}}"
         },
         {
           "x": 20,
-          "y": 420,
-          "width": 1240,
-          "height": 280,
-          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"kpi_vintage_curves.cohort_month\"}], \"Columns\": [{\"queryRef\": \"kpi_vintage_curves.month_on_book\"}], \"Values\": [{\"queryRef\": \"_Measures.Vintage Repayment Rate %\"}]}}}"
+          "y": 106,
+          "width": 297,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"f3233dc6a80d4f28bc8b\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 106, \"z\": 2000, \"width\": 297, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Disbursed Principal\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Disbursed Principal\"}, \"Name\": \"_Measures.Total Disbursed Principal\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cohort Disbursed'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1E40AF'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cohort Disbursed'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cohort Disbursed'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Disbursed Principal\"}, \"Name\": \"_Measures.Total Disbursed Principal\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Cohort Disbursed\", \"Name\": \"_Measures.Total Disbursed Principal\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 333,
+          "y": 106,
+          "width": 297,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"9a92f895274041f283c3\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 333, \"y\": 106, \"z\": 2000, \"width\": 297, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Cumulative Amount Paid (Vintage)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Cumulative Amount Paid (Vintage)\"}, \"Name\": \"_Measures.Cumulative Amount Paid (Vintage)\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Paid'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#059669'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Paid'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Paid'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Cumulative Amount Paid (Vintage)\"}, \"Name\": \"_Measures.Cumulative Amount Paid (Vintage)\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Cumulative Paid\", \"Name\": \"_Measures.Cumulative Amount Paid (Vintage)\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 646,
+          "y": 106,
+          "width": 297,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"f3632cd293874a9fbe2b\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 646, \"y\": 106, \"z\": 2000, \"width\": 297, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Cumulative Scheduled Due (Vintage)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Cumulative Scheduled Due (Vintage)\"}, \"Name\": \"_Measures.Cumulative Scheduled Due (Vintage)\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Scheduled'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#0F172A'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Scheduled'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Scheduled'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Cumulative Scheduled Due (Vintage)\"}, \"Name\": \"_Measures.Cumulative Scheduled Due (Vintage)\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Cumulative Scheduled\", \"Name\": \"_Measures.Cumulative Scheduled Due (Vintage)\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 959,
+          "y": 106,
+          "width": 297,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"f96b5c7312d540608056\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 959, \"y\": 106, \"z\": 2000, \"width\": 297, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Vintage Repayment Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Vintage Repayment Rate %\"}, \"Name\": \"_Measures.Vintage Repayment Rate %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Vintage Repayment %'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#2563EB'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Vintage Repayment %'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Vintage Repayment %'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Vintage Repayment Rate %\"}, \"Name\": \"_Measures.Vintage Repayment Rate %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Vintage Repayment %\", \"Name\": \"_Measures.Vintage Repayment Rate %\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 20,
+          "y": 190,
+          "width": 1236,
+          "height": 236,
+          "z": 2,
+          "config": "{\"name\": \"884ef45cdc31461b8486\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 190, \"z\": 3000, \"width\": 1236, \"height\": 236}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_vintage_curves.month_on_book\", \"active\": true}], \"Series\": [{\"queryRef\": \"kpi_vintage_curves.cohort_month\"}], \"Y\": [{\"queryRef\": \"_Measures.Vintage Repayment Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"kpi_vintage_curves\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"month_on_book\"}, \"Name\": \"kpi_vintage_curves.month_on_book\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"cohort_month\"}, \"Name\": \"kpi_vintage_curves.cohort_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Vintage Repayment Rate %\"}, \"Name\": \"_Measures.Vintage Repayment Rate %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Repayment Rate % by Month-on-Book'\"}}}}}], \"categoryAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}], \"valueAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}], \"legend\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"position\": {\"expr\": {\"Literal\": {\"Value\": \"'Right'\"}}}, \"showTitle\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"titleText\": {\"expr\": {\"Literal\": {\"Value\": \"'Cohort Month'\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Repayment Rate % by Month-on-Book'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cumulative Repayment Rate % by Month-on-Book'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"kpi_vintage_curves\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"month_on_book\"}, \"Name\": \"kpi_vintage_curves.month_on_book\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"cohort_month\"}, \"Name\": \"kpi_vintage_curves.cohort_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Vintage Repayment Rate %\"}, \"Name\": \"_Measures.Vintage Repayment Rate %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Series\": [1], \"Y\": [2]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"month_on_book\", \"Name\": \"kpi_vintage_curves.month_on_book\", \"Type\": 2048}, {\"Restatement\": \"cohort_month\", \"Name\": \"kpi_vintage_curves.cohort_month\", \"Type\": 2048}, {\"Restatement\": \"Vintage Repayment Rate %\", \"Name\": \"_Measures.Vintage Repayment Rate %\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 20,
+          "y": 444,
+          "width": 1236,
+          "height": 260,
+          "z": 2,
+          "config": "{\"name\": \"4e7a8daef4534f259a81\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 444, \"z\": 3000, \"width\": 1236, \"height\": 260}}], \"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"kpi_vintage_curves.cohort_month\"}], \"Columns\": [{\"queryRef\": \"kpi_vintage_curves.month_on_book\"}], \"Values\": [{\"queryRef\": \"_Measures.Vintage Repayment Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"r\", \"Entity\": \"kpi_vintage_curves\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"cohort_month\"}, \"Name\": \"kpi_vintage_curves.cohort_month\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"month_on_book\"}, \"Name\": \"kpi_vintage_curves.month_on_book\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Vintage Repayment Rate %\"}, \"Name\": \"_Measures.Vintage Repayment Rate %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cohort Triangulation Matrix (Cohort \\u00d7 MOB)'\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cohort Triangulation Matrix (Cohort \\u00d7 MOB)'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cohort Triangulation Matrix (Cohort \\u00d7 MOB)'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"r\", \"Entity\": \"kpi_vintage_curves\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"cohort_month\"}, \"Name\": \"kpi_vintage_curves.cohort_month\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"month_on_book\"}, \"Name\": \"kpi_vintage_curves.month_on_book\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Vintage Repayment Rate %\"}, \"Name\": \"_Measures.Vintage Repayment Rate %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Rows\": [0], \"Columns\": [1], \"Values\": [2]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"cohort_month\", \"Name\": \"kpi_vintage_curves.cohort_month\", \"Type\": 2048}, {\"Restatement\": \"month_on_book\", \"Name\": \"kpi_vintage_curves.month_on_book\", \"Type\": 2048}, {\"Restatement\": \"Vintage Repayment Rate %\", \"Name\": \"_Measures.Vintage Repayment Rate %\", \"Type\": 1}]}}"
         }
       ]
     },
@@ -220,66 +402,131 @@
       "visualContainers": [
         {
           "x": 20,
-          "y": 15,
-          "width": 800,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Digital Collections & Cash-to-Digital UPI Transition\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
-        },
-        {
-          "x": 840,
-          "y": 15,
-          "width": 420,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_state.state_name\"}]}}}"
+          "y": 10,
+          "width": 1236,
+          "height": 30,
+          "z": 0,
+          "config": "{\"name\": \"bf627ceb18c94b09ba20\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 0, \"width\": 1236, \"height\": 30}}], \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Digital Collections Growth & Payment Channel Transformation\", \"textStyle\": {\"fontSize\": \"11.5pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}, {\"value\": \"   |   Cashless Migration, UPI Penetration & Banking Rail Velocity\", \"textStyle\": {\"fontSize\": \"8.5pt\", \"fontWeight\": \"normal\", \"color\": \"#64748B\"}}]}]}}]}}}"
         },
         {
           "x": 20,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Digital Value Share %\"}]}}}"
+          "y": 46,
+          "width": 401,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"e598d86b89604c60a242\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 46, \"z\": 1000, \"width\": 401, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"dim_state.state_name\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"dim_state\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"State\", \"Name\": \"dim_state.state_name\", \"Type\": 2048}]}}"
         },
         {
-          "x": 270,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Digital Count Share %\"}]}}}"
+          "x": 437,
+          "y": 46,
+          "width": 401,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"4de4241f55724db2be63\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 437, \"y\": 46, \"z\": 1000, \"width\": 401, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"kpi_digital_collections.year_month\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_digital_collections\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"year_month\"}, \"Name\": \"kpi_digital_collections.year_month\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_digital_collections\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Reporting Month'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"kpi_digital_collections\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"year_month\"}, \"Name\": \"kpi_digital_collections.year_month\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Reporting Month\", \"Name\": \"kpi_digital_collections.year_month\", \"Type\": 2048}]}}"
         },
         {
-          "x": 520,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.UPI Value\"}]}}}"
+          "x": 854,
+          "y": 46,
+          "width": 402,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"0d870f855cae4e928369\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 854, \"y\": 46, \"z\": 1000, \"width\": 402, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"fact_payment.payment_channel\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"fact_payment\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"payment_channel\"}, \"Name\": \"fact_payment.payment_channel\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"fact_payment\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Payment Channel'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"fact_payment\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"payment_channel\"}, \"Name\": \"fact_payment.payment_channel\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Payment Channel\", \"Name\": \"fact_payment.payment_channel\", \"Type\": 2048}]}}"
         },
         {
-          "x": 770,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Bank Transfer Value\"}]}}}"
+          "x": 22,
+          "y": 106,
+          "width": 164,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"382722f2f9ff4bf69f8e\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 22, \"y\": 106, \"z\": 2000, \"width\": 164, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Digital Collections Value\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Collections Value\"}, \"Name\": \"_Measures.Digital Collections Value\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Value'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#0D9488'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Value'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Value'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Collections Value\"}, \"Name\": \"_Measures.Digital Collections Value\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Digital Value\", \"Name\": \"_Measures.Digital Collections Value\", \"Type\": 1}]}}"
         },
         {
-          "x": 1020,
-          "y": 70,
-          "width": 240,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Cash Collections Value\"}]}}}"
+          "x": 200,
+          "y": 106,
+          "width": 164,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"7d43d00ff9c24aeca3c7\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 200, \"y\": 106, \"z\": 2000, \"width\": 164, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Digital Transactions Count\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Transactions Count\"}, \"Name\": \"_Measures.Digital Transactions Count\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Txns'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#2563EB'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Txns'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Txns'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Transactions Count\"}, \"Name\": \"_Measures.Digital Transactions Count\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Digital Txns\", \"Name\": \"_Measures.Digital Transactions Count\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 378,
+          "y": 106,
+          "width": 164,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"f2d3dd5af90445b5a2eb\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 378, \"y\": 106, \"z\": 2000, \"width\": 164, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Digital Value Share %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Value Share %\"}, \"Name\": \"_Measures.Digital Value Share %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Value %'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#059669'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Value %'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Value %'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Value Share %\"}, \"Name\": \"_Measures.Digital Value Share %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Digital Value %\", \"Name\": \"_Measures.Digital Value Share %\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 556,
+          "y": 106,
+          "width": 164,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"f63cc5028c85459e8f37\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 556, \"y\": 106, \"z\": 2000, \"width\": 164, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Digital Count Share %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Count Share %\"}, \"Name\": \"_Measures.Digital Count Share %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Txn %'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#059669'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Txn %'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Digital Txn %'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Count Share %\"}, \"Name\": \"_Measures.Digital Count Share %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Digital Txn %\", \"Name\": \"_Measures.Digital Count Share %\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 734,
+          "y": 106,
+          "width": 164,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"d7274b5e59b6403fa3d0\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 734, \"y\": 106, \"z\": 2000, \"width\": 164, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.UPI Value\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"UPI Value\"}, \"Name\": \"_Measures.UPI Value\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'UPI Value'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#4F46E5'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'UPI Value'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'UPI Value'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"UPI Value\"}, \"Name\": \"_Measures.UPI Value\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"UPI Value\", \"Name\": \"_Measures.UPI Value\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 912,
+          "y": 106,
+          "width": 164,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"fc3e15bfbdd841459de2\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 912, \"y\": 106, \"z\": 2000, \"width\": 164, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Bank Transfer Value\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Bank Transfer Value\"}, \"Name\": \"_Measures.Bank Transfer Value\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Bank Transfer'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#0284C7'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Bank Transfer'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Bank Transfer'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Bank Transfer Value\"}, \"Name\": \"_Measures.Bank Transfer Value\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Bank Transfer\", \"Name\": \"_Measures.Bank Transfer Value\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 1090,
+          "y": 106,
+          "width": 164,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"defccbe67d34443bb729\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1090, \"y\": 106, \"z\": 2000, \"width\": 164, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Average Digital Payment Amount\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Average Digital Payment Amount\"}, \"Name\": \"_Measures.Average Digital Payment Amount\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Avg Ticket Size'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#0F172A'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Avg Ticket Size'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Avg Ticket Size'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Average Digital Payment Amount\"}, \"Name\": \"_Measures.Average Digital Payment Amount\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Avg Ticket Size\", \"Name\": \"_Measures.Average Digital Payment Amount\", \"Type\": 1}]}}"
         },
         {
           "x": 20,
-          "y": 170,
-          "width": 700,
-          "height": 530,
-          "config": "{\"singleVisual\": {\"visualType\": \"stackedAreaChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_digital_collections.year_month\"}], \"Y\": [{\"queryRef\": \"_Measures.UPI Value\"}, {\"queryRef\": \"_Measures.Bank Transfer Value\"}, {\"queryRef\": \"_Measures.Cash Collections Value\"}]}}}"
+          "y": 190,
+          "width": 670,
+          "height": 514,
+          "z": 2,
+          "config": "{\"name\": \"156fa106d7984cf7b6ab\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 190, \"z\": 3000, \"width\": 670, \"height\": 514}}], \"singleVisual\": {\"visualType\": \"stackedAreaChart\", \"projections\": {\"Category\": [{\"queryRef\": \"kpi_digital_collections.year_month\", \"active\": true}], \"Y\": [{\"queryRef\": \"_Measures.UPI Value\"}, {\"queryRef\": \"_Measures.Bank Transfer Value\"}, {\"queryRef\": \"_Measures.Cash Collections Value\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"kpi_digital_collections\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"year_month\"}, \"Name\": \"kpi_digital_collections.year_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"UPI Value\"}, \"Name\": \"_Measures.UPI Value\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Bank Transfer Value\"}, \"Name\": \"_Measures.Bank Transfer Value\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Cash Collections Value\"}, \"Name\": \"_Measures.Cash Collections Value\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Monthly Collections by Channel (Cash vs UPI vs Bank)'\"}}}}}], \"categoryAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}], \"valueAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Monthly Collections by Channel (Cash vs UPI vs Bank)'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Monthly Collections by Channel (Cash vs UPI vs Bank)'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"kpi_digital_collections\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"year_month\"}, \"Name\": \"kpi_digital_collections.year_month\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"UPI Value\"}, \"Name\": \"_Measures.UPI Value\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Bank Transfer Value\"}, \"Name\": \"_Measures.Bank Transfer Value\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Cash Collections Value\"}, \"Name\": \"_Measures.Cash Collections Value\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2, 3]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1, 2, 3]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"year_month\", \"Name\": \"kpi_digital_collections.year_month\", \"Type\": 2048}, {\"Restatement\": \"UPI Value\", \"Name\": \"_Measures.UPI Value\", \"Type\": 1}, {\"Restatement\": \"Bank Transfer Value\", \"Name\": \"_Measures.Bank Transfer Value\", \"Type\": 1}, {\"Restatement\": \"Cash Collections Value\", \"Name\": \"_Measures.Cash Collections Value\", \"Type\": 1}]}}"
         },
         {
-          "x": 740,
-          "y": 170,
-          "width": 520,
-          "height": 530,
-          "config": "{\"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_state.state_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Total Collections Value\"}, {\"queryRef\": \"_Measures.Digital Collections Value\"}, {\"queryRef\": \"_Measures.Digital Value Share %\"}]}}}"
+          "x": 706,
+          "y": 190,
+          "width": 550,
+          "height": 514,
+          "z": 2,
+          "config": "{\"name\": \"4cdfb071cf00492b8d76\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 706, \"y\": 190, \"z\": 3000, \"width\": 550, \"height\": 514}}], \"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"dim_state.state_name\"}], \"Values\": [{\"queryRef\": \"_Measures.Total Collections Value\"}, {\"queryRef\": \"_Measures.Digital Collections Value\"}, {\"queryRef\": \"_Measures.Digital Value Share %\"}, {\"queryRef\": \"_Measures.Digital Count Share %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"r\", \"Entity\": \"dim_state\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Collections Value\"}, \"Name\": \"_Measures.Total Collections Value\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Collections Value\"}, \"Name\": \"_Measures.Digital Collections Value\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Value Share %\"}, \"Name\": \"_Measures.Digital Value Share %\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Count Share %\"}, \"Name\": \"_Measures.Digital Count Share %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State Digital Adoption Breakdown'\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State Digital Adoption Breakdown'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'State Digital Adoption Breakdown'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"r\", \"Entity\": \"dim_state\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"r\"}}, \"Property\": \"state_name\"}, \"Name\": \"dim_state.state_name\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Collections Value\"}, \"Name\": \"_Measures.Total Collections Value\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Collections Value\"}, \"Name\": \"_Measures.Digital Collections Value\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Value Share %\"}, \"Name\": \"_Measures.Digital Value Share %\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Digital Count Share %\"}, \"Name\": \"_Measures.Digital Count Share %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2, 3, 4]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Rows\": [0], \"Values\": [1, 2, 3, 4]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"state_name\", \"Name\": \"dim_state.state_name\", \"Type\": 2048}, {\"Restatement\": \"Total Collections Value\", \"Name\": \"_Measures.Total Collections Value\", \"Type\": 1}, {\"Restatement\": \"Digital Collections Value\", \"Name\": \"_Measures.Digital Collections Value\", \"Type\": 1}, {\"Restatement\": \"Digital Value Share %\", \"Name\": \"_Measures.Digital Value Share %\", \"Type\": 1}, {\"Restatement\": \"Digital Count Share %\", \"Name\": \"_Measures.Digital Count Share %\", \"Type\": 1}]}}"
         }
       ]
     },
@@ -292,59 +539,101 @@
       "visualContainers": [
         {
           "x": 20,
-          "y": 15,
-          "width": 1240,
-          "height": 45,
-          "config": "{\"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Data Quality Quarantine Firewall & Anomaly Surveillance\", \"textStyle\": {\"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}]}]}}]}}}"
+          "y": 10,
+          "width": 1236,
+          "height": 30,
+          "z": 0,
+          "config": "{\"name\": \"af727bd1bece4aafa252\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 0, \"width\": 1236, \"height\": 30}}], \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Data Quality Quarantine Firewall & Ingestion Surveillance\", \"textStyle\": {\"fontSize\": \"11.5pt\", \"fontWeight\": \"bold\", \"color\": \"#0F172A\"}}, {\"value\": \"   |   Automated Quarantine Isolation, Anomaly Forensics & Pipeline Integrity\", \"textStyle\": {\"fontSize\": \"8.5pt\", \"fontWeight\": \"normal\", \"color\": \"#64748B\"}}]}]}}]}}}"
         },
         {
           "x": 20,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Quarantined Records\"}]}}}"
+          "y": 46,
+          "width": 610,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"5b4fb5eb95b5456baa4e\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 46, \"z\": 1000, \"width\": 610, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"stg_quarantined_records.source_table\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"source_table\"}, \"Name\": \"stg_quarantined_records.source_table\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Source Table'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"source_table\"}, \"Name\": \"stg_quarantined_records.source_table\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Source Table\", \"Name\": \"stg_quarantined_records.source_table\", \"Type\": 2048}]}}"
         },
         {
-          "x": 270,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Negative Amount Anomalies\"}]}}}"
+          "x": 646,
+          "y": 46,
+          "width": 610,
+          "height": 50,
+          "z": 1,
+          "config": "{\"name\": \"cc5981ce943c479c8461\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 646, \"y\": 46, \"z\": 1000, \"width\": 610, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"stg_quarantined_records.reason_code\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"reason_code\"}, \"Name\": \"stg_quarantined_records.reason_code\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"general\": [{\"properties\": {\"filter\": {\"filter\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}], \"Where\": []}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Anomaly Reason Code'\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"d\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"d\"}}, \"Property\": \"reason_code\"}, \"Name\": \"stg_quarantined_records.reason_code\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Anomaly Reason Code\", \"Name\": \"stg_quarantined_records.reason_code\", \"Type\": 2048}]}}"
         },
         {
-          "x": 520,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Pre-dated Payment Anomalies\"}]}}}"
+          "x": 22,
+          "y": 106,
+          "width": 234,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"3737f6bce7854b89a414\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 22, \"y\": 106, \"z\": 2000, \"width\": 234, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Raw Records\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Raw Records\"}, \"Name\": \"_Measures.Total Raw Records\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Raw Payloads'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#0F172A'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Raw Payloads'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Raw Payloads'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Raw Records\"}, \"Name\": \"_Measures.Total Raw Records\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Raw Payloads\", \"Name\": \"_Measures.Total Raw Records\", \"Type\": 1}]}}"
         },
         {
-          "x": 770,
-          "y": 70,
-          "width": 230,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Excess Payment Anomalies\"}]}}}"
+          "x": 272,
+          "y": 106,
+          "width": 234,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"2136f1167a95497c9ec2\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 272, \"y\": 106, \"z\": 2000, \"width\": 234, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Clean Records\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Clean Records\"}, \"Name\": \"_Measures.Total Clean Records\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Clean Records'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#059669'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Clean Records'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Clean Records'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Clean Records\"}, \"Name\": \"_Measures.Total Clean Records\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Clean Records\", \"Name\": \"_Measures.Total Clean Records\", \"Type\": 1}]}}"
         },
         {
-          "x": 1020,
-          "y": 70,
-          "width": 240,
-          "height": 90,
-          "config": "{\"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Quarantined Records\"}]}}}"
+          "x": 522,
+          "y": 106,
+          "width": 234,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"4688c694036c4842aeac\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 522, \"y\": 106, \"z\": 2000, \"width\": 234, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Total Quarantined Records\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Quarantined Records\"}, \"Name\": \"_Measures.Total Quarantined Records\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantined'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#DC2626'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantined'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantined'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Quarantined Records\"}, \"Name\": \"_Measures.Total Quarantined Records\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Quarantined\", \"Name\": \"_Measures.Total Quarantined Records\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 772,
+          "y": 106,
+          "width": 234,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"6c73c5758c9e4634bc86\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 772, \"y\": 106, \"z\": 2000, \"width\": 234, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Data Quality Pass Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Data Quality Pass Rate %\"}, \"Name\": \"_Measures.Data Quality Pass Rate %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'DQ Pass Rate %'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#2563EB'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'DQ Pass Rate %'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'DQ Pass Rate %'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Data Quality Pass Rate %\"}, \"Name\": \"_Measures.Data Quality Pass Rate %\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"DQ Pass Rate %\", \"Name\": \"_Measures.Data Quality Pass Rate %\", \"Type\": 1}]}}"
+        },
+        {
+          "x": 1022,
+          "y": 106,
+          "width": 234,
+          "height": 66,
+          "z": 2,
+          "config": "{\"name\": \"e5e2576af1554fbbbe87\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1022, \"y\": 106, \"z\": 2000, \"width\": 234, \"height\": 66}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_Measures.Issue Categories Count\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Issue Categories Count\"}, \"Name\": \"_Measures.Issue Categories Count\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Root Causes'\"}}}}}], \"labels\": [{\"properties\": {\"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#D97706'\"}}}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"17D\"}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Root Causes'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Root Causes'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Issue Categories Count\"}, \"Name\": \"_Measures.Issue Categories Count\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Root Causes\", \"Name\": \"_Measures.Issue Categories Count\", \"Type\": 1}]}}"
         },
         {
           "x": 20,
-          "y": 170,
-          "width": 500,
-          "height": 530,
-          "config": "{\"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"stg_quarantined_records.reason_code\"}], \"Y\": [{\"queryRef\": \"_Measures.Total Quarantined Records\"}]}}}"
+          "y": 190,
+          "width": 470,
+          "height": 514,
+          "z": 2,
+          "config": "{\"name\": \"33dc69f5b3c343248893\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 190, \"z\": 3000, \"width\": 470, \"height\": 514}}], \"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"stg_quarantined_records.reason_code\", \"active\": true}], \"Y\": [{\"queryRef\": \"_Measures.Total Quarantined Records\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}, {\"Name\": \"v\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"reason_code\"}, \"Name\": \"stg_quarantined_records.reason_code\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v\"}}, \"Property\": \"Total Quarantined Records\"}, \"Name\": \"_Measures.Total Quarantined Records\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantined Anomalies by Reason Code'\"}}}}}], \"labels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"labelStyle\": {\"expr\": {\"Literal\": {\"Value\": \"'Percentage'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"9D\"}}}}}], \"legend\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"position\": {\"expr\": {\"Literal\": {\"Value\": \"'Right'\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantined Anomalies by Reason Code'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantined Anomalies by Reason Code'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}, {\"Name\": \"v\", \"Entity\": \"_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"reason_code\"}, \"Name\": \"stg_quarantined_records.reason_code\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v\"}}, \"Property\": \"Total Quarantined Records\"}, \"Name\": \"_Measures.Total Quarantined Records\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Category\": [0], \"Y\": [1]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"reason_code\", \"Name\": \"stg_quarantined_records.reason_code\", \"Type\": 2048}, {\"Restatement\": \"Total Quarantined Records\", \"Name\": \"_Measures.Total Quarantined Records\", \"Type\": 1}]}}"
         },
         {
-          "x": 540,
-          "y": 170,
-          "width": 720,
-          "height": 530,
-          "config": "{\"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"stg_quarantined_records.quarantine_id\"}, {\"queryRef\": \"stg_quarantined_records.source_table\"}, {\"queryRef\": \"stg_quarantined_records.record_identifier\"}, {\"queryRef\": \"stg_quarantined_records.reason_code\"}, {\"queryRef\": \"stg_quarantined_records.quarantined_at\"}]}}}"
+          "x": 506,
+          "y": 190,
+          "width": 750,
+          "height": 514,
+          "z": 2,
+          "config": "{\"name\": \"4e75f81d967044588880\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 506, \"y\": 190, \"z\": 3000, \"width\": 750, \"height\": 514}}], \"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"stg_quarantined_records.quarantine_id\"}, {\"queryRef\": \"stg_quarantined_records.batch_run_id\"}, {\"queryRef\": \"stg_quarantined_records.source_table\"}, {\"queryRef\": \"stg_quarantined_records.reason_code\"}, {\"queryRef\": \"stg_quarantined_records.record_identifier\"}, {\"queryRef\": \"stg_quarantined_records.quarantined_at\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"quarantine_id\"}, \"Name\": \"stg_quarantined_records.quarantine_id\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"batch_run_id\"}, \"Name\": \"stg_quarantined_records.batch_run_id\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"source_table\"}, \"Name\": \"stg_quarantined_records.source_table\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"reason_code\"}, \"Name\": \"stg_quarantined_records.reason_code\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"record_identifier\"}, \"Name\": \"stg_quarantined_records.record_identifier\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"quarantined_at\"}, \"Name\": \"stg_quarantined_records.quarantined_at\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantine Audit Trail & Payload Forensics'\"}}}}}]}, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantine Audit Trail & Payload Forensics'\"}}}}}]}, \"visualContainerObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Quarantine Audit Trail & Payload Forensics'\"}}}}}]}}}",
+          "query": "{\"Commands\": [{\"SemanticQueryDataShapeCommand\": {\"Query\": {\"Version\": 2, \"From\": [{\"Name\": \"t\", \"Entity\": \"stg_quarantined_records\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"quarantine_id\"}, \"Name\": \"stg_quarantined_records.quarantine_id\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"batch_run_id\"}, \"Name\": \"stg_quarantined_records.batch_run_id\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"source_table\"}, \"Name\": \"stg_quarantined_records.source_table\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"reason_code\"}, \"Name\": \"stg_quarantined_records.reason_code\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"record_identifier\"}, \"Name\": \"stg_quarantined_records.record_identifier\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t\"}}, \"Property\": \"quarantined_at\"}, \"Name\": \"stg_quarantined_records.quarantined_at\"}]}, \"Binding\": {\"Primary\": {\"Groupings\": [{\"Projections\": [0, 1, 2, 3, 4, 5]}]}}}}]}",
+          "dataTransforms": "{\"projectionOrdering\": {\"Values\": [0, 1, 2, 3, 4, 5]}, \"queryMetadata\": {\"Select\": [{\"Restatement\": \"Quarantine ID\", \"Name\": \"stg_quarantined_records.quarantine_id\", \"Type\": 2048}, {\"Restatement\": \"Batch ID\", \"Name\": \"stg_quarantined_records.batch_run_id\", \"Type\": 2048}, {\"Restatement\": \"Source Table\", \"Name\": \"stg_quarantined_records.source_table\", \"Type\": 2048}, {\"Restatement\": \"Anomaly Reason\", \"Name\": \"stg_quarantined_records.reason_code\", \"Type\": 2048}, {\"Restatement\": \"Record Identifier\", \"Name\": \"stg_quarantined_records.record_identifier\", \"Type\": 2048}, {\"Restatement\": \"Timestamp\", \"Name\": \"stg_quarantined_records.quarantined_at\", \"Type\": 2048}]}}"
         }
       ]
     }

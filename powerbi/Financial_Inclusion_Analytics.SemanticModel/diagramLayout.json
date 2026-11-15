@@ -1,0 +1,217 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1615.3669470178838,
+            "y": 688.15710039308487
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "measures-table-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1381.3669470178838,
+            "y": 818.94170056274777
+          },
+          "nodeIndex": "dim_borrower_segment",
+          "nodeLineageTag": "dim_borrower_segment-lineage",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1009.2465992643365,
+            "y": 1061.919361085123
+          },
+          "nodeIndex": "dim_branch",
+          "nodeLineageTag": "dim_branch-lineage",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 347.66166643623387,
+            "y": 134.450600710441
+          },
+          "nodeIndex": "dim_date",
+          "nodeLineageTag": "dim_date-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 818.22277704563,
+            "y": -50
+          },
+          "nodeIndex": "dim_loan",
+          "nodeLineageTag": "dim_loan-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 437.1522819172294,
+            "y": 692.05192476702848
+          },
+          "nodeIndex": "dim_product",
+          "nodeLineageTag": "dim_product-lineage",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 723.94916854626717,
+            "y": 1000.8359974021831
+          },
+          "nodeIndex": "dim_state",
+          "nodeLineageTag": "dim_state-lineage",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 642.41778518795786,
+            "y": 321.69632266008421
+          },
+          "nodeIndex": "fact_instalment_allocation",
+          "nodeLineageTag": "fact_instalment_allocation-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 943.7480963950195,
+            "y": 321.71004964810777
+          },
+          "nodeIndex": "fact_loan_monthly",
+          "nodeLineageTag": "fact_loan_monthly-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1080.7956589651872,
+            "y": 693.30922501377472
+          },
+          "nodeIndex": "fact_payment",
+          "nodeLineageTag": "fact_payment-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 431.3837503295897,
+            "y": 1232.815637613726
+          },
+          "nodeIndex": "kpi_collection_efficiency",
+          "nodeLineageTag": "kpi_collection_efficiency-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 135.75978930904239,
+            "y": 779.03078549766326
+          },
+          "nodeIndex": "kpi_digital_collections",
+          "nodeLineageTag": "kpi_digital_collections-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 716.717223742977,
+            "y": 1326.3142007861697
+          },
+          "nodeIndex": "kpi_portfolio_health",
+          "nodeLineageTag": "kpi_portfolio_health-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 357.96600237722259
+          },
+          "nodeIndex": "kpi_vintage_curves",
+          "nodeLineageTag": "kpi_vintage_curves-lineage",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1899.3669470178838,
+            "y": 714.15710039308487
+          },
+          "nodeIndex": "stg_quarantined_records",
+          "nodeLineageTag": "stg_quarantined_records-lineage",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

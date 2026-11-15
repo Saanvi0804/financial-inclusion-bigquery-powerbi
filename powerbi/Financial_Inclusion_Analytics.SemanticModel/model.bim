@@ -1,1711 +1,2240 @@
 {
-  "name": "Financial_Inclusion_Analytics",
-  "compatibilityLevel": 1567,
+  "compatibilityLevel": 1606,
   "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"_Measures\",\"dim_date\",\"dim_state\",\"dim_branch\",\"dim_product\",\"dim_borrower_segment\",\"dim_loan\",\"fact_payment\",\"fact_instalment_allocation\",\"fact_loan_monthly\",\"kpi_portfolio_health\",\"kpi_collection_efficiency\",\"kpi_vintage_curves\",\"kpi_digital_collections\",\"stg_quarantined_records\",\"Location\"]"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
     "culture": "en-US",
     "dataAccessOptions": {
       "legacyRedirects": true,
       "returnErrorValuesAsNull": true
     },
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
-    "sourceQueryCulture": "en-US",
     "expressions": [
       {
         "name": "Location",
-        "kind": "m",
-        "expression": [
-          "\"C:/Users/Saanvi Shetty/Desktop/projects/financial-inclusion-bigquery-powerbi\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
         ],
-        "lineageTag": "param-location-root",
-        "description": "Root directory path for financial-inclusion-bigquery-powerbi. Update this parameter in 'Home > Transform Data > Edit Parameters' if moving to a different folder or machine."
+        "description": "Root directory path for financial-inclusion-bigquery-powerbi. Update this parameter in 'Home > Transform Data > Edit Parameters' if moving to a different folder or machine.",
+        "expression": "\"C:/Users/Saanvi Shetty/Desktop/projects/financial-inclusion-bigquery-powerbi\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "param-location-root"
       }
     ],
+    "relationships": [
+      {
+        "name": "rel_pay_date",
+        "fromColumn": "payment_date_key",
+        "fromTable": "fact_payment",
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_pay_loan",
+        "fromColumn": "loan_key",
+        "fromTable": "fact_payment",
+        "toColumn": "loan_key",
+        "toTable": "dim_loan"
+      },
+      {
+        "name": "rel_pay_branch",
+        "fromColumn": "branch_key",
+        "fromTable": "fact_payment",
+        "toColumn": "branch_key",
+        "toTable": "dim_branch"
+      },
+      {
+        "name": "rel_pay_product",
+        "fromColumn": "product_key",
+        "fromTable": "fact_payment",
+        "toColumn": "product_key",
+        "toTable": "dim_product"
+      },
+      {
+        "name": "rel_pay_state",
+        "fromColumn": "state_key",
+        "fromTable": "fact_payment",
+        "toColumn": "state_key",
+        "toTable": "dim_state"
+      },
+      {
+        "name": "rel_pay_segment",
+        "fromColumn": "borrower_segment_key",
+        "fromTable": "fact_payment",
+        "toColumn": "borrower_segment_key",
+        "toTable": "dim_borrower_segment"
+      },
+      {
+        "name": "rel_snap_date",
+        "fromColumn": "snapshot_date_key",
+        "fromTable": "fact_loan_monthly",
+        "isActive": false,
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_snap_loan",
+        "fromColumn": "loan_key",
+        "fromTable": "fact_loan_monthly",
+        "toColumn": "loan_key",
+        "toTable": "dim_loan"
+      },
+      {
+        "name": "rel_snap_branch",
+        "fromColumn": "branch_key",
+        "fromTable": "fact_loan_monthly",
+        "toColumn": "branch_key",
+        "toTable": "dim_branch"
+      },
+      {
+        "name": "rel_snap_product",
+        "fromColumn": "product_key",
+        "fromTable": "fact_loan_monthly",
+        "toColumn": "product_key",
+        "toTable": "dim_product"
+      },
+      {
+        "name": "rel_snap_state",
+        "fromColumn": "state_key",
+        "fromTable": "fact_loan_monthly",
+        "toColumn": "state_key",
+        "toTable": "dim_state"
+      },
+      {
+        "name": "rel_snap_segment",
+        "fromColumn": "borrower_segment_key",
+        "fromTable": "fact_loan_monthly",
+        "toColumn": "borrower_segment_key",
+        "toTable": "dim_borrower_segment"
+      },
+      {
+        "name": "rel_alloc_due_date",
+        "fromColumn": "due_date_key",
+        "fromTable": "fact_instalment_allocation",
+        "isActive": false,
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_alloc_pay_date",
+        "fromColumn": "payment_date_key",
+        "fromTable": "fact_instalment_allocation",
+        "isActive": false,
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_alloc_loan",
+        "fromColumn": "loan_key",
+        "fromTable": "fact_instalment_allocation",
+        "toColumn": "loan_key",
+        "toTable": "dim_loan"
+      },
+      {
+        "name": "rel_alloc_branch",
+        "fromColumn": "branch_key",
+        "fromTable": "fact_instalment_allocation",
+        "toColumn": "branch_key",
+        "toTable": "dim_branch"
+      },
+      {
+        "name": "rel_alloc_product",
+        "fromColumn": "product_key",
+        "fromTable": "fact_instalment_allocation",
+        "toColumn": "product_key",
+        "toTable": "dim_product"
+      },
+      {
+        "name": "rel_alloc_state",
+        "fromColumn": "state_key",
+        "fromTable": "fact_instalment_allocation",
+        "toColumn": "state_key",
+        "toTable": "dim_state"
+      },
+      {
+        "name": "rel_loan_disb_date",
+        "fromColumn": "disbursement_date_key",
+        "fromTable": "dim_loan",
+        "isActive": false,
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_kpi_ph_date",
+        "fromColumn": "snapshot_date_key",
+        "fromTable": "kpi_portfolio_health",
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_kpi_ph_branch",
+        "fromColumn": "branch_id",
+        "fromTable": "kpi_portfolio_health",
+        "toColumn": "branch_id",
+        "toTable": "dim_branch"
+      },
+      {
+        "name": "rel_kpi_ph_product",
+        "fromColumn": "product_id",
+        "fromTable": "kpi_portfolio_health",
+        "toColumn": "product_id",
+        "toTable": "dim_product"
+      },
+      {
+        "name": "rel_kpi_ph_state",
+        "fromColumn": "state_id",
+        "fromTable": "kpi_portfolio_health",
+        "toColumn": "state_id",
+        "toTable": "dim_state"
+      },
+      {
+        "name": "rel_kpi_ce_date",
+        "fromColumn": "month_date_key",
+        "fromTable": "kpi_collection_efficiency",
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_kpi_ce_branch",
+        "fromColumn": "branch_id",
+        "fromTable": "kpi_collection_efficiency",
+        "toColumn": "branch_id",
+        "toTable": "dim_branch"
+      },
+      {
+        "name": "rel_kpi_ce_product",
+        "fromColumn": "product_id",
+        "fromTable": "kpi_collection_efficiency",
+        "toColumn": "product_id",
+        "toTable": "dim_product"
+      },
+      {
+        "name": "rel_kpi_ce_state",
+        "fromColumn": "state_id",
+        "fromTable": "kpi_collection_efficiency",
+        "toColumn": "state_id",
+        "toTable": "dim_state"
+      },
+      {
+        "name": "rel_kpi_dc_date",
+        "fromColumn": "month_date_key",
+        "fromTable": "kpi_digital_collections",
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_kpi_dc_state",
+        "fromColumn": "state_id",
+        "fromTable": "kpi_digital_collections",
+        "toColumn": "state_id",
+        "toTable": "dim_state"
+      },
+      {
+        "name": "rel_kpi_vc_date",
+        "fromColumn": "cohort_date_key",
+        "fromTable": "kpi_vintage_curves",
+        "toColumn": "date_key",
+        "toTable": "dim_date"
+      },
+      {
+        "name": "rel_kpi_vc_product",
+        "fromColumn": "product_id",
+        "fromTable": "kpi_vintage_curves",
+        "toColumn": "product_id",
+        "toTable": "dim_product"
+      }
+    ],
+    "sourceQueryCulture": "en-US",
     "tables": [
       {
         "name": "_Measures",
-        "lineageTag": "measures-table-lineage",
         "columns": [
           {
             "name": "Dummy",
             "dataType": "string",
             "isHidden": true,
+            "lineageTag": "6331184b-1c08-405a-8ca4-8d74b5ed8fd6",
             "sourceColumn": "Dummy"
           }
         ],
-        "partitions": [
-          {
-            "name": "_Measures-Partition",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Dummy = _t])",
-                "in",
-                "    Source"
-              ]
-            }
-          }
-        ],
+        "lineageTag": "measures-table-lineage",
         "measures": [
           {
             "name": "Active Loans Count",
-            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(DISTINCTCOUNT(fact_loan_monthly[loan_key]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[outstanding_principal] > 0)",
-            "formatString": "#,##0"
+            "expression": "VAR MaxSnapshotDate = CALCULATE(MAX(fact_loan_monthly[snapshot_date_key]), USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])) RETURN IF(ISBLANK(MaxSnapshotDate), BLANK(), CALCULATE(DISTINCTCOUNT(fact_loan_monthly[loan_key]), fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate, fact_loan_monthly[outstanding_principal] > 0, USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])))",
+            "formatString": "#,##0",
+            "lineageTag": "abf87fa2-d900-4f8a-92fa-50a076aeaa95"
           },
           {
             "name": "Total Outstanding Principal",
-            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate)",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "VAR MaxSnapshotDate = CALCULATE(MAX(fact_loan_monthly[snapshot_date_key]), USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])) RETURN IF(ISBLANK(MaxSnapshotDate), BLANK(), CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate, USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "2c75dcd7-cc2d-419e-83e9-88e8a7b9551e"
           },
           {
             "name": "Outstanding Principal (INR Cr)",
             "expression": "DIVIDE([Total Outstanding Principal], 10000000, 0)",
-            "formatString": "\"\u20b9\"\\ #,##0.00\\ \"Cr\""
+            "formatString": "\"\u20b9\"\\ #,##0.00\\ \"Cr\"",
+            "lineageTag": "4655c001-ee7c-411d-a645-c6f2cc96d9bd"
           },
           {
             "name": "PAR 30 Principal",
-            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] > 30)",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "VAR MaxSnapshotDate = CALCULATE(MAX(fact_loan_monthly[snapshot_date_key]), USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])) RETURN IF(ISBLANK(MaxSnapshotDate), BLANK(), CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate, fact_loan_monthly[days_past_due] > 30, USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "1074468b-0c51-4a41-ab6c-e67c971c6f7d"
           },
           {
             "name": "PAR 30 %",
             "expression": "DIVIDE([PAR 30 Principal], [Total Outstanding Principal], 0)",
-            "formatString": "0.00%"
+            "formatString": "0.00%",
+            "lineageTag": "69918ecb-3f8d-49ae-a7a2-1cde68341379"
           },
           {
             "name": "PAR 90 Principal",
-            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] > 90)",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "VAR MaxSnapshotDate = CALCULATE(MAX(fact_loan_monthly[snapshot_date_key]), USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])) RETURN IF(ISBLANK(MaxSnapshotDate), BLANK(), CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate, fact_loan_monthly[days_past_due] > 90, USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "2c3a45a2-dec8-4da5-8c91-223638727a6f"
           },
           {
             "name": "PAR 90 %",
             "expression": "DIVIDE([PAR 90 Principal], [Total Outstanding Principal], 0)",
-            "formatString": "0.00%"
+            "formatString": "0.00%",
+            "lineageTag": "d323df43-236e-4644-b970-1a14b6a6392d"
           },
           {
             "name": "Current Principal",
-            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] = 0)",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "VAR MaxSnapshotDate = CALCULATE(MAX(fact_loan_monthly[snapshot_date_key]), USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])) RETURN IF(ISBLANK(MaxSnapshotDate), BLANK(), CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate, fact_loan_monthly[days_past_due] = 0, USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "0e0d40d2-23e5-427e-afd8-1d4acfc55dd9"
           },
           {
             "name": "Delinquency DPD 1-30",
-            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] >= 1, fact_loan_monthly[days_past_due] <= 30)",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "VAR MaxSnapshotDate = CALCULATE(MAX(fact_loan_monthly[snapshot_date_key]), USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])) RETURN IF(ISBLANK(MaxSnapshotDate), BLANK(), CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate, fact_loan_monthly[days_past_due] >= 1, fact_loan_monthly[days_past_due] <= 30, USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "b918397d-6361-4e80-8a0e-28ab55222769"
           },
           {
             "name": "Delinquency DPD 31-60",
-            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] >= 31, fact_loan_monthly[days_past_due] <= 60)",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "VAR MaxSnapshotDate = CALCULATE(MAX(fact_loan_monthly[snapshot_date_key]), USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])) RETURN IF(ISBLANK(MaxSnapshotDate), BLANK(), CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate, fact_loan_monthly[days_past_due] >= 31, fact_loan_monthly[days_past_due] <= 60, USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "0973b742-413f-46ba-a819-3ee43d766097"
           },
           {
             "name": "Delinquency DPD 61-90",
-            "expression": "VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key]) RETURN CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxDate, fact_loan_monthly[days_past_due] >= 61, fact_loan_monthly[days_past_due] <= 90)",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "VAR MaxSnapshotDate = CALCULATE(MAX(fact_loan_monthly[snapshot_date_key]), USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])) RETURN IF(ISBLANK(MaxSnapshotDate), BLANK(), CALCULATE(SUM(fact_loan_monthly[outstanding_principal]), fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate, fact_loan_monthly[days_past_due] >= 61, fact_loan_monthly[days_past_due] <= 90, USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "d36e989d-d3e3-4d85-8c04-fe0760109fc6"
           },
           {
             "name": "Scheduled Billing Due",
             "expression": "SUM(kpi_collection_efficiency[scheduled_amount_due])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "eeea3a71-4e9a-4b62-becf-b2b7c516f3c2"
           },
           {
             "name": "Current Period Collected",
             "expression": "SUM(kpi_collection_efficiency[current_period_collected])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "386c4ace-27b2-4767-bb7a-aaa270fdf8d5"
           },
           {
             "name": "Arrears Collected",
             "expression": "SUM(kpi_collection_efficiency[arrears_collected])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "52200bcc-29db-4acf-9b8b-b1335abe08c4"
           },
           {
             "name": "Advance Collected",
             "expression": "SUM(kpi_collection_efficiency[advance_collected])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "4a32eea3-b506-4b08-849a-fce65e00722f"
           },
           {
             "name": "Total Cash Collected",
             "expression": "SUM(kpi_collection_efficiency[total_amount_collected])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "df81c77b-5789-4b39-ac28-45d2a9bb47a0"
           },
           {
             "name": "Current Period Collection Efficiency %",
             "expression": "DIVIDE([Current Period Collected], [Scheduled Billing Due], 0)",
-            "formatString": "0.00%"
+            "formatString": "0.00%",
+            "lineageTag": "6f9148bc-bfb7-49d8-8f8d-bbe664de1c45"
           },
           {
             "name": "Total Collection Ratio %",
             "expression": "DIVIDE([Total Cash Collected], [Scheduled Billing Due], 0)",
-            "formatString": "0.00%"
+            "formatString": "0.00%",
+            "lineageTag": "c82db114-313c-4977-8ddb-09edfad485dc"
           },
           {
             "name": "Total Collections Value",
             "expression": "SUM(kpi_digital_collections[total_collection_value])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "cf735942-fe8e-4b94-a2be-a33bea65186b"
           },
           {
             "name": "Digital Collections Value",
             "expression": "SUM(kpi_digital_collections[digital_collection_value])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "7175ccec-3c0e-4108-a50e-75d2852179fb"
           },
           {
             "name": "Cash Collections Value",
             "expression": "SUM(kpi_digital_collections[cash_collection_value])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "84657e48-a878-4a3c-9b38-07bdf9cbd7a4"
           },
           {
             "name": "UPI Value",
             "expression": "SUM(kpi_digital_collections[upi_value])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "4a6acbfd-99a7-4dea-9fc9-85ab721fccf9"
           },
           {
             "name": "Bank Transfer Value",
             "expression": "SUM(kpi_digital_collections[bank_transfer_value])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "85a80e3c-0b34-48af-bf80-d50ee5da9d72"
           },
           {
             "name": "Digital Value Share %",
             "expression": "DIVIDE([Digital Collections Value], [Total Collections Value], 0)",
-            "formatString": "0.00%"
+            "formatString": "0.00%",
+            "lineageTag": "9f076881-bcf6-423a-a7c3-4e5c7d7cb7d1"
           },
           {
             "name": "Digital Count Share %",
             "expression": "DIVIDE(SUM(kpi_digital_collections[digital_transaction_count]), SUM(kpi_digital_collections[total_transaction_count]), 0)",
-            "formatString": "0.00%"
+            "formatString": "0.00%",
+            "lineageTag": "a08019c0-1606-4972-8ddc-9eb4dd846d96"
           },
           {
             "name": "Cumulative Scheduled Due (Vintage)",
-            "expression": "SUM(kpi_vintage_curves[cumulative_scheduled_due])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "SUMX(\n    SUMMARIZE(\n        kpi_vintage_curves,\n        kpi_vintage_curves[cohort_month],\n        kpi_vintage_curves[product_id]\n    ),\n    VAR _CurCohort = kpi_vintage_curves[cohort_month]\n    VAR _CurProduct = kpi_vintage_curves[product_id]\n    VAR _MaxMOB = \n        CALCULATE(\n            MAX(kpi_vintage_curves[month_on_book]),\n            kpi_vintage_curves[cohort_month] = _CurCohort,\n            kpi_vintage_curves[product_id] = _CurProduct\n        )\n    RETURN\n        CALCULATE(\n            SUM(kpi_vintage_curves[cumulative_scheduled_due]),\n            kpi_vintage_curves[cohort_month] = _CurCohort,\n            kpi_vintage_curves[product_id] = _CurProduct,\n            kpi_vintage_curves[month_on_book] = _MaxMOB\n        )\n)",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "866c6f27-e6d1-4a2d-b815-9fded6e087dd"
           },
           {
             "name": "Cumulative Amount Paid (Vintage)",
-            "expression": "SUM(kpi_vintage_curves[cumulative_amount_paid])",
-            "formatString": "\"\u20b9\"\\ #,##0.00"
+            "expression": "SUMX(\n    SUMMARIZE(\n        kpi_vintage_curves,\n        kpi_vintage_curves[cohort_month],\n        kpi_vintage_curves[product_id]\n    ),\n    VAR _CurCohort = kpi_vintage_curves[cohort_month]\n    VAR _CurProduct = kpi_vintage_curves[product_id]\n    VAR _MaxMOB = \n        CALCULATE(\n            MAX(kpi_vintage_curves[month_on_book]),\n            kpi_vintage_curves[cohort_month] = _CurCohort,\n            kpi_vintage_curves[product_id] = _CurProduct\n        )\n    RETURN\n        CALCULATE(\n            SUM(kpi_vintage_curves[cumulative_amount_paid]),\n            kpi_vintage_curves[cohort_month] = _CurCohort,\n            kpi_vintage_curves[product_id] = _CurProduct,\n            kpi_vintage_curves[month_on_book] = _MaxMOB\n        )\n)",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "36090f32-396f-402f-a689-00ce945a3d3f"
           },
           {
             "name": "Vintage Repayment Rate %",
             "expression": "DIVIDE([Cumulative Amount Paid (Vintage)], [Cumulative Scheduled Due (Vintage)], 0)",
-            "formatString": "0.00%"
+            "formatString": "0.00%",
+            "lineageTag": "58e62431-2ab3-4d07-b9ed-514ad796e9ad"
           },
           {
             "name": "Total Quarantined Records",
             "expression": "COUNTROWS(stg_quarantined_records)",
-            "formatString": "#,##0"
+            "formatString": "#,##0",
+            "lineageTag": "25898ab0-b1f3-49e5-b3f2-b0c4cfbbebe9"
           },
           {
             "name": "Negative Amount Anomalies",
             "expression": "CALCULATE(COUNTROWS(stg_quarantined_records), stg_quarantined_records[reason_code] = \"NEGATIVE_PAYMENT_AMOUNT\")",
-            "formatString": "#,##0"
+            "formatString": "#,##0",
+            "lineageTag": "4365b21d-cc08-4586-94dd-c5f7bb0c1a18"
           },
           {
             "name": "Pre-dated Payment Anomalies",
             "expression": "CALCULATE(COUNTROWS(stg_quarantined_records), stg_quarantined_records[reason_code] = \"PAYMENT_BEFORE_DISBURSEMENT\")",
-            "formatString": "#,##0"
+            "formatString": "#,##0",
+            "lineageTag": "9d39da76-0771-4cf4-a23e-5fba9a079384"
           },
           {
             "name": "Excess Payment Anomalies",
             "expression": "CALCULATE(COUNTROWS(stg_quarantined_records), stg_quarantined_records[reason_code] = \"EXCESS_INSTALMENT_PAYMENT\")",
-            "formatString": "#,##0"
+            "formatString": "#,##0",
+            "lineageTag": "e1c73f92-8f0c-434c-9769-b90b24166e58"
+          },
+          {
+            "name": "Loans Disbursed Count",
+            "expression": "CALCULATE(DISTINCTCOUNT(dim_loan[loan_key]), USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key]))",
+            "formatString": "#,##0",
+            "lineageTag": "bcfa6750-91a0-4963-ae08-54803d053fac"
+          },
+          {
+            "name": "Total Disbursed Principal",
+            "expression": "CALCULATE(SUM(dim_loan[principal_amount]), USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key]))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "947d9b25-1204-4154-8694-a66cdba3dbd6"
+          },
+          {
+            "name": "Disbursed Principal (INR Cr)",
+            "expression": "DIVIDE([Total Disbursed Principal], 10000000, 0)",
+            "formatString": "\"\u20b9\"\\ #,##0.00\\ \"Cr\"",
+            "lineageTag": "ab208687-ce1d-4065-8a1f-adec0a1f2f24"
+          },
+          {
+            "name": "Payments by Loan Disbursement Date",
+            "expression": "CALCULATE(SUM(fact_payment[payment_amount]), USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key]))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "f6c1724f-e1b4-4d36-9476-50a61c06d77a"
+          },
+          {
+            "name": "Allocations by Cash Payment Date",
+            "expression": "CALCULATE(SUM(fact_instalment_allocation[allocated_amount]), USERELATIONSHIP(fact_instalment_allocation[payment_date_key], dim_date[date_key]))",
+            "formatString": "\"\u20b9\"\\ #,##0.00",
+            "lineageTag": "ee2aef55-c099-4041-8d80-669851f9e179"
+          },
+          {
+            "name": "Total Loans Count",
+            "description": "Total active and historical loan accounts registered in the portfolio dimension (excluding unknown fallback).",
+            "expression": "CALCULATE(DISTINCTCOUNT(dim_loan[loan_id]), dim_loan[loan_key] > 0)",
+            "formatString": "#,0",
+            "lineageTag": "meas-total-loans-count"
+          },
+          {
+            "name": "Digital Transactions Count",
+            "description": "Total volume of digital repayment transactions executed across UPI and net banking rails.",
+            "expression": "SUM(kpi_digital_collections[digital_transaction_count])",
+            "formatString": "#,0",
+            "lineageTag": "meas-dig-trans-count"
+          },
+          {
+            "name": "Average Digital Payment Amount",
+            "description": "Average ticket size realized per digital collection transaction.",
+            "expression": "DIVIDE([Digital Collections Value], [Digital Transactions Count], 0)",
+            "formatString": "\u20b9#,0.00",
+            "lineageTag": "meas-avg-dig-payment"
+          },
+          {
+            "name": "Total Raw Records",
+            "description": "Total volume of ingestion payloads ingested across all transactional sources.",
+            "expression": "[Total Clean Records] + [Total Quarantined Records]",
+            "formatString": "#,0",
+            "lineageTag": "meas-total-raw-records"
+          },
+          {
+            "name": "Total Clean Records",
+            "description": "Total repayment transactions verified, validated, and loaded into warehouse dimensional facts.",
+            "expression": "COUNTROWS(fact_payment)",
+            "formatString": "#,0",
+            "lineageTag": "meas-total-clean-records"
+          },
+          {
+            "name": "Data Quality Pass Rate %",
+            "description": "Proportion of raw source records successfully meeting all data quality and domain constraints.",
+            "expression": "DIVIDE([Total Clean Records], [Total Raw Records], 0)",
+            "formatString": "0.00%",
+            "lineageTag": "meas-dq-pass-rate"
+          },
+          {
+            "name": "Issue Categories Count",
+            "description": "Number of distinct anomaly reason codes identified by ingestion quarantine rules.",
+            "expression": "DISTINCTCOUNT(stg_quarantined_records[reason_code])",
+            "formatString": "#,0",
+            "lineageTag": "meas-issue-cats-count"
+          },
+          {
+            "name": "Digital Collection MoM Growth %",
+            "description": "Month-over-month percentage growth in digital collection value.",
+            "expression": "AVERAGE(kpi_digital_collections[mom_digital_value_growth_pct])",
+            "formatString": "0.00%",
+            "lineageTag": "meas-dig-mom-growth"
+          },
+          {
+            "name": "Digital Collection YoY Growth %",
+            "description": "Year-over-year percentage growth in digital collection value.",
+            "expression": "AVERAGE(kpi_digital_collections[yoy_digital_value_growth_pct])",
+            "formatString": "0.00%",
+            "lineageTag": "meas-dig-yoy-growth"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Measures",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows({{\"1\"}}, type table [Dummy = text])",
+                "in",
+                "    Source"
+              ],
+              "type": "m"
+            }
           }
         ]
       },
       {
         "name": "dim_date",
-        "lineageTag": "dim_date-lineage",
         "columns": [
           {
             "name": "date_key",
             "dataType": "int64",
-            "sourceColumn": "date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "8a8d057c-2b71-4da6-84fd-0734400fba80",
+            "sourceColumn": "date_key"
           },
           {
             "name": "full_date",
             "dataType": "dateTime",
+            "lineageTag": "2e7c3666-fcd5-44d9-a8b0-2b277988efad",
             "sourceColumn": "full_date"
           },
           {
             "name": "day_of_month",
             "dataType": "int64",
+            "lineageTag": "87f5ebe4-e6de-4836-a811-58e1f3a58cbe",
             "sourceColumn": "day_of_month"
           },
           {
             "name": "month_number",
             "dataType": "int64",
+            "lineageTag": "a3187a24-b9ea-48e6-8118-87e1f3856ae8",
             "sourceColumn": "month_number"
           },
           {
             "name": "month_name",
             "dataType": "string",
+            "lineageTag": "a75d534e-b7a7-4c6b-ac4b-3a3f301fbbaa",
             "sourceColumn": "month_name"
           },
           {
             "name": "year_month",
             "dataType": "string",
+            "lineageTag": "5c6237d7-0b2f-4fde-9af5-290bd445fb30",
             "sourceColumn": "year_month"
           },
           {
             "name": "quarter_number",
             "dataType": "int64",
+            "lineageTag": "7d9256a6-668a-45a4-8cb6-97705c862927",
             "sourceColumn": "quarter_number"
           },
           {
             "name": "quarter_name",
             "dataType": "string",
+            "lineageTag": "f969a886-5332-4af8-8624-7ca2bd00bdcd",
             "sourceColumn": "quarter_name"
           },
           {
             "name": "calendar_year",
             "dataType": "int64",
+            "lineageTag": "1e23cdb4-7b50-4216-89aa-547278d7bdfb",
             "sourceColumn": "calendar_year"
           },
           {
             "name": "financial_year",
             "dataType": "string",
+            "lineageTag": "83ca20fd-9283-4a0a-8aeb-1a04d0e91f80",
             "sourceColumn": "financial_year"
           },
           {
             "name": "financial_quarter",
             "dataType": "string",
+            "lineageTag": "af3d3be0-b1fa-4dbd-bbc8-7bd1df991cc0",
             "sourceColumn": "financial_quarter"
           },
           {
             "name": "is_weekend",
             "dataType": "boolean",
+            "lineageTag": "6846c9b9-0a2d-4ed8-9db5-ede682a6ba12",
             "sourceColumn": "is_weekend"
           },
           {
             "name": "is_month_end",
             "dataType": "boolean",
+            "lineageTag": "e9fab42e-dd7f-4b39-8379-eb8b5848d845",
             "sourceColumn": "is_month_end"
           }
         ],
+        "lineageTag": "dim_date-lineage",
         "partitions": [
           {
-            "name": "dim_date-Partition",
+            "name": "dim_date",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_date.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/dim_date.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"date_key\", Int64.Type},",
+                "        {\"full_date\", type datetime},",
+                "        {\"day_of_month\", Int64.Type},",
+                "        {\"month_number\", Int64.Type},",
+                "        {\"month_name\", type text},",
+                "        {\"year_month\", type text},",
+                "        {\"quarter_number\", Int64.Type},",
+                "        {\"quarter_name\", type text},",
+                "        {\"calendar_year\", Int64.Type},",
+                "        {\"financial_year\", type text},",
+                "        {\"financial_quarter\", type text},",
+                "        {\"is_weekend\", type logical},",
+                "        {\"is_month_end\", type logical}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "dim_state",
-        "lineageTag": "dim_state-lineage",
         "columns": [
           {
             "name": "state_key",
             "dataType": "int64",
-            "sourceColumn": "state_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "a8e01ca4-6208-40d7-833f-ef0c260b4354",
+            "sourceColumn": "state_key"
           },
           {
             "name": "state_id",
             "dataType": "string",
+            "lineageTag": "78a6f061-e11d-4e41-a37a-ad2c0d2465f3",
             "sourceColumn": "state_id"
           },
           {
             "name": "state_name",
             "dataType": "string",
+            "lineageTag": "5109cd56-da88-4b20-8c76-09ecf184e75c",
             "sourceColumn": "state_name"
           },
           {
             "name": "region",
             "dataType": "string",
+            "lineageTag": "685c467f-60c3-423a-ae97-f639f7123d4c",
             "sourceColumn": "region"
           }
         ],
+        "lineageTag": "dim_state-lineage",
         "partitions": [
           {
-            "name": "dim_state-Partition",
+            "name": "dim_state",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_state.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/dim_state.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"state_key\", Int64.Type},",
+                "        {\"state_id\", type text},",
+                "        {\"state_name\", type text},",
+                "        {\"region\", type text}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "dim_branch",
-        "lineageTag": "dim_branch-lineage",
         "columns": [
           {
             "name": "branch_key",
             "dataType": "int64",
-            "sourceColumn": "branch_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "e4e44856-26ed-4fe9-88a3-aefe1174a9f3",
+            "sourceColumn": "branch_key"
           },
           {
             "name": "branch_id",
             "dataType": "string",
+            "lineageTag": "f9c76c59-b5e2-46fc-9794-863810f48614",
             "sourceColumn": "branch_id"
           },
           {
             "name": "branch_name",
             "dataType": "string",
+            "lineageTag": "77731afb-7a9d-492f-9564-5bd409ae3f71",
             "sourceColumn": "branch_name"
           },
           {
             "name": "state_id",
             "dataType": "string",
+            "lineageTag": "6563f15c-b5e6-497c-9e3c-fd23eed8f85c",
             "sourceColumn": "state_id"
           },
           {
             "name": "location_type",
             "dataType": "string",
+            "lineageTag": "63dfc894-de93-434a-9377-f49353998781",
             "sourceColumn": "location_type"
           }
         ],
+        "lineageTag": "dim_branch-lineage",
         "partitions": [
           {
-            "name": "dim_branch-Partition",
+            "name": "dim_branch",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_branch.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/dim_branch.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"branch_key\", Int64.Type},",
+                "        {\"branch_id\", type text},",
+                "        {\"branch_name\", type text},",
+                "        {\"state_id\", type text},",
+                "        {\"location_type\", type text}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "dim_product",
-        "lineageTag": "dim_product-lineage",
         "columns": [
           {
             "name": "product_key",
             "dataType": "int64",
-            "sourceColumn": "product_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "9e68a0e2-5857-4afd-a2a2-7990a0141d76",
+            "sourceColumn": "product_key"
           },
           {
             "name": "product_id",
             "dataType": "string",
+            "lineageTag": "a99e6298-4c94-4d27-b469-911eb9ad5fd3",
             "sourceColumn": "product_id"
           },
           {
             "name": "product_name",
             "dataType": "string",
+            "lineageTag": "f44bb9d6-6ac6-45f6-9012-73081e12a631",
             "sourceColumn": "product_name"
           },
           {
             "name": "category",
             "dataType": "string",
+            "lineageTag": "9addf883-c67a-430b-87f4-1bd558d44c87",
             "sourceColumn": "category"
           },
           {
             "name": "min_rate",
             "dataType": "double",
+            "lineageTag": "e0acd371-3091-4a5c-aa41-4ddc1edc0fdc",
             "sourceColumn": "min_rate"
           },
           {
             "name": "max_rate",
             "dataType": "double",
+            "lineageTag": "08e05090-b378-42d1-8098-83b355c8bb2c",
             "sourceColumn": "max_rate"
           },
           {
             "name": "min_tenure",
             "dataType": "int64",
+            "lineageTag": "b7632373-2b96-4c22-a726-b6c0dd68608b",
             "sourceColumn": "min_tenure"
           },
           {
             "name": "max_tenure",
             "dataType": "int64",
+            "lineageTag": "0f01a0ce-3c82-4a93-8c31-7b5354f17e96",
             "sourceColumn": "max_tenure"
           }
         ],
+        "lineageTag": "dim_product-lineage",
         "partitions": [
           {
-            "name": "dim_product-Partition",
+            "name": "dim_product",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_product.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/dim_product.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"product_key\", Int64.Type},",
+                "        {\"product_id\", type text},",
+                "        {\"product_name\", type text},",
+                "        {\"category\", type text},",
+                "        {\"min_rate\", type number},",
+                "        {\"max_rate\", type number},",
+                "        {\"min_tenure\", Int64.Type},",
+                "        {\"max_tenure\", Int64.Type}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "dim_borrower_segment",
-        "lineageTag": "dim_borrower_segment-lineage",
         "columns": [
           {
             "name": "borrower_segment_key",
             "dataType": "int64",
-            "sourceColumn": "borrower_segment_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "5684ae51-8370-4e41-9161-0247e14dd4e7",
+            "sourceColumn": "borrower_segment_key"
           },
           {
             "name": "borrower_segment",
             "dataType": "string",
+            "lineageTag": "a24c14db-d0b7-4801-b0eb-b3c277de2a45",
             "sourceColumn": "borrower_segment"
           },
           {
             "name": "income_band",
             "dataType": "string",
+            "lineageTag": "fa2c6738-b49d-4b97-bad9-5a1bdc2ea0bd",
             "sourceColumn": "income_band"
           },
           {
             "name": "location_type",
             "dataType": "string",
+            "lineageTag": "ab816d02-1f08-4dc0-88a0-2865cbc5ae45",
             "sourceColumn": "location_type"
           },
           {
             "name": "occupation_category",
             "dataType": "string",
+            "lineageTag": "eaaf0061-4fd1-4794-b878-86300d00c535",
             "sourceColumn": "occupation_category"
           }
         ],
+        "lineageTag": "dim_borrower_segment-lineage",
         "partitions": [
           {
-            "name": "dim_borrower_segment-Partition",
+            "name": "dim_borrower_segment",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_borrower_segment.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/dim_borrower_segment.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"borrower_segment_key\", Int64.Type},",
+                "        {\"borrower_segment\", type text},",
+                "        {\"income_band\", type text},",
+                "        {\"location_type\", type text},",
+                "        {\"occupation_category\", type text}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "dim_loan",
-        "lineageTag": "dim_loan-lineage",
         "columns": [
           {
             "name": "loan_key",
             "dataType": "int64",
-            "sourceColumn": "loan_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "1b3e1be6-6b4b-4cd6-a142-807f1f5157e0",
+            "sourceColumn": "loan_key"
           },
           {
             "name": "loan_id",
             "dataType": "string",
+            "lineageTag": "804fd6fb-a385-499e-91a3-7f723d69e813",
             "sourceColumn": "loan_id"
           },
           {
             "name": "borrower_id",
             "dataType": "string",
+            "lineageTag": "3b62ae53-e058-4be5-89d6-ef0b8106b5d7",
             "sourceColumn": "borrower_id"
           },
           {
             "name": "branch_id",
             "dataType": "string",
+            "lineageTag": "5445f23c-ed58-4479-842e-2ee1949a6ccb",
             "sourceColumn": "branch_id"
           },
           {
             "name": "state_id",
             "dataType": "string",
+            "lineageTag": "db63ff39-8c4f-432b-b1b9-14bbea407bf2",
             "sourceColumn": "state_id"
           },
           {
             "name": "product_id",
             "dataType": "string",
+            "lineageTag": "ace3f2ba-6ba8-408d-9cdf-6fb795fd5f10",
             "sourceColumn": "product_id"
           },
           {
             "name": "disbursement_date",
             "dataType": "dateTime",
+            "lineageTag": "99f76179-7c5e-4df5-b30f-185887fa20d0",
             "sourceColumn": "disbursement_date"
           },
           {
             "name": "disbursement_date_key",
             "dataType": "int64",
-            "sourceColumn": "disbursement_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "117a99df-022b-4207-aa84-e7c9953b6831",
+            "sourceColumn": "disbursement_date_key"
           },
           {
             "name": "principal_amount",
             "dataType": "double",
+            "lineageTag": "54de8ae8-877f-4394-af4e-f32545fff205",
             "sourceColumn": "principal_amount"
           },
           {
             "name": "annual_interest_rate",
             "dataType": "double",
+            "lineageTag": "1090d22d-e311-4759-a38e-e1b5f7b8c4ad",
             "sourceColumn": "annual_interest_rate"
           },
           {
             "name": "tenure_months",
             "dataType": "int64",
+            "lineageTag": "9771dd31-0303-4c2c-8f49-eb490a011bc6",
             "sourceColumn": "tenure_months"
           },
           {
             "name": "loan_status",
             "dataType": "string",
+            "lineageTag": "69a742f5-9b67-416f-bd0b-7d1772da73c6",
             "sourceColumn": "loan_status"
           }
         ],
+        "lineageTag": "dim_loan-lineage",
         "partitions": [
           {
-            "name": "dim_loan-Partition",
+            "name": "dim_loan",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/dim_loan.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/dim_loan.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"loan_key\", Int64.Type},",
+                "        {\"loan_id\", type text},",
+                "        {\"borrower_id\", type text},",
+                "        {\"branch_id\", type text},",
+                "        {\"state_id\", type text},",
+                "        {\"product_id\", type text},",
+                "        {\"disbursement_date\", type datetime},",
+                "        {\"disbursement_date_key\", Int64.Type},",
+                "        {\"principal_amount\", type number},",
+                "        {\"annual_interest_rate\", type number},",
+                "        {\"tenure_months\", Int64.Type},",
+                "        {\"loan_status\", type text}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "fact_payment",
-        "lineageTag": "fact_payment-lineage",
         "columns": [
           {
             "name": "payment_key",
             "dataType": "int64",
-            "sourceColumn": "payment_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "4001c2c3-f1f1-49f3-8815-bc5b2a7a08a6",
+            "sourceColumn": "payment_key"
           },
           {
             "name": "transaction_id",
             "dataType": "string",
+            "lineageTag": "0d1a781e-b20e-4391-8be2-00992941f4fa",
             "sourceColumn": "transaction_id"
           },
           {
             "name": "loan_key",
             "dataType": "int64",
-            "sourceColumn": "loan_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "61baa38e-07f3-4705-8087-6ae055c8153c",
+            "sourceColumn": "loan_key"
           },
           {
             "name": "payment_date",
             "dataType": "dateTime",
+            "lineageTag": "303aacc5-314a-488e-8706-574839c2764f",
             "sourceColumn": "payment_date"
           },
           {
             "name": "payment_date_key",
             "dataType": "int64",
-            "sourceColumn": "payment_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "117dc167-52a5-41df-8b7b-f18b6bab9c0a",
+            "sourceColumn": "payment_date_key"
           },
           {
             "name": "branch_key",
             "dataType": "int64",
-            "sourceColumn": "branch_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "cc5e3e1b-0348-4203-8e87-fe41660e72e4",
+            "sourceColumn": "branch_key"
           },
           {
             "name": "state_key",
             "dataType": "int64",
-            "sourceColumn": "state_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "3d0a3eb7-93d3-49af-b9b8-acafb9ef7a6e",
+            "sourceColumn": "state_key"
           },
           {
             "name": "product_key",
             "dataType": "int64",
-            "sourceColumn": "product_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "68c85409-66f0-4eb6-b426-e9c1c2101546",
+            "sourceColumn": "product_key"
           },
           {
             "name": "borrower_segment_key",
             "dataType": "int64",
-            "sourceColumn": "borrower_segment_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "ed720268-b23a-46cd-87e0-798c929df9bc",
+            "sourceColumn": "borrower_segment_key"
           },
           {
             "name": "payment_amount",
             "dataType": "double",
+            "lineageTag": "da090320-e7aa-4cf4-a6bd-65a5b2d3fbcd",
             "sourceColumn": "payment_amount"
           },
           {
             "name": "payment_channel",
             "dataType": "string",
+            "lineageTag": "54921e8a-0d83-4e6a-876c-738727283cd9",
             "sourceColumn": "payment_channel"
           },
           {
             "name": "raw_payment_amount",
             "dataType": "double",
+            "lineageTag": "f87c53e8-e061-4567-8ba8-afefb97ac789",
             "sourceColumn": "raw_payment_amount"
           },
           {
             "name": "raw_amount_unit",
             "dataType": "string",
+            "lineageTag": "41d32493-394a-4874-85c6-7e968efce157",
             "sourceColumn": "raw_amount_unit"
           }
         ],
+        "lineageTag": "fact_payment-lineage",
         "partitions": [
           {
-            "name": "fact_payment-Partition",
+            "name": "fact_payment",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/fact_payment.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/fact_payment.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"payment_key\", Int64.Type},",
+                "        {\"transaction_id\", type text},",
+                "        {\"loan_key\", Int64.Type},",
+                "        {\"payment_date\", type datetime},",
+                "        {\"payment_date_key\", Int64.Type},",
+                "        {\"branch_key\", Int64.Type},",
+                "        {\"state_key\", Int64.Type},",
+                "        {\"product_key\", Int64.Type},",
+                "        {\"borrower_segment_key\", Int64.Type},",
+                "        {\"payment_amount\", type number},",
+                "        {\"payment_channel\", type text},",
+                "        {\"raw_payment_amount\", type number},",
+                "        {\"raw_amount_unit\", type text}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "fact_instalment_allocation",
-        "lineageTag": "fact_instalment_allocation-lineage",
         "columns": [
           {
             "name": "allocation_key",
             "dataType": "int64",
-            "sourceColumn": "allocation_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "b1895509-9522-473d-8050-7c2be3a73d0e",
+            "sourceColumn": "allocation_key"
           },
           {
             "name": "transaction_id",
             "dataType": "string",
+            "lineageTag": "36248176-227d-4c24-90e2-35d60b34ff86",
             "sourceColumn": "transaction_id"
           },
           {
             "name": "instalment_id",
             "dataType": "string",
+            "lineageTag": "2b85aa8e-dda5-417b-a323-8e521bc31218",
             "sourceColumn": "instalment_id"
           },
           {
             "name": "loan_key",
             "dataType": "int64",
-            "sourceColumn": "loan_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "c480703f-d5a2-4637-85d5-a2d5023625ca",
+            "sourceColumn": "loan_key"
           },
           {
             "name": "payment_date",
             "dataType": "dateTime",
+            "lineageTag": "25585191-ddae-4115-a5b6-34b9974a6550",
             "sourceColumn": "payment_date"
           },
           {
             "name": "payment_date_key",
             "dataType": "int64",
-            "sourceColumn": "payment_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "cd317716-a99e-47c7-8827-b9016a52d7ea",
+            "sourceColumn": "payment_date_key"
           },
           {
             "name": "due_date",
             "dataType": "dateTime",
+            "lineageTag": "c715d4ca-7cfb-41ac-abff-b09ff8daf543",
             "sourceColumn": "due_date"
           },
           {
             "name": "due_date_key",
             "dataType": "int64",
-            "sourceColumn": "due_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "cd1c5129-3f0d-462f-8fbb-d87d5e536da0",
+            "sourceColumn": "due_date_key"
           },
           {
             "name": "branch_key",
             "dataType": "int64",
-            "sourceColumn": "branch_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "db9512e8-a7f4-4c46-8f0f-4cf2ecdae2e8",
+            "sourceColumn": "branch_key"
           },
           {
             "name": "state_key",
             "dataType": "int64",
-            "sourceColumn": "state_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "1e05c0be-6712-4fae-9f18-14304c043461",
+            "sourceColumn": "state_key"
           },
           {
             "name": "product_key",
             "dataType": "int64",
-            "sourceColumn": "product_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "b3fa8024-178e-4aaa-adfd-0b3edcf14028",
+            "sourceColumn": "product_key"
           },
           {
             "name": "borrower_segment_key",
             "dataType": "int64",
-            "sourceColumn": "borrower_segment_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "523ea89b-b7a8-4949-8fcd-479576f0c5b5",
+            "sourceColumn": "borrower_segment_key"
           },
           {
             "name": "instalment_number",
             "dataType": "int64",
+            "lineageTag": "3f9fed8a-468a-4d1d-b637-da66827cf4b5",
             "sourceColumn": "instalment_number"
           },
           {
             "name": "allocated_amount",
             "dataType": "double",
+            "lineageTag": "4091bcf4-1d35-4d69-be69-a5fdec23ae42",
             "sourceColumn": "allocated_amount"
           },
           {
             "name": "allocated_principal",
             "dataType": "double",
+            "lineageTag": "27994576-289d-4ed2-85d5-92ec582ae92b",
             "sourceColumn": "allocated_principal"
           },
           {
             "name": "allocated_interest",
             "dataType": "double",
+            "lineageTag": "7424e54b-5ade-45fe-b057-4e8cca185774",
             "sourceColumn": "allocated_interest"
           },
           {
             "name": "payment_channel",
             "dataType": "string",
+            "lineageTag": "ea9e727f-8814-45b6-8dca-298910798a6d",
             "sourceColumn": "payment_channel"
           }
         ],
+        "lineageTag": "fact_instalment_allocation-lineage",
         "partitions": [
           {
-            "name": "fact_instalment_allocation-Partition",
+            "name": "fact_instalment_allocation",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/fact_instalment_allocation.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/fact_instalment_allocation.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"allocation_key\", Int64.Type},",
+                "        {\"transaction_id\", type text},",
+                "        {\"instalment_id\", type text},",
+                "        {\"loan_key\", Int64.Type},",
+                "        {\"payment_date\", type datetime},",
+                "        {\"payment_date_key\", Int64.Type},",
+                "        {\"due_date\", type datetime},",
+                "        {\"due_date_key\", Int64.Type},",
+                "        {\"branch_key\", Int64.Type},",
+                "        {\"state_key\", Int64.Type},",
+                "        {\"product_key\", Int64.Type},",
+                "        {\"borrower_segment_key\", Int64.Type},",
+                "        {\"instalment_number\", Int64.Type},",
+                "        {\"allocated_amount\", type number},",
+                "        {\"allocated_principal\", type number},",
+                "        {\"allocated_interest\", type number},",
+                "        {\"payment_channel\", type text}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "fact_loan_monthly",
-        "lineageTag": "fact_loan_monthly-lineage",
         "columns": [
           {
             "name": "snapshot_key",
             "dataType": "int64",
-            "sourceColumn": "snapshot_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "709e106a-46e4-4a82-a825-5a93cd4b3265",
+            "sourceColumn": "snapshot_key"
           },
           {
             "name": "loan_id",
             "dataType": "string",
+            "lineageTag": "35754a22-3353-4b06-8e42-74f09c65b0c9",
             "sourceColumn": "loan_id"
           },
           {
             "name": "loan_key",
             "dataType": "int64",
-            "sourceColumn": "loan_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "abe3bab0-1128-41d0-be00-0ec7e004a055",
+            "sourceColumn": "loan_key"
           },
           {
             "name": "snapshot_date",
             "dataType": "dateTime",
+            "lineageTag": "ae1613a0-4ae1-4efe-9c81-af4c2577871f",
             "sourceColumn": "snapshot_date"
           },
           {
             "name": "snapshot_date_key",
             "dataType": "int64",
-            "sourceColumn": "snapshot_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "6901cb02-e997-4023-a4f2-603f8c918e35",
+            "sourceColumn": "snapshot_date_key"
           },
           {
             "name": "branch_key",
             "dataType": "int64",
-            "sourceColumn": "branch_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "33f8a8f0-476c-4b43-ba93-ef0224bdfb56",
+            "sourceColumn": "branch_key"
           },
           {
             "name": "state_key",
             "dataType": "int64",
-            "sourceColumn": "state_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "dff65d46-bb2f-4814-9a7f-8fe72e6de15f",
+            "sourceColumn": "state_key"
           },
           {
             "name": "product_key",
             "dataType": "int64",
-            "sourceColumn": "product_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "0f8585b6-05a0-4b2b-8ec9-fc70fcb91cf5",
+            "sourceColumn": "product_key"
           },
           {
             "name": "borrower_segment_key",
             "dataType": "int64",
-            "sourceColumn": "borrower_segment_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "1a218c70-bddb-4414-a902-cc3c7208f177",
+            "sourceColumn": "borrower_segment_key"
           },
           {
             "name": "outstanding_principal",
             "dataType": "double",
+            "lineageTag": "06f35224-b930-48e4-8568-fa0d7c594a11",
             "sourceColumn": "outstanding_principal"
           },
           {
             "name": "instalments_due",
             "dataType": "int64",
+            "lineageTag": "8dbbb9f3-c4f0-4c69-b334-e730b07dc07f",
             "sourceColumn": "instalments_due"
           },
           {
             "name": "instalments_paid",
             "dataType": "int64",
+            "lineageTag": "00ed4b1f-0572-43f6-a7a6-4db9ee6b6611",
             "sourceColumn": "instalments_paid"
           },
           {
             "name": "amount_due",
             "dataType": "double",
+            "lineageTag": "b3b28df3-4736-46ae-89a0-6636a756f7eb",
             "sourceColumn": "amount_due"
           },
           {
             "name": "amount_paid",
             "dataType": "double",
+            "lineageTag": "8e07a54e-5ddd-4cbc-bfb3-c7d8434124a2",
             "sourceColumn": "amount_paid"
           },
           {
             "name": "days_past_due",
             "dataType": "int64",
+            "lineageTag": "dbbea475-80ba-4fc3-b46d-83a8b409a720",
             "sourceColumn": "days_past_due"
           },
           {
             "name": "overdue_amount",
             "dataType": "double",
+            "lineageTag": "7c705181-360e-483a-b443-fcd8a4fdbf44",
             "sourceColumn": "overdue_amount"
           }
         ],
+        "lineageTag": "fact_loan_monthly-lineage",
         "partitions": [
           {
-            "name": "fact_loan_monthly-Partition",
+            "name": "fact_loan_monthly",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/fact_loan_monthly.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/fact_loan_monthly.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"snapshot_key\", Int64.Type},",
+                "        {\"loan_id\", type text},",
+                "        {\"loan_key\", Int64.Type},",
+                "        {\"snapshot_date\", type datetime},",
+                "        {\"snapshot_date_key\", Int64.Type},",
+                "        {\"branch_key\", Int64.Type},",
+                "        {\"state_key\", Int64.Type},",
+                "        {\"product_key\", Int64.Type},",
+                "        {\"borrower_segment_key\", Int64.Type},",
+                "        {\"outstanding_principal\", type number},",
+                "        {\"instalments_due\", Int64.Type},",
+                "        {\"instalments_paid\", Int64.Type},",
+                "        {\"amount_due\", type number},",
+                "        {\"amount_paid\", type number},",
+                "        {\"days_past_due\", Int64.Type},",
+                "        {\"overdue_amount\", type number}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "kpi_portfolio_health",
-        "lineageTag": "kpi_portfolio_health-lineage",
         "columns": [
           {
             "name": "year_month",
             "dataType": "string",
+            "lineageTag": "55c3df61-a8ba-4313-80f8-67e65ffe8c0c",
             "sourceColumn": "year_month"
           },
           {
             "name": "snapshot_date",
             "dataType": "dateTime",
+            "lineageTag": "fdb4a219-070a-49ff-8f57-1a3e3ddffe36",
             "sourceColumn": "snapshot_date"
           },
           {
             "name": "snapshot_date_key",
             "dataType": "int64",
-            "sourceColumn": "snapshot_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "ca16dabb-cc48-42dc-a0fc-ee5fcbfa9805",
+            "sourceColumn": "snapshot_date_key"
           },
           {
             "name": "state_id",
             "dataType": "string",
+            "lineageTag": "1a9783cb-65df-4a95-9078-42812e03e41f",
             "sourceColumn": "state_id"
           },
           {
             "name": "state_name",
             "dataType": "string",
+            "lineageTag": "45ace889-1f34-4b72-bbdb-dc8b6eb20940",
             "sourceColumn": "state_name"
           },
           {
             "name": "region",
             "dataType": "string",
+            "lineageTag": "91b64ded-6a57-4378-9e1c-51dc23fcecb4",
             "sourceColumn": "region"
           },
           {
             "name": "branch_id",
             "dataType": "string",
+            "lineageTag": "07b35b61-c835-4c3f-847f-305ec8a7af18",
             "sourceColumn": "branch_id"
           },
           {
             "name": "branch_name",
             "dataType": "string",
+            "lineageTag": "fef12193-242b-4531-88f2-b07e5f31a9f8",
             "sourceColumn": "branch_name"
           },
           {
             "name": "branch_location_type",
             "dataType": "string",
+            "lineageTag": "e592d54a-59b1-489f-9d02-47aa1e535057",
             "sourceColumn": "branch_location_type"
           },
           {
             "name": "product_id",
             "dataType": "string",
+            "lineageTag": "c9a465ff-5c82-41f3-a217-ece2e12a632d",
             "sourceColumn": "product_id"
           },
           {
             "name": "product_name",
             "dataType": "string",
+            "lineageTag": "7b8452ca-4b1b-423c-ba21-0a21cc403ba4",
             "sourceColumn": "product_name"
           },
           {
             "name": "product_category",
             "dataType": "string",
+            "lineageTag": "5059cb07-3ea4-4a27-a97a-1ba777846862",
             "sourceColumn": "product_category"
           },
           {
             "name": "borrower_segment",
             "dataType": "string",
+            "lineageTag": "bb61496d-abf1-46cd-a7b0-5a3f3538bfa5",
             "sourceColumn": "borrower_segment"
           },
           {
             "name": "total_active_loans",
             "dataType": "int64",
+            "lineageTag": "520b2c83-9a0c-453a-a611-5bfd739e20d3",
             "sourceColumn": "total_active_loans"
           },
           {
             "name": "total_cumulative_loans",
             "dataType": "int64",
+            "lineageTag": "206bc628-1d5d-46fb-81e9-9defa74f6942",
             "sourceColumn": "total_cumulative_loans"
           },
           {
             "name": "total_outstanding_principal",
             "dataType": "double",
+            "lineageTag": "4293e00d-cb4d-43c9-978d-6f109c87076e",
             "sourceColumn": "total_outstanding_principal"
           },
           {
             "name": "principal_current",
             "dataType": "double",
+            "lineageTag": "0d7d4594-1a3c-42e0-91df-4f0d8c3c2225",
             "sourceColumn": "principal_current"
           },
           {
             "name": "principal_dpd_1_30",
             "dataType": "double",
+            "lineageTag": "cfe28093-8f1f-4220-a069-584c396c8133",
             "sourceColumn": "principal_dpd_1_30"
           },
           {
             "name": "principal_dpd_31_60",
             "dataType": "double",
+            "lineageTag": "1c492e95-91ae-40ff-840e-0863e7c3ff49",
             "sourceColumn": "principal_dpd_31_60"
           },
           {
             "name": "principal_dpd_61_90",
             "dataType": "double",
+            "lineageTag": "1db927c1-3f09-424e-991e-ae08daf90f00",
             "sourceColumn": "principal_dpd_61_90"
           },
           {
             "name": "principal_dpd_90_plus",
             "dataType": "double",
+            "lineageTag": "350a6916-6314-4a67-a10a-a52a0bea4fe0",
             "sourceColumn": "principal_dpd_90_plus"
           },
           {
             "name": "par30_principal",
             "dataType": "double",
+            "lineageTag": "6f8c255b-5ee5-449e-8bf7-431d37e4d0ba",
             "sourceColumn": "par30_principal"
           },
           {
             "name": "par90_principal",
             "dataType": "double",
+            "lineageTag": "8f082952-0293-41a0-adeb-cb53f8338a9e",
             "sourceColumn": "par90_principal"
           },
           {
             "name": "par30_pct",
             "dataType": "double",
+            "lineageTag": "c2dac66e-02ad-44c1-8862-4e7118bfaca9",
             "sourceColumn": "par30_pct"
           },
           {
             "name": "par90_pct",
             "dataType": "double",
+            "lineageTag": "d965c863-caa3-4ac4-b4a9-add1a1369b09",
             "sourceColumn": "par90_pct"
           }
         ],
+        "lineageTag": "kpi_portfolio_health-lineage",
         "partitions": [
           {
-            "name": "kpi_portfolio_health-Partition",
+            "name": "kpi_portfolio_health",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/kpi_portfolio_health.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/kpi_portfolio_health.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=25, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"year_month\", type text},",
+                "        {\"snapshot_date\", type datetime},",
+                "        {\"snapshot_date_key\", Int64.Type},",
+                "        {\"state_id\", type text},",
+                "        {\"state_name\", type text},",
+                "        {\"region\", type text},",
+                "        {\"branch_id\", type text},",
+                "        {\"branch_name\", type text},",
+                "        {\"branch_location_type\", type text},",
+                "        {\"product_id\", type text},",
+                "        {\"product_name\", type text},",
+                "        {\"product_category\", type text},",
+                "        {\"borrower_segment\", type text},",
+                "        {\"total_active_loans\", Int64.Type},",
+                "        {\"total_cumulative_loans\", Int64.Type},",
+                "        {\"total_outstanding_principal\", type number},",
+                "        {\"principal_current\", type number},",
+                "        {\"principal_dpd_1_30\", type number},",
+                "        {\"principal_dpd_31_60\", type number},",
+                "        {\"principal_dpd_61_90\", type number},",
+                "        {\"principal_dpd_90_plus\", type number},",
+                "        {\"par30_principal\", type number},",
+                "        {\"par90_principal\", type number},",
+                "        {\"par30_pct\", type number},",
+                "        {\"par90_pct\", type number}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "kpi_collection_efficiency",
-        "lineageTag": "kpi_collection_efficiency-lineage",
         "columns": [
           {
             "name": "year_month",
             "dataType": "string",
+            "lineageTag": "a55669c7-8471-48a0-b1dd-37bd7dfb64ba",
             "sourceColumn": "year_month"
           },
           {
             "name": "month_date_key",
             "dataType": "int64",
-            "sourceColumn": "month_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "8fe40307-a31a-4de3-87c0-9a7659754a61",
+            "sourceColumn": "month_date_key"
           },
           {
             "name": "state_id",
             "dataType": "string",
+            "lineageTag": "54852c35-4584-493f-972a-467aaad7b8b0",
             "sourceColumn": "state_id"
           },
           {
             "name": "state_name",
             "dataType": "string",
+            "lineageTag": "ce6c1071-b4a3-46be-a4bd-46dd1ab213a2",
             "sourceColumn": "state_name"
           },
           {
             "name": "branch_id",
             "dataType": "string",
+            "lineageTag": "b1d602f8-c7e7-4357-bf03-d16d9f3ca45a",
             "sourceColumn": "branch_id"
           },
           {
             "name": "branch_name",
             "dataType": "string",
+            "lineageTag": "683d297f-d6d5-4c51-9a6d-20bf13385247",
             "sourceColumn": "branch_name"
           },
           {
             "name": "product_id",
             "dataType": "string",
+            "lineageTag": "4c7d1d07-1eae-4bae-a299-86296330dcf1",
             "sourceColumn": "product_id"
           },
           {
             "name": "product_name",
             "dataType": "string",
+            "lineageTag": "079c3e8b-834d-48a4-9f1a-fff7e2ed388d",
             "sourceColumn": "product_name"
           },
           {
             "name": "scheduled_amount_due",
             "dataType": "double",
+            "lineageTag": "187a2119-48d5-4627-a35a-5a4277bd6e98",
             "sourceColumn": "scheduled_amount_due"
           },
           {
             "name": "current_period_collected",
             "dataType": "double",
+            "lineageTag": "7d9841e3-4e38-46c4-9f85-5b806927ddb2",
             "sourceColumn": "current_period_collected"
           },
           {
             "name": "arrears_collected",
             "dataType": "double",
+            "lineageTag": "acfb7912-8994-4ab5-a4a7-b9a69644a831",
             "sourceColumn": "arrears_collected"
           },
           {
             "name": "advance_collected",
             "dataType": "double",
+            "lineageTag": "74e4af84-3089-4557-ae69-a12754960532",
             "sourceColumn": "advance_collected"
           },
           {
             "name": "total_amount_collected",
             "dataType": "double",
+            "lineageTag": "d423f6e2-e1a2-4004-8f76-6a70795c6e39",
             "sourceColumn": "total_amount_collected"
           },
           {
             "name": "current_period_efficiency_pct",
             "dataType": "double",
+            "lineageTag": "37d3be8c-0071-4d00-8dd6-b550354ea27c",
             "sourceColumn": "current_period_efficiency_pct"
           },
           {
             "name": "total_collection_ratio_pct",
             "dataType": "double",
+            "lineageTag": "4b0d9d4f-a0ee-4d6c-951a-1c824ba23364",
             "sourceColumn": "total_collection_ratio_pct"
           },
           {
             "name": "collection_efficiency_pct",
             "dataType": "double",
+            "lineageTag": "f3749f44-55d4-4cd9-8775-d9bed95bf8d1",
             "sourceColumn": "collection_efficiency_pct"
           }
         ],
+        "lineageTag": "kpi_collection_efficiency-lineage",
         "partitions": [
           {
-            "name": "kpi_collection_efficiency-Partition",
+            "name": "kpi_collection_efficiency",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/kpi_collection_efficiency.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/kpi_collection_efficiency.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"year_month\", type text},",
+                "        {\"month_date_key\", Int64.Type},",
+                "        {\"state_id\", type text},",
+                "        {\"state_name\", type text},",
+                "        {\"branch_id\", type text},",
+                "        {\"branch_name\", type text},",
+                "        {\"product_id\", type text},",
+                "        {\"product_name\", type text},",
+                "        {\"scheduled_amount_due\", type number},",
+                "        {\"current_period_collected\", type number},",
+                "        {\"arrears_collected\", type number},",
+                "        {\"advance_collected\", type number},",
+                "        {\"total_amount_collected\", type number},",
+                "        {\"current_period_efficiency_pct\", type number},",
+                "        {\"total_collection_ratio_pct\", type number},",
+                "        {\"collection_efficiency_pct\", type number}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "kpi_vintage_curves",
-        "lineageTag": "kpi_vintage_curves-lineage",
         "columns": [
           {
             "name": "cohort_month",
             "dataType": "string",
+            "lineageTag": "66f89cb3-9f24-4bbf-827c-f892584c33b6",
             "sourceColumn": "cohort_month"
           },
           {
             "name": "cohort_date_key",
             "dataType": "int64",
-            "sourceColumn": "cohort_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "4c1e380b-9686-40b3-9517-63e9f7e1420a",
+            "sourceColumn": "cohort_date_key"
           },
           {
             "name": "product_id",
             "dataType": "string",
+            "lineageTag": "0517f05a-0ac9-4ef7-b3d1-5e82f45213a2",
             "sourceColumn": "product_id"
           },
           {
             "name": "product_name",
             "dataType": "string",
+            "lineageTag": "75080cbe-33d7-419f-8505-6f19e4f35327",
             "sourceColumn": "product_name"
           },
           {
             "name": "product_category",
             "dataType": "string",
+            "lineageTag": "ef0052f3-bc2b-4733-9a75-af0442db05a6",
             "sourceColumn": "product_category"
           },
           {
             "name": "month_on_book",
             "dataType": "int64",
+            "lineageTag": "d304695a-5915-45c0-9ef2-5d0b6a89e37a",
             "sourceColumn": "month_on_book"
           },
           {
             "name": "total_cohort_loans",
             "dataType": "int64",
+            "lineageTag": "826b30b1-0d23-4689-b91b-7ddb5b37c1a3",
             "sourceColumn": "total_cohort_loans"
           },
           {
             "name": "scheduled_due_mob",
             "dataType": "double",
+            "lineageTag": "005c3e11-a4a6-498e-b25c-7bef7ad3db19",
             "sourceColumn": "scheduled_due_mob"
           },
           {
             "name": "amount_paid_mob",
             "dataType": "double",
+            "lineageTag": "dea91a30-5c55-4efc-b0b2-0a95556875f2",
             "sourceColumn": "amount_paid_mob"
           },
           {
             "name": "cumulative_scheduled_due",
             "dataType": "double",
+            "lineageTag": "dffabdd2-5378-486b-9809-e72d193424a1",
             "sourceColumn": "cumulative_scheduled_due"
           },
           {
             "name": "cumulative_amount_paid",
             "dataType": "double",
+            "lineageTag": "98473c7b-ee59-445e-b158-e8384f1127d6",
             "sourceColumn": "cumulative_amount_paid"
           },
           {
             "name": "vintage_repayment_rate_pct",
             "dataType": "double",
+            "lineageTag": "de78ecb7-6151-4bf2-98a4-f4e41c07abe1",
             "sourceColumn": "vintage_repayment_rate_pct"
           }
         ],
+        "lineageTag": "kpi_vintage_curves-lineage",
         "partitions": [
           {
-            "name": "kpi_vintage_curves-Partition",
+            "name": "kpi_vintage_curves",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/kpi_vintage_curves.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/kpi_vintage_curves.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"cohort_month\", type text},",
+                "        {\"cohort_date_key\", Int64.Type},",
+                "        {\"product_id\", type text},",
+                "        {\"product_name\", type text},",
+                "        {\"product_category\", type text},",
+                "        {\"month_on_book\", Int64.Type},",
+                "        {\"total_cohort_loans\", Int64.Type},",
+                "        {\"scheduled_due_mob\", type number},",
+                "        {\"amount_paid_mob\", type number},",
+                "        {\"cumulative_scheduled_due\", type number},",
+                "        {\"cumulative_amount_paid\", type number},",
+                "        {\"vintage_repayment_rate_pct\", type number}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "kpi_digital_collections",
-        "lineageTag": "kpi_digital_collections-lineage",
         "columns": [
           {
             "name": "year_month",
             "dataType": "string",
+            "lineageTag": "47e001f0-e334-4104-ae6d-44c787c775e2",
             "sourceColumn": "year_month"
           },
           {
             "name": "month_date_key",
             "dataType": "int64",
-            "sourceColumn": "month_date_key",
-            "isHidden": true
+            "isHidden": true,
+            "lineageTag": "549fa792-b5df-4679-b1f4-27c104a59c1a",
+            "sourceColumn": "month_date_key"
           },
           {
             "name": "state_id",
             "dataType": "string",
+            "lineageTag": "7f041417-3cd7-4103-8625-60bdc86768ac",
             "sourceColumn": "state_id"
           },
           {
             "name": "state_name",
             "dataType": "string",
+            "lineageTag": "a24bb1df-113e-4690-85fa-ddad3802a132",
             "sourceColumn": "state_name"
           },
           {
             "name": "total_collection_value",
             "dataType": "double",
+            "lineageTag": "fde1f287-9ec0-4d67-92b7-80bde7ba51f4",
             "sourceColumn": "total_collection_value"
           },
           {
             "name": "total_transaction_count",
             "dataType": "int64",
+            "lineageTag": "ff9e85c5-40e9-4895-bc4a-55699dd53ebd",
             "sourceColumn": "total_transaction_count"
           },
           {
             "name": "digital_collection_value",
             "dataType": "double",
+            "lineageTag": "caaf9e83-25ed-4181-9eb8-e1243a024123",
             "sourceColumn": "digital_collection_value"
           },
           {
             "name": "digital_transaction_count",
             "dataType": "int64",
+            "lineageTag": "d4615a26-d811-44f1-bca2-79fa021dfa55",
             "sourceColumn": "digital_transaction_count"
           },
           {
             "name": "cash_collection_value",
             "dataType": "double",
+            "lineageTag": "a7ccb938-6ccf-48b3-879b-9178dce2dde1",
             "sourceColumn": "cash_collection_value"
           },
           {
             "name": "cash_transaction_count",
             "dataType": "int64",
+            "lineageTag": "60e5176b-df6e-447a-b3c9-75cc8b001b87",
             "sourceColumn": "cash_transaction_count"
           },
           {
             "name": "upi_value",
             "dataType": "double",
+            "lineageTag": "68a4c1a9-87b7-4712-a677-a486a0b9c0b3",
             "sourceColumn": "upi_value"
           },
           {
             "name": "upi_count",
             "dataType": "int64",
+            "lineageTag": "fc248aa0-60ce-4fd3-94ef-0b759a9935a7",
             "sourceColumn": "upi_count"
           },
           {
             "name": "bank_transfer_value",
             "dataType": "double",
+            "lineageTag": "ef2f24aa-adba-4662-8cae-a0cb9e1319bc",
             "sourceColumn": "bank_transfer_value"
           },
           {
             "name": "bank_transfer_count",
             "dataType": "int64",
+            "lineageTag": "9075cbba-8c1d-42f8-8a98-ced38201c1e3",
             "sourceColumn": "bank_transfer_count"
           },
           {
             "name": "avg_ticket_upi",
             "dataType": "double",
+            "lineageTag": "2e9c8d65-fe89-4eab-a02b-fe61f7f372e0",
             "sourceColumn": "avg_ticket_upi"
           },
           {
             "name": "avg_ticket_bank_transfer",
             "dataType": "double",
+            "lineageTag": "8b7a6143-390a-4815-b65a-e7c8e1c2cdeb",
             "sourceColumn": "avg_ticket_bank_transfer"
           },
           {
             "name": "avg_ticket_cash",
             "dataType": "double",
+            "lineageTag": "2773e006-956b-4650-b89e-9ac9e09ef7fc",
             "sourceColumn": "avg_ticket_cash"
           },
           {
             "name": "avg_ticket_overall",
             "dataType": "double",
+            "lineageTag": "34007bef-9396-4a47-bd2e-e858b8f9c9ed",
             "sourceColumn": "avg_ticket_overall"
           },
           {
             "name": "digital_value_share_pct",
             "dataType": "double",
+            "lineageTag": "cc185130-474f-440d-ab4d-31c206198ae5",
             "sourceColumn": "digital_value_share_pct"
           },
           {
             "name": "digital_count_share_pct",
             "dataType": "double",
+            "lineageTag": "9db6dade-020e-4a4b-9d54-910eaf8fa56c",
             "sourceColumn": "digital_count_share_pct"
           },
           {
             "name": "prev_month_digital_value_share",
             "dataType": "double",
+            "lineageTag": "c483613a-60f7-4614-8c4f-ca7aa2532d78",
             "sourceColumn": "prev_month_digital_value_share"
           },
           {
             "name": "mom_digital_value_share_pts",
             "dataType": "double",
+            "lineageTag": "9396a5dc-da51-47c9-970f-8135c715f954",
             "sourceColumn": "mom_digital_value_share_pts"
           },
           {
             "name": "mom_digital_value_growth_pct",
             "dataType": "double",
+            "lineageTag": "59524035-b085-40d1-bf41-1291e6b3a056",
             "sourceColumn": "mom_digital_value_growth_pct"
           },
           {
             "name": "prev_year_digital_value_share",
             "dataType": "double",
+            "lineageTag": "a0b2b5a4-f373-49b5-8278-77503bb38693",
             "sourceColumn": "prev_year_digital_value_share"
           },
           {
             "name": "yoy_digital_value_share_pts",
             "dataType": "double",
+            "lineageTag": "29cafe00-5ab2-4ff6-b4e8-1e841d0306ad",
             "sourceColumn": "yoy_digital_value_share_pts"
           },
           {
             "name": "yoy_digital_value_growth_pct",
             "dataType": "double",
+            "lineageTag": "8ac04749-9751-440e-999d-ccd4a099eb18",
             "sourceColumn": "yoy_digital_value_growth_pct"
           }
         ],
+        "lineageTag": "kpi_digital_collections-lineage",
         "partitions": [
           {
-            "name": "kpi_digital_collections-Partition",
+            "name": "kpi_digital_collections",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/kpi_digital_collections.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/kpi_digital_collections.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=26, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"year_month\", type text},",
+                "        {\"month_date_key\", Int64.Type},",
+                "        {\"state_id\", type text},",
+                "        {\"state_name\", type text},",
+                "        {\"total_collection_value\", type number},",
+                "        {\"total_transaction_count\", Int64.Type},",
+                "        {\"digital_collection_value\", type number},",
+                "        {\"digital_transaction_count\", Int64.Type},",
+                "        {\"cash_collection_value\", type number},",
+                "        {\"cash_transaction_count\", Int64.Type},",
+                "        {\"upi_value\", type number},",
+                "        {\"upi_count\", Int64.Type},",
+                "        {\"bank_transfer_value\", type number},",
+                "        {\"bank_transfer_count\", Int64.Type},",
+                "        {\"avg_ticket_upi\", type number},",
+                "        {\"avg_ticket_bank_transfer\", type number},",
+                "        {\"avg_ticket_cash\", type number},",
+                "        {\"avg_ticket_overall\", type number},",
+                "        {\"digital_value_share_pct\", type number},",
+                "        {\"digital_count_share_pct\", type number},",
+                "        {\"prev_month_digital_value_share\", type number},",
+                "        {\"mom_digital_value_share_pts\", type number},",
+                "        {\"mom_digital_value_growth_pct\", type number},",
+                "        {\"prev_year_digital_value_share\", type number},",
+                "        {\"yoy_digital_value_share_pts\", type number},",
+                "        {\"yoy_digital_value_growth_pct\", type number}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "stg_quarantined_records",
-        "lineageTag": "stg_quarantined_records-lineage",
         "columns": [
           {
             "name": "quarantine_id",
             "dataType": "string",
+            "lineageTag": "e17926a4-eed5-41f6-b6b8-bccc13f629db",
             "sourceColumn": "quarantine_id"
           },
           {
             "name": "batch_run_id",
             "dataType": "string",
+            "lineageTag": "ab4adf3b-7e40-459e-9ee9-10aee02f0fdd",
             "sourceColumn": "batch_run_id"
           },
           {
             "name": "quarantined_at",
             "dataType": "dateTime",
+            "lineageTag": "9ec4167a-deea-445b-aae8-c1ab3628b4fc",
             "sourceColumn": "quarantined_at"
           },
           {
             "name": "source_table",
             "dataType": "string",
+            "lineageTag": "161e1e63-09d3-47d8-8d81-03b2eccc3e44",
             "sourceColumn": "source_table"
           },
           {
             "name": "record_identifier",
             "dataType": "string",
+            "lineageTag": "aff60f29-f640-45f6-8a32-3179dbe8617a",
             "sourceColumn": "record_identifier"
           },
           {
             "name": "reason_code",
             "dataType": "string",
+            "lineageTag": "bce38c3b-c306-4863-be1e-17680145c6c2",
             "sourceColumn": "reason_code"
           },
           {
             "name": "raw_payload",
             "dataType": "string",
+            "lineageTag": "2a8d239e-0171-4ce7-849e-561e76afe214",
             "sourceColumn": "raw_payload"
           }
         ],
+        "lineageTag": "stg_quarantined_records-lineage",
         "partitions": [
           {
-            "name": "stg_quarantined_records-Partition",
+            "name": "stg_quarantined_records",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
-                "    CleanLocation = Text.TrimEnd(Text.Replace(Location, \"\\\\\", \"/\"), {\"/\"}),",
-                "    FilePath = CleanLocation & \"/data/powerbi_extracts/stg_quarantined_records.csv\",",
-                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+                "    RawLocation = Text.TrimEnd(Text.Replace(Text.Replace(Text.From(Location), Character.FromNumber(92), \"/\"), \"\\\\\", \"/\"), {\"/\"}),",
+                "    BaseDir = if Text.EndsWith(RawLocation, \"/data/powerbi_extracts\", Comparer.OrdinalIgnoreCase) then RawLocation else RawLocation & \"/data/powerbi_extracts\",",
+                "    FilePath = BaseDir & \"/stg_quarantined_records.csv\",",
+                "    Source = Csv.Document(File.Contents(FilePath), [Delimiter=\",\", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"quarantine_id\", type text},",
+                "        {\"batch_run_id\", type text},",
+                "        {\"quarantined_at\", type datetime},",
+                "        {\"source_table\", type text},",
+                "        {\"record_identifier\", type text},",
+                "        {\"reason_code\", type text},",
+                "        {\"raw_payload\", type text}",
+                "    }, \"en-US\")",
                 "in",
-                "    #\"Promoted Headers\""
-              ]
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
             }
           }
         ]
-      }
-    ],
-    "relationships": [
-      {
-        "name": "rel_pay_date",
-        "fromTable": "fact_payment",
-        "fromColumn": "payment_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
-      },
-      {
-        "name": "rel_pay_loan",
-        "fromTable": "fact_payment",
-        "fromColumn": "loan_key",
-        "toTable": "dim_loan",
-        "toColumn": "loan_key"
-      },
-      {
-        "name": "rel_pay_branch",
-        "fromTable": "fact_payment",
-        "fromColumn": "branch_key",
-        "toTable": "dim_branch",
-        "toColumn": "branch_key"
-      },
-      {
-        "name": "rel_pay_product",
-        "fromTable": "fact_payment",
-        "fromColumn": "product_key",
-        "toTable": "dim_product",
-        "toColumn": "product_key"
-      },
-      {
-        "name": "rel_pay_state",
-        "fromTable": "fact_payment",
-        "fromColumn": "state_key",
-        "toTable": "dim_state",
-        "toColumn": "state_key"
-      },
-      {
-        "name": "rel_pay_segment",
-        "fromTable": "fact_payment",
-        "fromColumn": "borrower_segment_key",
-        "toTable": "dim_borrower_segment",
-        "toColumn": "borrower_segment_key"
-      },
-      {
-        "name": "rel_snap_date",
-        "fromTable": "fact_loan_monthly",
-        "fromColumn": "snapshot_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
-      },
-      {
-        "name": "rel_snap_loan",
-        "fromTable": "fact_loan_monthly",
-        "fromColumn": "loan_key",
-        "toTable": "dim_loan",
-        "toColumn": "loan_key"
-      },
-      {
-        "name": "rel_snap_branch",
-        "fromTable": "fact_loan_monthly",
-        "fromColumn": "branch_key",
-        "toTable": "dim_branch",
-        "toColumn": "branch_key"
-      },
-      {
-        "name": "rel_snap_product",
-        "fromTable": "fact_loan_monthly",
-        "fromColumn": "product_key",
-        "toTable": "dim_product",
-        "toColumn": "product_key"
-      },
-      {
-        "name": "rel_snap_state",
-        "fromTable": "fact_loan_monthly",
-        "fromColumn": "state_key",
-        "toTable": "dim_state",
-        "toColumn": "state_key"
-      },
-      {
-        "name": "rel_snap_segment",
-        "fromTable": "fact_loan_monthly",
-        "fromColumn": "borrower_segment_key",
-        "toTable": "dim_borrower_segment",
-        "toColumn": "borrower_segment_key"
-      },
-      {
-        "name": "rel_alloc_due_date",
-        "fromTable": "fact_instalment_allocation",
-        "fromColumn": "due_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
-      },
-      {
-        "name": "rel_alloc_loan",
-        "fromTable": "fact_instalment_allocation",
-        "fromColumn": "loan_key",
-        "toTable": "dim_loan",
-        "toColumn": "loan_key"
-      },
-      {
-        "name": "rel_alloc_branch",
-        "fromTable": "fact_instalment_allocation",
-        "fromColumn": "branch_key",
-        "toTable": "dim_branch",
-        "toColumn": "branch_key"
-      },
-      {
-        "name": "rel_alloc_product",
-        "fromTable": "fact_instalment_allocation",
-        "fromColumn": "product_key",
-        "toTable": "dim_product",
-        "toColumn": "product_key"
-      },
-      {
-        "name": "rel_alloc_state",
-        "fromTable": "fact_instalment_allocation",
-        "fromColumn": "state_key",
-        "toTable": "dim_state",
-        "toColumn": "state_key"
-      },
-      {
-        "name": "rel_kpi_ph_date",
-        "fromTable": "kpi_portfolio_health",
-        "fromColumn": "snapshot_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
-      },
-      {
-        "name": "rel_kpi_ph_branch",
-        "fromTable": "kpi_portfolio_health",
-        "fromColumn": "branch_id",
-        "toTable": "dim_branch",
-        "toColumn": "branch_id"
-      },
-      {
-        "name": "rel_kpi_ph_product",
-        "fromTable": "kpi_portfolio_health",
-        "fromColumn": "product_id",
-        "toTable": "dim_product",
-        "toColumn": "product_id"
-      },
-      {
-        "name": "rel_kpi_ph_state",
-        "fromTable": "kpi_portfolio_health",
-        "fromColumn": "state_id",
-        "toTable": "dim_state",
-        "toColumn": "state_id"
-      },
-      {
-        "name": "rel_kpi_ce_date",
-        "fromTable": "kpi_collection_efficiency",
-        "fromColumn": "month_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
-      },
-      {
-        "name": "rel_kpi_ce_branch",
-        "fromTable": "kpi_collection_efficiency",
-        "fromColumn": "branch_id",
-        "toTable": "dim_branch",
-        "toColumn": "branch_id"
-      },
-      {
-        "name": "rel_kpi_ce_product",
-        "fromTable": "kpi_collection_efficiency",
-        "fromColumn": "product_id",
-        "toTable": "dim_product",
-        "toColumn": "product_id"
-      },
-      {
-        "name": "rel_kpi_ce_state",
-        "fromTable": "kpi_collection_efficiency",
-        "fromColumn": "state_id",
-        "toTable": "dim_state",
-        "toColumn": "state_id"
-      },
-      {
-        "name": "rel_kpi_dc_date",
-        "fromTable": "kpi_digital_collections",
-        "fromColumn": "month_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
-      },
-      {
-        "name": "rel_kpi_dc_state",
-        "fromTable": "kpi_digital_collections",
-        "fromColumn": "state_id",
-        "toTable": "dim_state",
-        "toColumn": "state_id"
-      },
-      {
-        "name": "rel_kpi_vc_date",
-        "fromTable": "kpi_vintage_curves",
-        "fromColumn": "cohort_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
-      },
-      {
-        "name": "rel_kpi_vc_product",
-        "fromTable": "kpi_vintage_curves",
-        "fromColumn": "product_id",
-        "toTable": "dim_product",
-        "toColumn": "product_id"
-      },
-      {
-        "name": "rel_loan_disb_date",
-        "fromTable": "dim_loan",
-        "fromColumn": "disbursement_date_key",
-        "toTable": "dim_date",
-        "toColumn": "date_key"
-      },
-      {
-        "name": "rel_loan_branch",
-        "fromTable": "dim_loan",
-        "fromColumn": "branch_id",
-        "toTable": "dim_branch",
-        "toColumn": "branch_id"
-      },
-      {
-        "name": "rel_loan_product",
-        "fromTable": "dim_loan",
-        "fromColumn": "product_id",
-        "toTable": "dim_product",
-        "toColumn": "product_id"
-      },
-      {
-        "name": "rel_loan_state",
-        "fromTable": "dim_loan",
-        "fromColumn": "state_id",
-        "toTable": "dim_state",
-        "toColumn": "state_id"
       }
     ]
   }

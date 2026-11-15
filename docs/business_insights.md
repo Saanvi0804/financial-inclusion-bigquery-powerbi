@@ -1,6 +1,6 @@
 # Executive Portfolio Insights & Strategic Financial Analysis
 
-This report synthesises key empirical findings, risk patterns, and operational dynamics uncovered through the BigQuery analytical models across the 24-month observation window (January 2023 to December 2024).
+This report synthesises key empirical findings, risk patterns, and operational dynamics uncovered through the analytical warehouse models across the 24-month observation window (January 2023 to December 2024), executed locally on DuckDB and reported in Power BI.
 
 ---
 

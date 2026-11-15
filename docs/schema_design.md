@@ -1,6 +1,6 @@
 # Star Schema Design & Data Warehouse Dimensional Model
 
-This document outlines the Kimball star schema dimensional architecture implemented in Google BigQuery dataset `fin_warehouse`, including fact table grains, surrogate key strategies, and dimension definitions.
+This document outlines the Kimball star schema dimensional architecture implemented in the analytical warehouse (`fin_warehouse`), executed locally via DuckDB (`data/warehouse/financial_inclusion_bigquery.duckdb`) using BigQuery-compatible Standard SQL models. Power BI consumes curated CSV extracts produced by this pipeline.
 
 ---
 

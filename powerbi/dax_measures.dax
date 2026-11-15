@@ -9,22 +9,40 @@
 // ----------------------------------------------------------------------------
 
 MEASURE '_Measures'[Active Loans Count] = 
-    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-    RETURN
+    VAR MaxSnapshotDate = 
         CALCULATE(
-            DISTINCTCOUNT(fact_loan_monthly[loan_key]),
-            fact_loan_monthly[snapshot_date_key] = MaxDate,
-            fact_loan_monthly[outstanding_principal] > 0
+            MAX(fact_loan_monthly[snapshot_date_key]),
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    RETURN
+        IF(
+            ISBLANK(MaxSnapshotDate),
+            BLANK(),
+            CALCULATE(
+                DISTINCTCOUNT(fact_loan_monthly[loan_key]),
+                fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+                fact_loan_monthly[outstanding_principal] > 0,
+                USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+            )
         )
     // Format: #,##0
     // Description: Total count of active loans with positive outstanding principal as of latest selected snapshot
 
 MEASURE '_Measures'[Total Outstanding Principal] = 
-    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-    RETURN
+    VAR MaxSnapshotDate = 
         CALCULATE(
-            SUM(fact_loan_monthly[outstanding_principal]),
-            fact_loan_monthly[snapshot_date_key] = MaxDate
+            MAX(fact_loan_monthly[snapshot_date_key]),
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    RETURN
+        IF(
+            ISBLANK(MaxSnapshotDate),
+            BLANK(),
+            CALCULATE(
+                SUM(fact_loan_monthly[outstanding_principal]),
+                fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+                USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+            )
         )
     // Format: ₹ #,##0.00
     // Description: Gross outstanding principal balance across active loans at latest snapshot
@@ -35,12 +53,21 @@ MEASURE '_Measures'[Outstanding Principal (INR Cr)] =
     // Description: Gross outstanding principal normalized into Crores
 
 MEASURE '_Measures'[PAR 30 Principal] = 
-    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-    RETURN
+    VAR MaxSnapshotDate = 
         CALCULATE(
-            SUM(fact_loan_monthly[outstanding_principal]),
-            fact_loan_monthly[snapshot_date_key] = MaxDate,
-            fact_loan_monthly[days_past_due] > 30
+            MAX(fact_loan_monthly[snapshot_date_key]),
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    RETURN
+        IF(
+            ISBLANK(MaxSnapshotDate),
+            BLANK(),
+            CALCULATE(
+                SUM(fact_loan_monthly[outstanding_principal]),
+                fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+                fact_loan_monthly[days_past_due] > 30,
+                USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+            )
         )
     // Format: ₹ #,##0.00
     // Description: Outstanding principal on loans with DPD > 30 days
@@ -51,12 +78,21 @@ MEASURE '_Measures'[PAR 30 %] =
     // Description: Portfolio-at-Risk > 30 days ratio as % of gross principal
 
 MEASURE '_Measures'[PAR 90 Principal] = 
-    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-    RETURN
+    VAR MaxSnapshotDate = 
         CALCULATE(
-            SUM(fact_loan_monthly[outstanding_principal]),
-            fact_loan_monthly[snapshot_date_key] = MaxDate,
-            fact_loan_monthly[days_past_due] > 90
+            MAX(fact_loan_monthly[snapshot_date_key]),
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    RETURN
+        IF(
+            ISBLANK(MaxSnapshotDate),
+            BLANK(),
+            CALCULATE(
+                SUM(fact_loan_monthly[outstanding_principal]),
+                fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+                fact_loan_monthly[days_past_due] > 90,
+                USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+            )
         )
     // Format: ₹ #,##0.00
     // Description: Outstanding principal on Non-Performing Assets (DPD > 90 days)
@@ -67,48 +103,84 @@ MEASURE '_Measures'[PAR 90 %] =
     // Description: Non-Performing Assets ratio (NPA / PAR90)
 
 MEASURE '_Measures'[Current Principal] = 
-    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-    RETURN
+    VAR MaxSnapshotDate = 
         CALCULATE(
-            SUM(fact_loan_monthly[outstanding_principal]),
-            fact_loan_monthly[snapshot_date_key] = MaxDate,
-            fact_loan_monthly[days_past_due] = 0
+            MAX(fact_loan_monthly[snapshot_date_key]),
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    RETURN
+        IF(
+            ISBLANK(MaxSnapshotDate),
+            BLANK(),
+            CALCULATE(
+                SUM(fact_loan_monthly[outstanding_principal]),
+                fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+                fact_loan_monthly[days_past_due] = 0,
+                USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+            )
         )
     // Format: ₹ #,##0.00
     // Description: Non-delinquent outstanding principal (0 DPD)
 
 MEASURE '_Measures'[Delinquency DPD 1-30] = 
-    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-    RETURN
+    VAR MaxSnapshotDate = 
         CALCULATE(
-            SUM(fact_loan_monthly[outstanding_principal]),
-            fact_loan_monthly[snapshot_date_key] = MaxDate,
-            fact_loan_monthly[days_past_due] >= 1,
-            fact_loan_monthly[days_past_due] <= 30
+            MAX(fact_loan_monthly[snapshot_date_key]),
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    RETURN
+        IF(
+            ISBLANK(MaxSnapshotDate),
+            BLANK(),
+            CALCULATE(
+                SUM(fact_loan_monthly[outstanding_principal]),
+                fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+                fact_loan_monthly[days_past_due] >= 1,
+                fact_loan_monthly[days_past_due] <= 30,
+                USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+            )
         )
     // Format: ₹ #,##0.00
     // Description: Early-stage arrears outstanding principal
 
 MEASURE '_Measures'[Delinquency DPD 31-60] = 
-    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-    RETURN
+    VAR MaxSnapshotDate = 
         CALCULATE(
-            SUM(fact_loan_monthly[outstanding_principal]),
-            fact_loan_monthly[snapshot_date_key] = MaxDate,
-            fact_loan_monthly[days_past_due] >= 31,
-            fact_loan_monthly[days_past_due] <= 60
+            MAX(fact_loan_monthly[snapshot_date_key]),
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    RETURN
+        IF(
+            ISBLANK(MaxSnapshotDate),
+            BLANK(),
+            CALCULATE(
+                SUM(fact_loan_monthly[outstanding_principal]),
+                fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+                fact_loan_monthly[days_past_due] >= 31,
+                fact_loan_monthly[days_past_due] <= 60,
+                USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+            )
         )
     // Format: ₹ #,##0.00
     // Description: Sub-standard 31-60 DPD arrears
 
 MEASURE '_Measures'[Delinquency DPD 61-90] = 
-    VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-    RETURN
+    VAR MaxSnapshotDate = 
         CALCULATE(
-            SUM(fact_loan_monthly[outstanding_principal]),
-            fact_loan_monthly[snapshot_date_key] = MaxDate,
-            fact_loan_monthly[days_past_due] >= 61,
-            fact_loan_monthly[days_past_due] <= 90
+            MAX(fact_loan_monthly[snapshot_date_key]),
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    RETURN
+        IF(
+            ISBLANK(MaxSnapshotDate),
+            BLANK(),
+            CALCULATE(
+                SUM(fact_loan_monthly[outstanding_principal]),
+                fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+                fact_loan_monthly[days_past_due] >= 61,
+                fact_loan_monthly[days_past_due] <= 90,
+                USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+            )
         )
     // Format: ₹ #,##0.00
     // Description: Doubtful 61-90 DPD arrears
@@ -199,11 +271,53 @@ MEASURE '_Measures'[Avg Ticket Size] =
 // ----------------------------------------------------------------------------
 
 MEASURE '_Measures'[Cumulative Scheduled Due (Vintage)] = 
-    SUM(kpi_vintage_curves[cumulative_scheduled_due])
+    SUMX(
+        SUMMARIZE(
+            kpi_vintage_curves,
+            kpi_vintage_curves[cohort_month],
+            kpi_vintage_curves[product_id]
+        ),
+        VAR _CurCohort = kpi_vintage_curves[cohort_month]
+        VAR _CurProduct = kpi_vintage_curves[product_id]
+        VAR _MaxMOB = 
+            CALCULATE(
+                MAX(kpi_vintage_curves[month_on_book]),
+                kpi_vintage_curves[cohort_month] = _CurCohort,
+                kpi_vintage_curves[product_id] = _CurProduct
+            )
+        RETURN
+            CALCULATE(
+                SUM(kpi_vintage_curves[cumulative_scheduled_due]),
+                kpi_vintage_curves[cohort_month] = _CurCohort,
+                kpi_vintage_curves[product_id] = _CurProduct,
+                kpi_vintage_curves[month_on_book] = _MaxMOB
+            )
+    )
     // Format: ₹ #,##0.00
 
 MEASURE '_Measures'[Cumulative Amount Paid (Vintage)] = 
-    SUM(kpi_vintage_curves[cumulative_amount_paid])
+    SUMX(
+        SUMMARIZE(
+            kpi_vintage_curves,
+            kpi_vintage_curves[cohort_month],
+            kpi_vintage_curves[product_id]
+        ),
+        VAR _CurCohort = kpi_vintage_curves[cohort_month]
+        VAR _CurProduct = kpi_vintage_curves[product_id]
+        VAR _MaxMOB = 
+            CALCULATE(
+                MAX(kpi_vintage_curves[month_on_book]),
+                kpi_vintage_curves[cohort_month] = _CurCohort,
+                kpi_vintage_curves[product_id] = _CurProduct
+            )
+        RETURN
+            CALCULATE(
+                SUM(kpi_vintage_curves[cumulative_amount_paid]),
+                kpi_vintage_curves[cohort_month] = _CurCohort,
+                kpi_vintage_curves[product_id] = _CurProduct,
+                kpi_vintage_curves[month_on_book] = _MaxMOB
+            )
+    )
     // Format: ₹ #,##0.00
 
 MEASURE '_Measures'[Vintage Repayment Rate %] = 
@@ -240,3 +354,97 @@ MEASURE '_Measures'[Excess Payment Anomalies] =
         stg_quarantined_records[reason_code] = "EXCESS_INSTALMENT_PAYMENT"
     )
     // Format: #,##0
+
+
+// ----------------------------------------------------------------------------
+// 6. ROLE-PLAYING DATE MEASURES (Using USERELATIONSHIP for Inactive Paths)
+// ----------------------------------------------------------------------------
+
+MEASURE '_Measures'[Loans Disbursed Count] = 
+    CALCULATE(
+        DISTINCTCOUNT(dim_loan[loan_key]),
+        USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key])
+    )
+    // Format: #,##0
+    // Description: Count of loans disbursed in the selected calendar period (activates inactive disbursement date path)
+
+MEASURE '_Measures'[Total Disbursed Principal] = 
+    CALCULATE(
+        SUM(dim_loan[principal_amount]),
+        USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key])
+    )
+    // Format: ₹ #,##0.00
+    // Description: Total principal amount disbursed in the selected period (activates inactive disbursement date path)
+
+MEASURE '_Measures'[Disbursed Principal (INR Cr)] = 
+    DIVIDE([Total Disbursed Principal], 10000000, 0)
+    // Format: ₹ #,##0.00 "Cr"
+    // Description: Total principal disbursed normalized into Crores
+
+MEASURE '_Measures'[Payments by Loan Disbursement Date] = 
+    CALCULATE(
+        SUM(fact_payment[payment_amount]),
+        USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key])
+    )
+    // Format: ₹ #,##0.00
+    // Description: Repayment cash received for loans originated in the selected period
+
+MEASURE '_Measures'[Allocations by Cash Payment Date] = 
+    CALCULATE(
+        SUM(fact_instalment_allocation[allocated_amount]),
+        USERELATIONSHIP(fact_instalment_allocation[payment_date_key], dim_date[date_key])
+    )
+    // Format: ₹ #,##0.00
+    // Description: Instalment allocation cash evaluated on payment receipt date (vs contractual due date)
+
+// ============================================================================
+// 10. RECRUITMENT PHASE 2 — DASHBOARD KPI MEASURES (9 MEASURES)
+// ============================================================================
+
+MEASURE '_Measures'[Total Loans Count] = 
+    CALCULATE(
+        DISTINCTCOUNT(dim_loan[loan_id]),
+        dim_loan[loan_key] > 0
+    )
+    // Format: #,##0
+    // Description: Total loan contracts registered across the warehouse (excluding unknown fallback)
+
+MEASURE '_Measures'[Digital Transactions Count] = 
+    SUM(kpi_digital_collections[digital_transaction_count])
+    // Format: #,##0
+    // Description: Total volume of digital collection transactions (UPI + Net Banking)
+
+MEASURE '_Measures'[Average Digital Payment Amount] = 
+    DIVIDE([Digital Collections Value], [Digital Transactions Count], 0)
+    // Format: ₹ #,##0.00
+    // Description: Average ticket size realized per digital collection transaction
+
+MEASURE '_Measures'[Total Clean Records] = 
+    COUNTROWS(fact_payment)
+    // Format: #,##0
+    // Description: Total verified transactions successfully loaded into dimensional facts
+
+MEASURE '_Measures'[Total Raw Records] = 
+    [Total Clean Records] + [Total Quarantined Records]
+    // Format: #,##0
+    // Description: Total raw ingestion payloads processed through the ingestion firewall
+
+MEASURE '_Measures'[Data Quality Pass Rate %] = 
+    DIVIDE([Total Clean Records], [Total Raw Records], 0)
+    // Format: 0.00%
+    // Description: Proportion of raw ingestion records meeting all validation checks
+
+MEASURE '_Measures'[Issue Categories Count] = 
+    DISTINCTCOUNT(stg_quarantined_records[reason_code])
+    // Format: #,##0
+    // Description: Distinct anomaly classification categories detected by the quarantine pipeline
+
+MEASURE '_Measures'[Digital Collection MoM Growth %] = 
+    AVERAGE(kpi_digital_collections[mom_digital_value_growth_pct])
+    // Format: 0.00%
+    // Description: Month-over-month average percentage growth in digital collection value
+
+MEASURE '_Measures'[Digital Collection YoY Growth %] = 
+    AVERAGE(kpi_digital_collections[yoy_digital_value_growth_pct])
+    // Format: 0.00%
+    // Description: Year-over-year average percentage growth in digital collection value

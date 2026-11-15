@@ -1,9 +1,11 @@
 # Independent Hand Validation, Mathematical Amortisation & PAR30 Discrepancy Analysis
 
+> **Implementation Note**: The analytical warehouse was executed and validated locally on DuckDB (`data/warehouse/financial_inclusion_bigquery.duckdb`) using BigQuery-compatible Standard SQL models. BigQuery was not deployed in an active Google Cloud project. Power BI consumes curated extracts produced by the DuckDB pipeline.
+
 This document provides:
 1. An exhaustive mathematical step-by-step derivation of reducing-balance EMI amortisation and payment allocation for a sample loan.
 2. The root-cause investigation and resolution of the historical PAR30 discrepancy (Warehouse 8.2306% vs Python 8.2215%).
-3. The approved institutional financial definition implemented in Google BigQuery.
+3. The approved institutional financial definition implemented in the analytical warehouse.
 4. An independent hand check of a dashboard KPI using a small, traceable subset of actual source records.
 
 ---

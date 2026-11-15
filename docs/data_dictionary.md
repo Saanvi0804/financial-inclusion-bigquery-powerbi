@@ -1,6 +1,6 @@
 # Enterprise Data Dictionary
 
-This data dictionary provides a complete technical and business description of all tables and columns across the four BigQuery datasets: `fin_raw`, `fin_staging`, `fin_warehouse`, and `fin_analytics`.
+This data dictionary provides a complete technical and business description of all tables and columns across the four warehouse schemas (`fin_raw`, `fin_staging`, `fin_warehouse`, and `fin_analytics`), executed locally in DuckDB using BigQuery-compatible Standard SQL.
 
 ---
 

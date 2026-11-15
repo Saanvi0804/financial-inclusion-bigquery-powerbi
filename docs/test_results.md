@@ -1,16 +1,17 @@
-# BigQuery Analytical Warehouse Automated Test Suite Results
+# Analytical Warehouse Automated Test Suite Results
 
-**Execution Timestamp**: 2026-11-14 14:44:40  
+**Execution Timestamp**: 2026-11-15 11:40:20  
 **Test Framework**: Pytest 9.2.0 (Python 3.12.10)  
-**Database**: Google BigQuery Standard SQL Warehouse (`financial_inclusion_bigquery.duckdb`)  
+**Database**: Local DuckDB Warehouse Engine (`data/warehouse/financial_inclusion_bigquery.duckdb`) executing verified BigQuery-compatible Standard SQL transformations.  
+*(Note: The analytical warehouse was executed and validated 100% locally using DuckDB; BigQuery was not deployed or executed in an active Google Cloud project).*  
 **Scope**: 64 Automated Enterprise Data Quality, Referential Integrity, Financial Amortisation, and KPI Reconciliation Tests.  
-**Result**: **64 PASSED / 0 FAILED / 0 SKIPPED** (100% Pass Rate in 7.33s)
+**Result**: **64 PASSED / 0 FAILED / 0 SKIPPED** (100% Pass Rate in 4.89s)
 
 ---
 
 ## Executive Summary
 
-The automated test suite enforces rigorous data engineering, data warehousing, and financial accounting standards across four BigQuery dataset layers: `fin_raw`, `fin_staging`, `fin_warehouse`, and `fin_analytics`.
+The automated test suite enforces rigorous data engineering, data warehousing, and financial accounting standards across four warehouse schema layers: `fin_raw`, `fin_staging`, `fin_warehouse`, and `fin_analytics`.
 
 ```
 ============================= 64 passed in 7.33s ==============================
@@ -122,7 +123,7 @@ The automated test suite enforces rigorous data engineering, data warehousing, a
 
 ## Benchmark Reconciliation Ledger
 
-| Financial Metric | Independent Python Recalculation | BigQuery Analytical Warehouse | Variance | Accounting Tolerance | Status |
+| Financial Metric | Independent Python Recalculation | DuckDB Warehouse (BigQuery-Compatible SQL) | Variance | Accounting Tolerance | Status |
 |---|---|---|---|---|---|
 | **Active Loans (2024-12-31)** | 40,940 | 40,940 | **0** | 0 loans | **EXACT MATCH** |
 | **Gross Outstanding Principal** | ₹2,037,126,498.03 | ₹2,037,126,496.49 | **₹1.54** | < ₹10.00 | **MATCH (< 1 ppm)** |

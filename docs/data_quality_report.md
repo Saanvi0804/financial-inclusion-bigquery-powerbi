@@ -1,8 +1,9 @@
-# BigQuery Data Quality & Comprehensive Profiling Report
+# Data Quality & Comprehensive Warehouse Profiling Report
 
-*Audit Timestamp: 2026-11-14 15:24:59*
+*Audit Timestamp: 2026-11-15 11:40:00*
 
-**Platform**: Google BigQuery Standard SQL Analytical Warehouse (`fin_raw`, `fin_staging`, `fin_warehouse`, `fin_analytics`)
+**Platform**: Local DuckDB Warehouse Engine (`data/warehouse/financial_inclusion_bigquery.duckdb`) executing verified BigQuery-compatible Standard SQL transformations.  
+*(Note: BigQuery was not deployed in an active Google Cloud project; all datasets, profiling queries, and quarantine models were executed and certified locally).*  
 
 **Scope**: Exhaustive statistical profiling of raw ingested tables, quarantine isolation, dimensional models, and analytical KPI models.
 

@@ -62,22 +62,31 @@ SELECT
     COALESCE(ma.advance_collected, NUMERIC '0.00') AS advance_collected,
     COALESCE(ma.total_cash_collected, NUMERIC '0.00') AS total_amount_collected,
     -- Current-period efficiency: (Current-month billing collected / Current-month scheduled billing due) * 100
-    ROUND(
-        SAFE_DIVIDE(COALESCE(ma.current_period_collected, NUMERIC '0.00') * NUMERIC '100.0', 
-                    COALESCE(mb.scheduled_amount_due, NUMERIC '0.00')), 
-        2
+    COALESCE(
+        ROUND(
+            SAFE_DIVIDE(COALESCE(ma.current_period_collected, NUMERIC '0.00') * NUMERIC '100.0', 
+                        COALESCE(mb.scheduled_amount_due, NUMERIC '0.00')), 
+            2
+        ),
+        NUMERIC '0.00'
     ) AS current_period_efficiency_pct,
     -- Total collection ratio: (Total cash collected / Current-month scheduled billing due) * 100
-    ROUND(
-        SAFE_DIVIDE(COALESCE(ma.total_cash_collected, NUMERIC '0.00') * NUMERIC '100.0', 
-                    COALESCE(mb.scheduled_amount_due, NUMERIC '0.00')), 
-        2
+    COALESCE(
+        ROUND(
+            SAFE_DIVIDE(COALESCE(ma.total_cash_collected, NUMERIC '0.00') * NUMERIC '100.0', 
+                        COALESCE(mb.scheduled_amount_due, NUMERIC '0.00')), 
+            2
+        ),
+        NUMERIC '0.00'
     ) AS total_collection_ratio_pct,
     -- Standard collection efficiency alias
-    ROUND(
-        SAFE_DIVIDE(COALESCE(ma.total_cash_collected, NUMERIC '0.00') * NUMERIC '100.0', 
-                    COALESCE(mb.scheduled_amount_due, NUMERIC '0.00')), 
-        2
+    COALESCE(
+        ROUND(
+            SAFE_DIVIDE(COALESCE(ma.total_cash_collected, NUMERIC '0.00') * NUMERIC '100.0', 
+                        COALESCE(mb.scheduled_amount_due, NUMERIC '0.00')), 
+            2
+        ),
+        NUMERIC '0.00'
     ) AS collection_efficiency_pct
 FROM monthly_billing mb
 FULL OUTER JOIN monthly_allocations ma

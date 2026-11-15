@@ -20,7 +20,14 @@ The semantic model uses a designated Power Query text parameter named `Location`
 4. Click **OK** and **Apply Changes**. All tables refresh automatically from `data/powerbi_extracts/`.
 
 ### 1.2 Dimension Relationships & Cross-Filtering
-All KPI tables (`kpi_portfolio_health`, `kpi_collection_efficiency`, `kpi_vintage_curves`, `kpi_digital_collections`) connect directly to dimension tables (`dim_branch`, `dim_product`, `dim_state`, `dim_date`) via conformed identifiers (`branch_id`, `product_id`, `state_id`, and `date_key`). Slicers on `dim_date[calendar_year]`, `dim_state[state_name]`, `dim_branch[branch_name]`, and `dim_product[product_name]` immediately filter all KPI visuals, cards, and matrices without ambiguity.
+All KPI tables (`kpi_portfolio_health`, `kpi_collection_efficiency`, `kpi_vintage_curves`, `kpi_digital_collections`) and granular facts (`fact_payment`, `fact_loan_monthly`, `fact_instalment_allocation`) connect directly to dimension tables (`dim_branch`, `dim_product`, `dim_state`, `dim_date`) via conformed identifiers (`branch_id`, `product_id`, `state_id`, and `date_key`). Slicers on `dim_date[calendar_year]`, `dim_state[state_name]`, `dim_branch[branch_name]`, and `dim_product[product_name]` immediately filter all KPI visuals, cards, and matrices without ambiguity.
+
+### 1.3 Role-Playing Date Relationships & Ambiguity Elimination
+In financial analytics, a single date dimension (`dim_date`) serves multiple distinct business roles:
+- **Payment Date (`fact_payment[payment_date_key]`)**: Primary active relationship for repayment transaction cash flows.
+- **Snapshot Date (`fact_loan_monthly[snapshot_date_key]`)**: Primary active relationship for monthly portfolio balances and DPD status.
+- **Contractual Due Date (`fact_instalment_allocation[due_date_key]`)**: Primary active relationship for scheduled billing dues.
+- **Disbursement Date (`dim_loan[disbursement_date_key]`)**: Inactive relationship (`isActive = False`) connecting loan origination to `dim_date`. By keeping this relationship inactive, multi-path cycles (`fact_payment -> dim_loan -> dim_date` vs `fact_payment -> dim_date`) are eliminated, preventing Power BI ambiguity errors. DAX measures analyzing origination (e.g. `[Total Disbursed Principal]`, `[Loans Disbursed Count]`) invoke `USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key])`.
 
 ---
 

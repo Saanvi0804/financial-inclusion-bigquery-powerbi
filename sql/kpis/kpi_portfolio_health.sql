@@ -29,15 +29,21 @@ SELECT
     SUM(CASE WHEN f.days_past_due > 30 THEN f.outstanding_principal ELSE NUMERIC '0.0' END) AS par30_principal,
     SUM(CASE WHEN f.days_past_due > 90 THEN f.outstanding_principal ELSE NUMERIC '0.0' END) AS par90_principal,
     -- PAR Rates (%)
-    ROUND(
-        SAFE_DIVIDE(SUM(CASE WHEN f.days_past_due > 30 THEN f.outstanding_principal ELSE NUMERIC '0.0' END) * NUMERIC '100.0', 
-                    SUM(f.outstanding_principal)), 
-        4
+    COALESCE(
+        ROUND(
+            SAFE_DIVIDE(SUM(CASE WHEN f.days_past_due > 30 THEN f.outstanding_principal ELSE NUMERIC '0.0' END) * NUMERIC '100.0', 
+                        SUM(f.outstanding_principal)), 
+            4
+        ),
+        NUMERIC '0.0'
     ) AS par30_pct,
-    ROUND(
-        SAFE_DIVIDE(SUM(CASE WHEN f.days_past_due > 90 THEN f.outstanding_principal ELSE NUMERIC '0.0' END) * NUMERIC '100.0', 
-                    SUM(f.outstanding_principal)), 
-        4
+    COALESCE(
+        ROUND(
+            SAFE_DIVIDE(SUM(CASE WHEN f.days_past_due > 90 THEN f.outstanding_principal ELSE NUMERIC '0.0' END) * NUMERIC '100.0', 
+                        SUM(f.outstanding_principal)), 
+            4
+        ),
+        NUMERIC '0.0'
     ) AS par90_pct
 FROM `fin_warehouse.fact_loan_monthly` f
 JOIN `fin_warehouse.dim_date` d ON f.snapshot_date_key = d.date_key

@@ -1,6 +1,23 @@
 # Financial Key Performance Indicator (KPI) Definitions & Mathematical Standards
 
-This document establishes the official mathematical definitions, accounting boundaries, edge-case rules, and financial interpretations implemented across the BigQuery analytical models and Power BI measures.
+This document establishes the official mathematical definitions, accounting boundaries, edge-case rules, and financial interpretations implemented across the analytical warehouse models and Power BI measures.
+
+---
+
+## Executive KPI Reference Matrix
+
+| Metric Name | Formula | Numerator | Denominator | Unit | Financial Interpretation |
+|:---|:---|:---|:---|:---:|:---|
+| **Gross Outstanding Principal** | $\sum P_{\text{disbursed}} - \sum P_{\text{principal\_paid}}$ | Remaining unpaid loan principal owed across active loans | N/A (Absolute sum) | **Currency (₹ INR)** | Total capital deployed and at risk across active, open borrower accounts at reporting snapshot date. |
+| **Portfolio at Risk > 30 Days (PAR 30 %)** | $\frac{\sum P_{\text{gross}}(\text{DPD} > 30)}{\sum P_{\text{gross}}} \times 100$ | Outstanding principal balance of active loans with Days Past Due $> 30$ days | Total gross outstanding principal of all active loans at snapshot date | **Percentage (%)** | Early-warning indicator of portfolio delinquency and asset quality deterioration beyond the 30-day grace period. |
+| **Portfolio at Risk > 90 Days (PAR 90 % / Gross NPA)** | $\frac{\sum P_{\text{gross}}(\text{DPD} > 90)}{\sum P_{\text{gross}}} \times 100$ | Outstanding principal balance of active loans with Days Past Due $> 90$ days | Total gross outstanding principal of all active loans at snapshot date | **Percentage (%)** | Non-performing asset (NPA) ratio indicating severe credit distress, default risk, and capital impairment. |
+| **Headline Collection Efficiency %** | $\frac{\text{Current Period Collected}}{\text{Scheduled Amount Due}} \times 100$ | Cash collected in billing month applied to current month contractual instalment dues | Total contractual scheduled instalment dues billed in current month | **Percentage (%)** (Bounded $\le 100\%$) | Measures on-time collection discipline without masking monthly billing shortfalls through arrears or advance prepayments. |
+| **Total Collection Ratio %** | $\frac{\text{Current} + \text{Arrears} + \text{Advance}}{\text{Scheduled Amount Due}} \times 100$ | Total gross cash collected from all streams (current dues + overdue arrears + advance prepayments) | Total contractual scheduled instalment dues billed in current month | **Percentage (%)** (Can exceed $100\%$) | Total cash recovery velocity against current billing; values $> 100\%$ indicate significant recovery of prior delinquent arrears. |
+| **Digital Collection Value Share %** | $\frac{\text{Digital Collections Value}}{\text{Total Collections Value}} \times 100$ | Total rupee value of collections received via digital payment channels (UPI + Net Banking) | Total rupee value of all collections received across all payment channels (Cash + UPI + Net Banking) | **Percentage (%)** | Tracks payment channel transformation and cashless migration by value of recovered funds. |
+| **Digital Transaction Count Share %** | $\frac{\text{Digital Transaction Count}}{\text{Total Transaction Count}} \times 100$ | Count of repayment transactions processed via digital payment channels (UPI + Net Banking) | Total count of repayment transactions processed across all payment channels | **Percentage (%)** | Operational indicator of borrower digital engagement and transaction frequency migration away from physical cash. |
+| **Average Digital Ticket Size** | $\frac{\text{Digital Collections Value}}{\text{Digital Transaction Count}}$ | Total rupee value of collections received via digital channels (UPI + Net Banking) | Total count of transactions processed via digital channels (UPI + Net Banking) | **Currency (₹ INR / txn)** | Average financial value settled per digital repayment transaction; reflects borrower repayment capacity on digital rails. |
+| **Vintage Repayment Rate %** | $\frac{\text{Cumulative Paid at MOB } k}{\text{Cumulative Due at MOB } k} \times 100$ | Cumulative cash repaid by disbursement cohort from origination up to target Month on Book (MOB) $k$ | Cumulative contractual scheduled dues for disbursement cohort up to target Month on Book (MOB) $k$ | **Percentage (%)** | Longitudinal cohort repayment health over loan tenure (MOB 1 to 24), evaluated at target MOB without multi-MOB double counting. |
+| **Data Quality Pass Rate %** | $\frac{\text{Clean Payloads Ingested}}{\text{Total Payloads Received}} \times 100$ | Total clean records passing all validation rules and ingested into warehouse (`fact_payment`) | Total raw ingestion records processed (`fact_payment` + `stg_quarantined_records`) | **Percentage (%)** | Ingestion firewall efficacy; measures the proportion of source payloads verified clean for analytical reporting. |
 
 ---
 

@@ -12,12 +12,21 @@ All measures are grouped in a dedicated `_Measures` table or associated fact tab
 - **DAX Formula**:
 ```dax
 Active Loans Count = 
-VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-RETURN
+VAR MaxSnapshotDate = 
     CALCULATE(
-        DISTINCTCOUNT(fact_loan_monthly[loan_key]),
-        fact_loan_monthly[snapshot_date_key] = MaxDate,
-        fact_loan_monthly[outstanding_principal] > 0
+        MAX(fact_loan_monthly[snapshot_date_key]),
+        USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+    )
+RETURN
+    IF(
+        ISBLANK(MaxSnapshotDate),
+        BLANK(),
+        CALCULATE(
+            DISTINCTCOUNT(fact_loan_monthly[loan_key]),
+            fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+            fact_loan_monthly[outstanding_principal] > 0,
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
     )
 ```
 - **Format**: `#,##0`
@@ -27,11 +36,20 @@ RETURN
 - **DAX Formula**:
 ```dax
 Total Outstanding Principal = 
-VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-RETURN
+VAR MaxSnapshotDate = 
     CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[snapshot_date_key] = MaxDate
+        MAX(fact_loan_monthly[snapshot_date_key]),
+        USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+    )
+RETURN
+    IF(
+        ISBLANK(MaxSnapshotDate),
+        BLANK(),
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
     )
 ```
 - **Format**: `₹ #,##0.00` (or dynamic format string for Crores `₹ 0.00,, "Cr"`)
@@ -50,12 +68,21 @@ DIVIDE([Total Outstanding Principal], 10000000, 0)
 - **DAX Formula**:
 ```dax
 PAR 30 Principal = 
-VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-RETURN
+VAR MaxSnapshotDate = 
     CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[snapshot_date_key] = MaxDate,
-        fact_loan_monthly[days_past_due] > 30
+        MAX(fact_loan_monthly[snapshot_date_key]),
+        USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+    )
+RETURN
+    IF(
+        ISBLANK(MaxSnapshotDate),
+        BLANK(),
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+            fact_loan_monthly[days_past_due] > 30,
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
     )
 ```
 - **Format**: `₹ #,##0.00`
@@ -78,12 +105,21 @@ DIVIDE(
 - **DAX Formula**:
 ```dax
 PAR 90 Principal = 
-VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-RETURN
+VAR MaxSnapshotDate = 
     CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[snapshot_date_key] = MaxDate,
-        fact_loan_monthly[days_past_due] > 90
+        MAX(fact_loan_monthly[snapshot_date_key]),
+        USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+    )
+RETURN
+    IF(
+        ISBLANK(MaxSnapshotDate),
+        BLANK(),
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+            fact_loan_monthly[days_past_due] > 90,
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
     )
 ```
 - **Format**: `₹ #,##0.00`
@@ -106,12 +142,21 @@ DIVIDE(
 - **DAX Formula**:
 ```dax
 Current Principal = 
-VAR MaxDate = MAX(fact_loan_monthly[snapshot_date_key])
-RETURN
+VAR MaxSnapshotDate = 
     CALCULATE(
-        SUM(fact_loan_monthly[outstanding_principal]),
-        fact_loan_monthly[snapshot_date_key] = MaxDate,
-        fact_loan_monthly[days_past_due] = 0
+        MAX(fact_loan_monthly[snapshot_date_key]),
+        USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+    )
+RETURN
+    IF(
+        ISBLANK(MaxSnapshotDate),
+        BLANK(),
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+            fact_loan_monthly[days_past_due] = 0,
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
     )
 ```
 - **Format**: `₹ #,##0.00`
@@ -121,11 +166,23 @@ RETURN
 - **DAX Formula**:
 ```dax
 Delinquency DPD 1-30 = 
-CALCULATE(
-    SUM(fact_loan_monthly[outstanding_principal]),
-    fact_loan_monthly[days_past_due] >= 1,
-    fact_loan_monthly[days_past_due] <= 30
-)
+VAR MaxSnapshotDate = 
+    CALCULATE(
+        MAX(fact_loan_monthly[snapshot_date_key]),
+        USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+    )
+RETURN
+    IF(
+        ISBLANK(MaxSnapshotDate),
+        BLANK(),
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+            fact_loan_monthly[days_past_due] >= 1,
+            fact_loan_monthly[days_past_due] <= 30,
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    )
 ```
 - **Format**: `₹ #,##0.00`
 
@@ -133,8 +190,49 @@ CALCULATE(
 - **DAX Formula**:
 ```dax
 Delinquency DPD 31-60 = 
-CALCULATE(
-    SUM(fact_loan_monthly[outstanding_principal]),
+VAR MaxSnapshotDate = 
+    CALCULATE(
+        MAX(fact_loan_monthly[snapshot_date_key]),
+        USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+    )
+RETURN
+    IF(
+        ISBLANK(MaxSnapshotDate),
+        BLANK(),
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+            fact_loan_monthly[days_past_due] >= 31,
+            fact_loan_monthly[days_past_due] <= 60,
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    )
+```
+- **Format**: `₹ #,##0.00`
+
+### `[Delinquency Bucket: DPD 61-90]`
+- **DAX Formula**:
+```dax
+Delinquency DPD 61-90 = 
+VAR MaxSnapshotDate = 
+    CALCULATE(
+        MAX(fact_loan_monthly[snapshot_date_key]),
+        USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+    )
+RETURN
+    IF(
+        ISBLANK(MaxSnapshotDate),
+        BLANK(),
+        CALCULATE(
+            SUM(fact_loan_monthly[outstanding_principal]),
+            fact_loan_monthly[snapshot_date_key] = MaxSnapshotDate,
+            fact_loan_monthly[days_past_due] >= 61,
+            fact_loan_monthly[days_past_due] <= 90,
+            USERELATIONSHIP(fact_loan_monthly[snapshot_date_key], dim_date[date_key])
+        )
+    )
+```
+- **Format**: `₹ #,##0.00`
     fact_loan_monthly[days_past_due] >= 31,
     fact_loan_monthly[days_past_due] <= 60
 )
@@ -385,3 +483,67 @@ CALCULATE(
 )
 ```
 - **Format**: `#,##0`
+
+
+---
+
+## 6. Role-Playing Date Measures (Inactive Relationships via USERELATIONSHIP)
+
+To prevent multi-path cycle ambiguity between `fact_payment`, `dim_loan`, and `dim_date`, the disbursement date relationship (`dim_loan[disbursement_date_key]` -> `dim_date[date_key]`) is configured as **Inactive**. DAX measures that evaluate portfolio origination by calendar period explicitly activate this path using `USERELATIONSHIP`:
+
+### `[Loans Disbursed Count]`
+- **Description**: Total count of loans disbursed in the selected calendar period.
+- **DAX Formula**:
+```dax
+Loans Disbursed Count = 
+CALCULATE(
+    DISTINCTCOUNT(dim_loan[loan_key]),
+    USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key])
+)
+```
+- **Format**: `#,##0`
+
+### `[Total Disbursed Principal]`
+- **Description**: Gross principal amount disbursed within the selected calendar period.
+- **DAX Formula**:
+```dax
+Total Disbursed Principal = 
+CALCULATE(
+    SUM(dim_loan[principal_amount]),
+    USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key])
+)
+```
+- **Format**: `₹ #,##0.00`
+
+### `[Disbursed Principal (INR Cr)]`
+- **Description**: Gross principal disbursed formatted in Crores.
+- **DAX Formula**:
+```dax
+Disbursed Principal (INR Cr) = 
+DIVIDE([Total Disbursed Principal], 10000000, 0)
+```
+- **Format**: `₹ #,##0.00 "Cr"`
+
+### `[Payments by Loan Disbursement Date]`
+- **Description**: Total repayment cash received on loans that were originated in the selected period.
+- **DAX Formula**:
+```dax
+Payments by Loan Disbursement Date = 
+CALCULATE(
+    SUM(fact_payment[payment_amount]),
+    USERELATIONSHIP(dim_loan[disbursement_date_key], dim_date[date_key])
+)
+```
+- **Format**: `₹ #,##0.00`
+
+### `[Allocations by Cash Payment Date]`
+- **Description**: Total instalment cash allocations evaluated by transaction receipt date rather than contractual due date.
+- **DAX Formula**:
+```dax
+Allocations by Cash Payment Date = 
+CALCULATE(
+    SUM(fact_instalment_allocation[allocated_amount]),
+    USERELATIONSHIP(fact_instalment_allocation[payment_date_key], dim_date[date_key])
+)
+```
+- **Format**: `₹ #,##0.00`

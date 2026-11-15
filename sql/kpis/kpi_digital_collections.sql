@@ -37,46 +37,46 @@ state_monthly_totals AS (
         SUM(CASE WHEN payment_channel = 'Bank Transfer' THEN total_amount ELSE NUMERIC '0.0' END) AS bank_transfer_value,
         SUM(CASE WHEN payment_channel = 'Bank Transfer' THEN txn_count ELSE 0 END) AS bank_transfer_count,
         -- Average Ticket Sizes
-        ROUND(SAFE_DIVIDE(SUM(CASE WHEN payment_channel = 'UPI' THEN total_amount ELSE NUMERIC '0.0' END), 
-                          SUM(CASE WHEN payment_channel = 'UPI' THEN txn_count ELSE 0 END)), 2) AS avg_ticket_upi,
-        ROUND(SAFE_DIVIDE(SUM(CASE WHEN payment_channel = 'Bank Transfer' THEN total_amount ELSE NUMERIC '0.0' END), 
-                          SUM(CASE WHEN payment_channel = 'Bank Transfer' THEN txn_count ELSE 0 END)), 2) AS avg_ticket_bank_transfer,
-        ROUND(SAFE_DIVIDE(SUM(CASE WHEN payment_channel = 'Cash' THEN total_amount ELSE NUMERIC '0.0' END), 
-                          SUM(CASE WHEN payment_channel = 'Cash' THEN txn_count ELSE 0 END)), 2) AS avg_ticket_cash,
-        ROUND(SAFE_DIVIDE(SUM(total_amount), SUM(txn_count)), 2) AS avg_ticket_overall
+        COALESCE(ROUND(SAFE_DIVIDE(SUM(CASE WHEN payment_channel = 'UPI' THEN total_amount ELSE NUMERIC '0.0' END), 
+                          SUM(CASE WHEN payment_channel = 'UPI' THEN txn_count ELSE 0 END)), 2), NUMERIC '0.00') AS avg_ticket_upi,
+        COALESCE(ROUND(SAFE_DIVIDE(SUM(CASE WHEN payment_channel = 'Bank Transfer' THEN total_amount ELSE NUMERIC '0.0' END), 
+                          SUM(CASE WHEN payment_channel = 'Bank Transfer' THEN txn_count ELSE 0 END)), 2), NUMERIC '0.00') AS avg_ticket_bank_transfer,
+        COALESCE(ROUND(SAFE_DIVIDE(SUM(CASE WHEN payment_channel = 'Cash' THEN total_amount ELSE NUMERIC '0.0' END), 
+                          SUM(CASE WHEN payment_channel = 'Cash' THEN txn_count ELSE 0 END)), 2), NUMERIC '0.00') AS avg_ticket_cash,
+        COALESCE(ROUND(SAFE_DIVIDE(SUM(total_amount), SUM(txn_count)), 2), NUMERIC '0.00') AS avg_ticket_overall
     FROM channel_txns
     GROUP BY year_month, month_date_key, state_id, state_name
 ),
 shares_computed AS (
     SELECT 
         *,
-        ROUND(SAFE_DIVIDE(digital_collection_value * NUMERIC '100.0', total_collection_value), 2) AS digital_value_share_pct,
-        ROUND(SAFE_DIVIDE(digital_transaction_count * NUMERIC '100.0', total_transaction_count), 2) AS digital_count_share_pct
+        COALESCE(ROUND(SAFE_DIVIDE(digital_collection_value * NUMERIC '100.0', total_collection_value), 2), NUMERIC '0.00') AS digital_value_share_pct,
+        COALESCE(ROUND(SAFE_DIVIDE(digital_transaction_count * NUMERIC '100.0', total_transaction_count), 2), NUMERIC '0.00') AS digital_count_share_pct
     FROM state_monthly_totals
 )
 SELECT 
     sc.*,
     -- Month-on-Month (MoM) Changes
-    LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month) AS prev_month_digital_value_share,
-    ROUND(
+    COALESCE(LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month), NUMERIC '0.00') AS prev_month_digital_value_share,
+    COALESCE(ROUND(
         digital_value_share_pct - LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month), 
         2
-    ) AS mom_digital_value_share_pts,
-    ROUND(
+    ), NUMERIC '0.00') AS mom_digital_value_share_pts,
+    COALESCE(ROUND(
         SAFE_DIVIDE((digital_value_share_pct - LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month)) * NUMERIC '100.0',
                     LAG(digital_value_share_pct, 1) OVER (PARTITION BY state_id ORDER BY year_month)),
         2
-    ) AS mom_digital_value_growth_pct,
+    ), NUMERIC '0.00') AS mom_digital_value_growth_pct,
     -- Year-on-Year (YoY) Changes
-    LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month) AS prev_year_digital_value_share,
-    ROUND(
+    COALESCE(LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month), NUMERIC '0.00') AS prev_year_digital_value_share,
+    COALESCE(ROUND(
         digital_value_share_pct - LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month), 
         2
-    ) AS yoy_digital_value_share_pts,
-    ROUND(
+    ), NUMERIC '0.00') AS yoy_digital_value_share_pts,
+    COALESCE(ROUND(
         SAFE_DIVIDE((digital_value_share_pct - LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month)) * NUMERIC '100.0',
                     LAG(digital_value_share_pct, 12) OVER (PARTITION BY state_id ORDER BY year_month)),
         2
-    ) AS yoy_digital_value_growth_pct
+    ), NUMERIC '0.00') AS yoy_digital_value_growth_pct
 FROM shares_computed sc
 ORDER BY year_month, state_id;

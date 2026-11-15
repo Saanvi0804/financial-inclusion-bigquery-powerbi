@@ -35,7 +35,6 @@ EXCLUDE_DIRS = {
 
 EXCLUDE_EXTS = {
     ".pyc",
-    ".duckdb",
     ".duckdb.wal",
     ".log",
     ".tmp"
