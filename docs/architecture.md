@@ -64,10 +64,10 @@ Google BigQuery datasets are logically segregated into four tiers to enforce cle
 
 | Dataset Name | Role & Scope | Access Tier | Update Frequency | Data Retention |
 |---|---|---|---|---|
-| `fin_raw` | Raw, immutable landing of source CSV files, audit logs, and telemetry. Retains original amount units (`INR` and `PAISE`) and duplicates. | Data Engineering / Admin | Daily / Batch | Permanent (Append-Only) |
-| `fin_staging` | Cleaned, deduplicated, and normalised tables. Houses the quarantine table `stg_quarantined_records` and FIFO allocation logic. | Data Engineering | Daily / Batch | Transient / Rebuilt |
-| `fin_warehouse` | Dimensional star schema conforming to Kimball standards (6 dimensions, 3 granular facts). High-precision `NUMERIC` types. | Business Intelligence & Data Science | Daily / Batch | Permanent |
-| `fin_analytics` | High-performance pre-aggregated analytical models powering Power BI executive dashboards, risk models, and regulatory filings. | Business Analysts & Power BI | Daily / Real-Time | Permanent |
+| `fin_raw` | Raw landing of source CSV files, audit logs, and telemetry. Retains original amount units (`INR` and `PAISE`) and duplicates. | Data Engineering / Admin | Deterministic Full-Refresh (Batch) | Replaced on Full Refresh |
+| `fin_staging` | Cleaned, deduplicated, and normalised tables. Houses the quarantine table `stg_quarantined_records` and FIFO allocation logic. | Data Engineering | Deterministic Full-Refresh (Batch) | Rebuilt on Pipeline Run |
+| `fin_warehouse` | Dimensional star schema conforming to Kimball standards (6 dimensions, 3 granular facts). | Business Intelligence & Data Science | Deterministic Full-Refresh (Batch) | Rebuilt on Pipeline Run |
+| `fin_analytics` | High-performance pre-aggregated analytical models powering Power BI executive dashboards, risk models, and reporting. | Business Analysts & Power BI | Deterministic Full-Refresh (Batch) | Rebuilt on Pipeline Run |
 
 ---
 
@@ -91,7 +91,10 @@ To minimise BigQuery query scan costs (bytes processed) and ensure sub-second qu
 
 The pipeline is authored entirely in **Google BigQuery Standard SQL**:
 - Uses BigQuery syntax: `CREATE OR REPLACE TABLE`, `SAFE_DIVIDE`, `FORMAT_DATE`, `CURRENT_TIMESTAMP()`, `NUMERIC` literals.
-- **Hybrid Local-Cloud Execution**: When GCP credentials (`GOOGLE_APPLICATION_CREDENTIALS` or BigQuery client) are provided, the pipeline executes directly against the cloud BigQuery project. When running in offline or sandbox environments, `scripts/run_pipeline.py` leverages DuckDB with a comprehensive BigQuery dialect emulation wrapper (`bq_to_duckdb`), enabling 100% testable execution on local machines without incurring cloud costs or requiring active internet access.
+- **Hybrid Local-Cloud Execution**: When GCP credentials (`GOOGLE_APPLICATION_CREDENTIALS` or BigQuery client) are provided, the pipeline can execute directly against a cloud BigQuery project. In offline environments, `scripts/run_pipeline.py` executes against local DuckDB using a BigQuery dialect adaptation wrapper (`bq_to_duckdb`).
+- **Deterministic Full-Refresh Workflow**: The pipeline operates as a deterministic full-refresh workflow, where each execution of `scripts/run_pipeline.py` cleanly replaces staging, dimensions, facts, and KPIs via idempotent `CREATE OR REPLACE TABLE` statements. It is not an incremental streaming or micro-batch ingestion pipeline.
+- **Transaction Handling**: Individual SQL transformation models execute as standalone DDL statements without a single global database transaction wrapper (`BEGIN ... COMMIT`); idempotent full-refresh guarantees clean recovery upon re-running.
+- **Data Types & Numeric Precision in DuckDB**: While BigQuery DDL defines `NUMERIC(12,2)`, the local DuckDB implementation evaluates division in PAISE normalisation into `DOUBLE` for `fact_payment.payment_amount`, `fact_instalment_allocation.allocated_amount`, and `fact_loan_monthly.outstanding_principal`. Values are protected by rounding functions and the internal penny tolerance rule; enforcing fixed-point `DECIMAL(18,2)` is identified as a future production improvement.
 
 ---
 
@@ -99,5 +102,6 @@ The pipeline is authored entirely in **Google BigQuery Standard SQL**:
 
 1. **Audit Logging**: Every raw table ingestion generates an atomic execution record in `fin_raw.raw_ingestion_audit_log` detailing batch ID, source filename, row count, checksum, and status.
 2. **Quarantine Traceability**: The quarantine firewall in `fin_staging.stg_quarantined_records` captures invalid records (negative amounts, pre-dated payments, corrupted DPD) with their complete raw payload serialized as JSON, preserving source lineage for compliance auditing without polluting clean warehouse facts.
-3. **Immutability**: Raw tables are strictly append-only. No raw records are deleted or modified.
+3. **Immutability of Source Files**: Source CSVs remain untouched.
 4. **Least Privilege**: Power BI service accounts are granted `roles/bigquery.dataViewer` and `roles/bigquery.jobUser` restricted to `fin_warehouse` and `fin_analytics`.
+5. **Constraint Validation**: Primary-key uniqueness, foreign-key referential integrity, and grain constraints are actively validated through ETL deduplication and automated pytest assertions, rather than native DuckDB declarative engine catalog constraints (which are unregistered during CTAS).

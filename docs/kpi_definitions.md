@@ -35,7 +35,7 @@ This document establishes the official mathematical definitions, accounting boun
   \max\left(0, t - D_{\text{earliest}, i}\right) & \text{if } \exists \, j \text{ with } D_{i, j} \le t \text{ and } (A_{\text{due}, i, j} - A_{\text{paid}, i, j}(t)) > \epsilon \\
   0 & \text{otherwise}
   \end{cases}$$
-- **Penny Residual Tolerance ($\epsilon$)**: $\epsilon = \text{₹}0.01$. Unpaid balances $\le \text{₹}0.01$ resulting from floating-point or amortisation rounding are deemed immaterial and do not trigger delinquency.
+- **Internal Operational Rounding Tolerance ($\epsilon$)**: $\epsilon = \text{₹}0.01$. Unpaid balances $\le \text{₹}0.01$ resulting from floating-point or amortisation rounding are deemed immaterial and do not trigger delinquency. This is strictly an internal operational rounding tolerance threshold to eliminate binary floating-point artifacts and is not based on or claimed to be a regulatory mandate.
 - **Exclusion of Future Dues**: Any instalment where $D_{i, j} > t$ is strictly excluded from $\text{DPD}$ evaluation.
 
 ### 1.3 Portfolio at Risk > 30 Days ($\text{PAR30}$)

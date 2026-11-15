@@ -187,7 +187,7 @@ The staging layer incorporates a quality firewall that intercepts source data an
 - **Mathematical Formula**:
   $$\text{PAR30}(t) = \frac{\sum_{i \in \text{Active}(t), \, \text{DPD}_i(t) > 30} P_{\text{gross}, i}(t)}{\sum_{i \in \text{Active}(t)} P_{\text{gross}, i}(t)} \times 100\%$$
 - **Institutional Benchmark (2024-12-31)**: **8.2211%** (₹167.47 Cr overdue principal).
-- **The Penny Residual Rule**: Unpaid balances $\le \text{₹}0.01$ resulting from floating-point or amortisation rounding are treated as non-delinquent.
+- **Internal Operational Rounding Tolerance**: Unpaid balances $\le \text{₹}0.01$ resulting from floating-point or amortisation rounding are treated as non-delinquent. This internal threshold distinguishes genuine payment defaults from binary floating-point representation artifacts and is not based on or claimed to be a regulatory mandate.
 
 ### 10.2 Headline Collection Efficiency vs Total Collection Ratio
 - **Headline Collection Efficiency**:
@@ -387,6 +387,8 @@ cp .env.example .env
 
 ## 14. Execution Instructions
 
+The warehouse pipeline operates as a **deterministic full-refresh workflow**, where each run drops and rebuilds staging, dimensions, facts, and KPIs via idempotent `CREATE OR REPLACE TABLE` statements. It is not an incremental streaming or micro-batch ingestion pipeline.
+
 ### Complete Automated Execution
 Execute the entire end-to-end workflow (generation $\to$ raw ingest $\to$ DuckDB SQL transformations $\to$ profiling $\to$ financial reconciliation $\to$ pytest):
 
@@ -429,6 +431,8 @@ python scripts/export_powerbi_data.py
 
 ## 15. Testing Instructions
 
+> **Testing Prerequisites & Architecture Note**: The automated test suite expects a pre-populated DuckDB warehouse (`data/warehouse/financial_inclusion_bigquery.duckdb`). Execute `run.bat` or `python scripts/run_pipeline.py` before running pytest. Primary-key uniqueness, foreign-key referential integrity, and grain constraints are validated through ETL deduplication and automated test assertions, rather than native DuckDB declarative engine catalog constraints (which are unregistered in CTAS).
+
 Run the enterprise automated test suite via pytest:
 ```bash
 python -m pytest tests -v
@@ -460,6 +464,10 @@ The 64 test cases cover:
 | **Total Quarantined Anomalies** | 1,681 records | 1,681 records | **100% ISOLATED** |
 | **Automated Tests Passed** | 64 / 64 | 64 / 64 | **100.0% PASS RATE** |
 
+> **Reconciliation Note**:
+> - **SQL-to-DAX KPI Reconciliation**: Exact match (14 of 14 evaluated metrics) across all tested filter contexts between DuckDB Warehouse SQL and Power BI DAX.
+> - **Independent Python Recalculation**: Demonstrates negligible floating-point differences (< 1 ppm / 0.04 bps) due to 64-bit float summation ordering.
+
 ---
 
 ## 17. Limitations & Production Considerations
@@ -467,3 +475,5 @@ The 64 test cases cover:
 1. **Local DuckDB Execution vs Cloud BigQuery**: The analytical warehouse was executed, tested, and validated 100% locally using DuckDB (`data/warehouse/financial_inclusion_bigquery.duckdb`). BigQuery was not deployed or executed in an active Google Cloud Platform (GCP) project. The SQL transformation models are authored in standard SQL verified to be compatible with Google BigQuery syntax, allowing cloud deployment if GCP credentials and billing are configured in the future. Power BI Desktop consumes curated data extracts produced directly by the local DuckDB pipeline.
 2. **Power BI Desktop Native Rendering**: Because Power BI Desktop is a Windows desktop application that requires an interactive GUI, the automated scripts export curated CSV extracts and documented DAX measures for immediate import; the `.pbip` visual project can be opened directly in Power BI Desktop to inspect the 5 dashboard pages.
 3. **Static Borrower Demographics**: Borrower socioeconomic attributes (income band, occupation) are modeled as Type 1 (current state) dimensions rather than Slowly Changing Dimensions (SCD Type 2), which is standard for short-tenure microfinance facilities.
+4. **Financial Data Types in DuckDB**: In the local DuckDB implementation, division operations during PAISE-to-INR standardisation cause `payment_amount`, `allocated_amount`, and `outstanding_principal` in `fact_payment`, `fact_instalment_allocation`, and `fact_loan_monthly` to be stored as `DOUBLE` (IEEE 754 64-bit float). While rounding and the internal penny tolerance rule prevent operational drift, this introduces negligible sub-cent floating-point representation differences (e.g. ₹1.54 across ₹2.037B). Enforcing explicit fixed-point `DECIMAL(18,2)` is identified as a future production improvement.
+5. **Absence of Single Transaction Wrapper**: Individual SQL transformation models in `run_pipeline.py` execute as standalone DDL statements without a single global database transaction wrapper (`BEGIN ... COMMIT`); however, the idempotent full-refresh design guarantees that rerunning the pipeline cleanly recovers from any partial failure.

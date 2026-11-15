@@ -188,7 +188,7 @@ erDiagram
 - **Primary Key**: `payment_key` (Surrogate integer).
 - **Business Key**: `transaction_id` (e.g. `TXN00000001`).
 - **Financial Measures**:
-  - `payment_amount` (`NUMERIC` in INR): Exact payment amount received.
+  - `payment_amount` (`DOUBLE` in DuckDB implementation; `DECIMAL(18,2)` targeted in future enhancements): Exact payment amount received in INR.
 - **Row Count**: 533,147 rows.
 - **Reconciliation Total**: ₹2,414,272,241.51.
 
@@ -197,9 +197,9 @@ erDiagram
 - **Primary Key**: `allocation_key` (Surrogate integer).
 - **Foreign Keys**: `loan_key`, `payment_date_key`, `due_date_key`, `branch_key`, `state_key`, `product_key`, `borrower_segment_key`.
 - **Financial Measures**:
-  - `allocated_amount` (`NUMERIC` in INR): Portioned cash applied to instalment.
-  - `allocated_principal` (`NUMERIC` in INR): Principal component paid.
-  - `allocated_interest` (`NUMERIC` in INR): Interest component paid.
+  - `allocated_amount` (`DOUBLE` in DuckDB implementation; `DECIMAL(18,2)` future enhancement): Portioned cash applied to instalment.
+  - `allocated_principal` (`DOUBLE` in DuckDB implementation; `DECIMAL(18,2)` future enhancement): Principal component paid.
+  - `allocated_interest` (`DOUBLE` in DuckDB implementation; `DECIMAL(18,2)` future enhancement): Interest component paid.
 - **Invariant**: `allocated_amount = allocated_principal + allocated_interest`.
 - **Row Count**: 723,600 rows.
 - **Reconciliation Total**: ₹2,414,272,241.51 (100.0% conservation with `fact_payment`).
@@ -209,9 +209,18 @@ erDiagram
 - **Primary Key**: `snapshot_key` (Surrogate integer) / Composite Key `(loan_id, snapshot_date_key)`.
 - **Temporal Coverage**: 24 calendar month-ends (2023-01-31 to 2024-12-31).
 - **Financial Measures**:
-  - `outstanding_principal` (`NUMERIC`): Point-in-time remaining principal balance calculated from initial principal minus cumulative principal allocations received on or before snapshot date.
-  - `amount_due` (`NUMERIC`): Cumulative dues scheduled on or before snapshot date.
-  - `amount_paid` (`NUMERIC`): Cumulative payments allocated on or before snapshot date.
-  - `days_past_due` (`INT64`): Dynamic days elapsed since the oldest unsatisfied instalment due on or before snapshot date (excluding future dues and with $\le$ 1-paisa residual threshold).
-  - `overdue_amount` (`NUMERIC`): Overdue arrears as of snapshot date.
+  - `outstanding_principal` (`DOUBLE` in DuckDB implementation; `DECIMAL(18,2)` future enhancement): Point-in-time remaining principal balance calculated from initial principal minus cumulative principal allocations received on or before snapshot date.
+  - `amount_due` (`DECIMAL(38,2)`): Cumulative dues scheduled on or before snapshot date.
+  - `amount_paid` (`DOUBLE`): Cumulative payments allocated on or before snapshot date.
+  - `days_past_due` (`INT64`): Dynamic days elapsed since oldest unsatisfied instalment due on or before snapshot date (excluding future dues, using internal operational rounding tolerance threshold $\le \text{₹}0.01$).
+  - `overdue_amount` (`DOUBLE`): Overdue arrears as of snapshot date.
 - **Row Count**: 651,542 rows.
+
+---
+
+## 4. Constraint Enforcement Architecture
+
+In the analytical warehouse implementation:
+- **Declarative Engine Constraints**: In DuckDB (and BigQuery CTAS), executing `CREATE OR REPLACE TABLE AS SELECT` creates tables from result set schemas without registering declarative `PRIMARY KEY` or `FOREIGN KEY` constraints in database catalog metadata (`information_schema.table_constraints` is empty). This is standard for OLAP columnar architectures to maintain bulk ingestion throughput.
+- **Application & Test Enforcement**: Primary-key uniqueness, foreign-key referential integrity (zero orphan keys), and grain constraints are strictly enforced via upstream SQL window ranking deduplication (`ROW_NUMBER() OVER (...) WHERE rn = 1`), defensive fallback joins (`COALESCE(dim.key, -1)`), and the 64 automated pytest test cases.
+- **Pipeline Workflow**: The pipeline executes as a deterministic full-refresh workflow, where each execution cleanly replaces staging, dimensional, fact, and KPI models. Individual models run as standalone DDL statements without a single transaction wrapper.

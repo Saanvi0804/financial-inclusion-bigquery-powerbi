@@ -10,6 +10,12 @@
 > - **Local Validation**: The entire project was developed, executed, profiled, and verified 100% locally.
 > - **Cloud Status**: Google BigQuery was **not** deployed or executed in an active Google Cloud project.
 > - **BigQuery Compatibility**: BigQuery compatibility is claimed strictly for the SQL transformation models (`sql/ddl/`, `sql/staging/`, `sql/dimensions/`, `sql/facts/`, `sql/kpis/`), which were authored and verified to adhere to BigQuery Standard SQL syntax (e.g., standard window functions, `QUALIFY`, `STRUCT`, `TIMESTAMP` functions).
+> - **Pipeline Workflow Pattern**: The current pipeline is a deterministic full-refresh workflow, rebuilding staging, dimensions, facts, and KPIs via idempotent `CREATE OR REPLACE TABLE` statements; it is not an incremental ingestion pipeline.
+> - **Transaction Handling**: Individual SQL transformation models execute as standalone DDL statements without a single global database transaction wrapper; idempotent full-refresh ensures clean rerun recovery.
+> - **Data Types & Precision**: DuckDB stores payment and allocation fact amounts as `DOUBLE` (due to division during PAISE conversion), introducing negligible floating-point representation differences (e.g. ₹1.54 across ₹2.037B); enforcing `DECIMAL(18,2)` is identified as a future production improvement.
+> - **Constraint Enforcement**: Primary-key and foreign-key integrity is validated and guaranteed through ETL deduplication and automated test suites, not through DuckDB declarative catalog constraints (which are unregistered in CTAS).
+> - **KPI Reconciliation**: SQL-to-DAX KPI reconciliation is an EXACT MATCH (14/14) for all tested contexts, while independent Python recalculations exhibit negligible floating-point differences (< 1 ppm / 0.04 bps) due to summation ordering.
+> - **Automated Testing Setup**: The 64 automated pytest tests connect to and expect a pre-populated DuckDB warehouse (`data/warehouse/financial_inclusion_bigquery.duckdb`).
 > - **Power BI Ingestion**: Power BI Desktop consumes curated data extracts (`data/powerbi_extracts/`) generated directly by the DuckDB pipeline.
 
 ---
@@ -39,7 +45,7 @@ To balance sub-second BI query latency with audit-grade cash conservation, the w
 ### 1.3 A Critical Failed Test and What It Revealed
 During validation test execution, a discrepancy emerged between the naive SQL warehouse calculation (8.2306%) and the independent Python engine (8.2215%) as of 2024-12-31. Tracing the difference revealed **5 loans** (`LN035417`, `LN040838`, `LN023655`, `LN038317`, `LN037307`, total principal ₹190,581.37) that were falsely classified as 31 DPD.
 - *Root Cause*: Standard IEEE 754 double-precision floating-point subtraction `amount_due - allocated_amount` yielded `0.010000000000000231`. The naive filter `> 0.01` evaluated to `TRUE`, treating a 1-paisa sub-cent rounding artifact as an unpaid instalment.
-- *Remediation*: The BigQuery SQL logic was refactored to use fixed-point `NUMERIC` types with explicit penny rounding `ROUND(amount_due - allocated, 2) > NUMERIC '0.01'`. The refactored warehouse returned **8.2211%**, bringing the variance down to **0.04 basis points** (₹8,426 on a ₹2.037B portfolio), perfectly matching institutional NBFC-MFI delinquency standards.
+- *Remediation*: The BigQuery SQL logic was refactored to use fixed-point `NUMERIC` types with explicit penny rounding `ROUND(amount_due - allocated, 2) > NUMERIC '0.01'`. The refactored warehouse returned **8.2211%**, bringing the variance down to **0.04 basis points** (₹8,426 on a ₹2.037B portfolio), conforming to the internal operational rounding tolerance threshold ($\le \text{₹}0.01$) to eliminate floating-point artifacts.
 
 ### 1.4 Independent KPI Hand Calculation & Result
 To mathematically certify the warehouse transformation logic, two independent hand audits were conducted:

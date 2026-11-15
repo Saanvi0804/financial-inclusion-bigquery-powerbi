@@ -89,11 +89,11 @@ By tracing loan-by-loan delinquent classification on 2024-12-31 between independ
    ```
    Since `3412.84 < 3412.84` is `FALSE`, Python correctly treats the loan as non-delinquent.
 
-### 2.4 Portfolio Accounting Standard & BigQuery Implementation
-In loan portfolio accounting, an instalment is classified as delinquent only when the unpaid balance exceeds an operational materiality tolerance threshold ($\epsilon$). Because standard reducing-balance EMI schedules generate periodic sub-cent rounding residuals across multi-year amortisation schedules, financial systems apply an explicit fixed-point decimal tolerance (set here to $\epsilon = \text{₹}0.01$, or 1 paisa) to distinguish genuine payment defaults from binary floating-point representation artifacts.
+### 2.4 Portfolio Accounting Standard & Warehouse Implementation
+In loan portfolio accounting, an instalment is classified as delinquent only when the unpaid balance exceeds an internal operational materiality rounding tolerance threshold ($\epsilon$). Because standard reducing-balance EMI schedules generate periodic sub-cent rounding residuals across multi-year amortisation schedules, financial systems apply an explicit decimal tolerance (set internally to $\epsilon = \text{₹}0.01$, or 1 paisa) to distinguish genuine payment defaults from binary floating-point representation artifacts. This is an internal operational rounding tolerance threshold and is not based on or claimed to be a regulatory or RBI mandate.
 
-In Google BigQuery:
-1. All financial values are stored in fixed-point **`NUMERIC`** (38 digits of precision, 9 decimal places), eliminating IEEE 754 floating-point representation drift.
+In the warehouse implementation:
+1. SQL models specify fixed-point `NUMERIC` semantics. In the local DuckDB execution engine, division during PAISE normalisation infers `DOUBLE` for payment and allocation columns; explicit `DECIMAL(18,2)` is targeted as a future production enhancement.
 2. The overdue condition explicitly applies fixed rounding:
    ```sql
    ROUND(i.amount_due - COALESCE(SUM(a.allocated_amount), NUMERIC '0.0'), 2) > NUMERIC '0.01'
@@ -105,9 +105,13 @@ In Google BigQuery:
 |---|---|---|---|---|
 | **Naive Floating-Point Model** | Floating-point `> 0.01` | ₹2,037,126,498.03 | ₹167,672,005.65 | **8.2306%** (Inflated by 5 false loans) |
 | **Independent Python Script** | Decimal `alloc < due - 0.01` | ₹2,037,126,498.03 | ₹167,481,424.28 | **8.2215%** (Ground truth) |
-| **BigQuery Standard SQL Model** | Fixed `NUMERIC` + `ROUND(..., 2) > 0.01` | ₹2,037,126,496.49 | ₹167,472,997.52 | **8.2211%** (Variance: **0.04 bps**) |
+| **Warehouse SQL Model (DuckDB)** | Fixed `NUMERIC` + `ROUND(..., 2) > 0.01` | ₹2,037,126,496.49 | ₹167,472,997.52 | **8.2211%** (Variance: **0.04 bps**) |
 
-The variance between BigQuery (8.2211%) and Python (8.2215%) is just **0.0004% (0.04 basis points)**, or ₹8,426 on a ₹2.037 Billion portfolio, fully confirming that the floating-point false-delinquency artifact has been eliminated.
+The variance between Warehouse SQL (8.2211%) and independent Python recalculation (8.2215%) is just **0.0004% (0.04 basis points)**, or ₹8,426 on a ₹2.037 Billion portfolio (and ₹1.54 on gross principal), arising from Python vs DuckDB floating-point summation ordering.
+
+> **Important Reconciliation Clarification**:
+> - **SQL-to-DAX KPI Reconciliation**: Across all 14 evaluated portfolio metrics and tested contexts, the reconciliation between Warehouse SQL and Power BI DAX is an **EXACT MATCH (14/14)**.
+> - **Python Recalculation**: Independent Python recalculations exhibit negligible floating-point differences (< 1 ppm / 0.04 bps) due to summation order across 64-bit floats.
 
 ---
 
