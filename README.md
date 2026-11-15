@@ -1,8 +1,9 @@
 # Financial Inclusion Analytics Warehouse
 ## An End-to-End Financial Analytics and Business Intelligence Solution
 
-[![BigQuery Standard SQL](https://img.shields.io/badge/BigQuery-Standard%20SQL-4285F4?logo=googlecloud&logoColor=white)](https://cloud.google.com/bigquery)
-[![Power BI Enterprise](https://img.shields.io/badge/Power%20BI-Desktop%20%7C%20DirectQuery-F2C811?logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
+[![DuckDB Local Warehouse](https://img.shields.io/badge/DuckDB-Local%20Warehouse-FFF000?logo=duckdb&logoColor=black)](https://duckdb.org/)
+[![BigQuery Standard SQL](https://img.shields.io/badge/SQL-BigQuery--Compatible%20Standard%20SQL-4285F4?logo=googlecloud&logoColor=white)](https://cloud.google.com/bigquery)
+[![Power BI Enterprise](https://img.shields.io/badge/Power%20BI-Desktop%20%7C%205--Page%20Dashboard-F2C811?logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Tests Passing](https://img.shields.io/badge/Pytest-64%20Passed%20(100%25)-brightgreen?logo=pytest&logoColor=white)](docs/test_results.md)
 [![Database Architecture](https://img.shields.io/badge/Warehouse-Kimball%20Star%20Schema-059669)](docs/schema_design.md)
@@ -16,7 +17,7 @@ The platform manages **52,000 loans**, **46,000 borrowers**, **533,000+ repaymen
 
 ## 1. Project Title & Concise Description
 
-**Financial Inclusion Analytics Warehouse** is a production-quality, end-to-end data engineering and visual analytics system. The warehouse is executed and validated 100% locally using an embedded **DuckDB** analytical engine (`data/warehouse/financial_inclusion_bigquery.duckdb`), executing transformation models authored in verified **BigQuery-compatible Standard SQL**. Power BI consumes curated data extracts produced directly by the local DuckDB pipeline. 
+**Financial Inclusion Analytics Warehouse** is a production-quality, end-to-end data engineering and visual analytics system. The warehouse is executed and validated 100% locally using an embedded **DuckDB** analytical engine (`data/warehouse/financial_inclusion_bigquery.duckdb`), executing transformation models authored in verified **BigQuery-compatible Standard SQL**. Power BI consumes curated data extracts produced directly by the local DuckDB pipeline.
 
 *(Note: BigQuery was not deployed or executed in an active Google Cloud project; all ingestion, transformations, automated tests, and reconciliations were executed and certified locally).*
 
@@ -36,7 +37,7 @@ Microfinance and financial inclusion institutions face unique operational and da
 
 ## 3. Project Objectives
 
-- **Enterprise Star Schema**: Design a Kimball dimensional model in Google BigQuery with partitioned and clustered fact tables.
+- **Enterprise Star Schema**: Design a Kimball dimensional star schema implemented in an embedded DuckDB columnar engine with verified BigQuery-compatible Standard SQL transformations.
 - **Financial Rigour & Conservation**: Implement reducing-balance amortisation and chronological FIFO instalment allocation where every rupee received is conserved and reconciled with zero variance.
 - **Automated Data Quality Firewall**: Detect, isolate, and log upstream data defects into a dedicated quarantine table without halting warehouse ingestion or polluting clean facts.
 - **Precision Delinquency Tracking**: Eliminate floating-point calculation drift in delinquency aging through fixed `NUMERIC` types and explicit institutional penny thresholds.
@@ -60,11 +61,10 @@ Microfinance and financial inclusion institutions face unique operational and da
 | Layer | Technology | Role & Justification |
 |---|---|---|
 | **Data Generation & Ingestion** | Python 3.12, Pandas, Faker, NumPy | Synthesises realistic priority-sector loan portfolios and orchestrates ingestion. |
-| **Data Warehouse Engine** | DuckDB (Embedded SQL Engine) | High-performance in-process columnar warehouse executing the entire pipeline locally (`data/warehouse/financial_inclusion_bigquery.duckdb`). |
-| **Transformation Language** | BigQuery-Compatible Standard SQL | Kimball dimensional models, window functions, and analytical KPIs authored in standard SQL verified compatible with BigQuery syntax. |
+| **Analytical Warehouse Engine** | DuckDB (Embedded Columnar Engine) | High-performance in-process SQL warehouse executing the entire pipeline locally (`data/warehouse/financial_inclusion_bigquery.duckdb`). |
+| **Transformation Language** | BigQuery-Compatible Standard SQL | Kimball star schema dimensional models, window functions, and analytical KPIs authored in standard SQL verified compatible with BigQuery syntax. |
 | **Testing & Quality Assurance** | Pytest 9.2, Python 3.12 | 64 automated enterprise test cases validating schema, uniqueness, business logic, and reconciliation. |
-| **Business Intelligence** | Microsoft Power BI Desktop (PBIP) | 5-page executive reporting dashboard consuming curated data extracts generated by the DuckDB warehouse pipeline. |DAX measures, and interactive analytics. |
-| **Automated Testing** | Pytest 9.2.0 | 64 automated enterprise data quality, referential integrity, and KPI tests. |
+| **Business Intelligence** | Microsoft Power BI Desktop (PBIP / PBIX) | 5-page executive reporting dashboard with custom DAX measures, consuming curated extracts from DuckDB. |
 | **Version Control & CI** | Git, Markdown, Mermaid | Comprehensive architectural diagrams, documentation, and reproducibility scripts. |
 
 ---
@@ -174,7 +174,7 @@ The staging layer incorporates a quality firewall that intercepts source data an
 | **Pre-dated Payments** | `raw_repayments` | 160 rows | Quarantined (dated before loan disbursement); zero in warehouse facts. |
 | **PAISE Unit Mismatch** | `raw_repayments` | 500 rows | Converted by dividing by 100.0 exactly once in staging; unit standardised to `INR`. |
 | **Excess Payments** | `raw_instalments` | 220 rows | Capped at scheduled `amount_due`; 220 logged to quarantine. |
-| **Corrupted DPD** | `raw_instalments` | 350 rows | Static raw DPD discarded; dynamic point-in-time DPD calculated in BigQuery. |
+| **Corrupted DPD** | `raw_instalments` | 350 rows | Static raw DPD discarded; dynamic point-in-time DPD calculated via SQL window transformations in DuckDB. |
 | **BR025 Collection Outage**| `raw_repayments` | 1,013 omitted | October 2024 outage in Jaipur Metro absorbed smoothly without pipeline failure. |
 | **Unmapped Branch/Product**| `raw_loans` | 250 Branch, 180 Product | Assigned fallback surrogate keys (`-1`) to prevent orphan fact rows. |
 | **Total Quarantined** | `stg_quarantined_records` | **1,681 rows** | Full JSON raw payload logged with timestamp and reason code. |
@@ -218,23 +218,84 @@ The reporting layer comprises a 5-page enterprise financial analytics suite:
 
 ---
 
+## Power BI Dashboard Preview
+
+The executive reporting suite is authored as a 5-page enterprise dashboard in Microsoft Power BI Desktop, consuming curated dimensional extracts from the DuckDB analytical warehouse.
+
+### Page 1: Portfolio Health & Risk Exposure
+*Asset quality surveillance, delinquency aging distribution, and state-wise risk concentration.*
+
+![Portfolio Health & Risk Exposure Dashboard](docs/screenshots/01_portfolio_health.png)
+
+- **Headline KPIs**: Total Portfolio Loans (52K), Active Portfolio Loans (41K / 40,940), Gross Disbursed (₹400.16 Cr), Gross Outstanding (₹203.71 Cr), PAR 30 Rate (8.22%), PAR 90 Rate (4.79%).
+- **Visual Analytics**: 24-month gross outstanding & PAR 30 trend, delinquency aging across DPD buckets (Current Principal, Delinquency DPD 1-30, 31-60, 61-90, 90+), loan product allocation breakdown, and 10-state portfolio risk league table.
+
+---
+
+### Page 2: Collection Performance & Billing
+*Scheduled billing dues vs. actual cash recoveries, headline collection efficiency, and branch outage tracking.*
+
+![Collection Performance & Billing Dashboard](docs/screenshots/02_collection_performance.png)
+
+- **Headline KPIs**: Total Scheduled Demand (₹238.48 Cr), Total Collections (₹243.64 Cr), Headline Collection Efficiency (97.38%), Total Collection Ratio (102.16%), Overdue Principal (₹16.75 Cr), Active Borrowers (40.94K).
+- **Visual Analytics**: 24-month monthly billing vs. collection trend, collection component decomposition (Current Billing, Arrears Recovery, Advance Prepayments), and 36-branch collection performance heatmap capturing the October 2024 BR025 Jaipur Metro outage and November rebound.
+
+---
+
+### Page 3: Disbursement Cohort Repayment Vintage Analysis
+*Months-on-book (MOB 1 to 23) cohort repayment curves, vintage seasoning decay, and cumulative recovery.*
+
+![Disbursement Cohort Repayment Vintage Analysis Dashboard](docs/screenshots/03_repayment_vintage.png)
+
+- **Headline KPIs**: Total Tracked Cohorts (23), Max Vintage Tracked (23 MOB), Cumulative Cash Repaid (₹167.33 Cr), Average 12-MOB Repayment Rate (91.45%), Portfolio Cumulative Repaid Rate (62.38%).
+- **Visual Analytics**: 23-cohort repayment vintage curves across Months-on-Book (MOB 1 to 23), product-wise cumulative repayment trajectory, and cohort vintage matrix table.
+
+---
+
+### Page 4: Digital Collections & UPI Adoption
+*24-month payment mode transition from cash doorstep collections to digital omni-channels.*
+
+![Digital Collections & UPI Adoption Dashboard](docs/screenshots/04_digital_collections.png)
+
+- **Headline KPIs**: Total Digital Collections (₹145.28 Cr), Digital Value Share (60.18%), UPI Value Share (41.65%), Digital Adoption Growth (+48.70 percentage points), Cash Collections (₹96.14 Cr).
+- **Visual Analytics**: 24-month payment mode share area chart showing digital leap from 32.24% (Jan 2023) to 80.94% (Dec 2024), monthly channel volume breakdown (UPI, Bank Transfer, Cash), and average ticket size distribution by channel.
+
+---
+
+### Page 5: Data Quality & Quarantine Firewall
+*Real-time data quality monitoring, anomaly quarantine isolation audit, and ingestion lineage.*
+
+![Data Quality & Quarantine Firewall Dashboard](docs/screenshots/05_data_quality.png)
+
+- **Headline KPIs**: Total Processed Records (1,608,965), Clean Ingested Records (1,607,284), Total Quarantined Records (1,681), Ingestion Accuracy Rate (99.90%), Active Defect Categories (5).
+- **Visual Analytics**: Quarantined records breakdown by defect category (Duplicate Loans: 200, Duplicate Payments: 398, Negative Payments: 150, Pre-dated Payments: 160, Excess Payments: 220), quarantine volume trend, and searchable defect drill-through audit ledger with JSON payload error details.
+
+---
+
 ## 12. Repository Structure
 
 ```
-financial-inclusion-bigquery-powerbi/
+financial-inclusion-analytics-warehouse/
 ├── README.md                            # Primary documentation & executive overview
 ├── requirements.txt                     # Production Python dependencies
 ├── run.bat                              # One-click Windows execution script
 ├── run.sh                               # One-click Linux/macOS execution script
-├── .gitignore                           # Excludes secrets, local DBs, caches
+├── .gitignore                           # Excludes secrets, local DBs, caches, large archives
 ├── .env.example                         # Environment configuration template
 │
 ├── data/
 │   ├── raw/                             # Source CSVs (loans, repayments, instalments)
-│   ├── warehouse/                       # Local BigQuery emulation warehouse database
+│   ├── warehouse/                       # Local DuckDB warehouse (financial_inclusion_bigquery.duckdb)
 │   └── powerbi_extracts/                # Curated CSV extracts for Power BI Desktop
 │
 ├── docs/
+│   ├── screenshots/                     # 5 high-resolution PNG dashboard previews
+│   │   ├── 01_portfolio_health.png
+│   │   ├── 02_collection_performance.png
+│   │   ├── 03_repayment_vintage.png
+│   │   ├── 04_digital_collections.png
+│   │   └── 05_data_quality.png
+│   ├── Financial_Inclusion_Analytics.pdf # Clean PDF export of all 5 dashboard pages
 │   ├── architecture.md                  # Enterprise datasets, partitioning & clustering
 │   ├── schema_design.md                 # Star schema diagrams & fact/dimension grains
 │   ├── data_dictionary.md               # Complete column metadata across all 4 datasets
@@ -244,22 +305,42 @@ financial-inclusion-bigquery-powerbi/
 │   ├── test_results.md                  # Automated pytest execution ledger (64 tests)
 │   ├── hand_validation.md               # PAR30 forensic resolution & EMI hand calculations
 │   ├── power_bi_guide.md                # 5-page Power BI dashboard guide & visual layouts
-│   └── business_insights.md             # Empirical portfolio findings & credit risks
+│   ├── business_insights.md             # Empirical portfolio findings & credit risks
+│   ├── powerbi_dashboard_implementation.md # Visual spacing, layout & component specifications
+│   ├── powerbi_dashboard_validation.md     # Automated visual & structural audit report
+│   ├── powerbi_measure_catalog.md          # Complete DAX measure inventory
+│   ├── powerbi_model_design.md             # Star schema model architecture & relationships
+│   ├── powerbi_model_validation.md         # Semantic model integrity validation
+│   ├── powerbi_relationship_inventory.md   # Relationship cardinality & direction matrix
+│   └── powerbi_star_schema_design.md       # Star schema dimension & fact documentation
 │
 ├── powerbi/
+│   ├── Financial_Inclusion_Analytics.pbix # Standalone Power BI desktop dashboard
+│   ├── Financial_Inclusion_Analytics.pbip # Power BI Project (Developer mode)
+│   ├── Financial_Inclusion_Analytics.Report/ # Report layout & visual definitions (report.json)
+│   ├── Financial_Inclusion_Analytics.SemanticModel/ # Semantic model definition (model.bim)
+│   ├── dax_measures.dax                 # Raw DAX measure definitions
 │   ├── dax_measures.md                  # Enterprise DAX measure catalogue (_Measures)
 │   └── schema_model.md                  # Power BI relationship matrix & cardinalities
 │
 ├── scripts/
 │   ├── generate_data.py                 # Verified synthetic portfolio generator
-│   ├── ingest_bigquery.py               # BigQuery ingestion engine with audit logging
-│   ├── run_pipeline.py                  # BigQuery Standard SQL transformation orchestrator
+│   ├── ingest_bigquery.py               # Raw data ingestion engine into DuckDB with audit logging
+│   ├── run_pipeline.py                  # SQL transformation orchestrator executing against DuckDB
 │   ├── profile_data.py                  # Warehouse data profiling engine
 │   ├── verify_recalculation.py          # Independent Python PAR30 recalculation engine
-│   └── export_powerbi_data.py           # Power BI extract generator
+│   ├── export_powerbi_data.py           # Power BI extract generator
+│   ├── create_submission_zip.py         # Final submission packaging script
+│   ├── audit_visual_spacing.py          # Visual spacing & alignment validation script
+│   ├── convert_pdf_to_screenshots.py    # High-resolution PDF-to-PNG conversion script
+│   ├── reconcile_and_investigate.py     # SQL vs DAX KPI reconciliation script (14/14 exact match)
+│   ├── validate_dashboard_v3.py         # Dashboard visual validation script
+│   ├── validate_semantic_model.py       # Semantic model schema validation script
+│   ├── verify_zip_contents.py           # Submission ZIP integrity & contents auditor
+│   └── archive/                         # Preserved development and migration scripts
 │
 ├── sql/
-│   ├── ddl/                             # BigQuery dataset and table DDL scripts
+│   ├── ddl/                             # Table DDL scripts authored in BigQuery-compatible Standard SQL
 │   ├── staging/                         # Data cleansing, quarantine & FIFO allocation SQL
 │   ├── dimensions/                      # Dimensional models (Date, State, Branch, etc.)
 │   ├── facts/                           # Granular fact tables (Payment, Monthly, Alloc)
@@ -280,31 +361,34 @@ financial-inclusion-bigquery-powerbi/
 
 ### Prerequisites
 - Python 3.12+
-- Google Cloud SDK (optional, only if deploying directly to cloud BigQuery)
+- Microsoft Power BI Desktop (Windows) to open the `.pbip` project or `.pbix` file
 
 ### Step 1: Clone and Set Up Environment
 ```bash
+# Clone the repository
+git clone https://github.com/Saanvi0804/financial-inclusion-analytics-warehouse.git
+
 # Navigate to the project directory
-cd financial-inclusion-bigquery-powerbi
+cd financial-inclusion-analytics-warehouse
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### Step 2: Configure Environment Variables (Optional)
-If deploying to Google Cloud BigQuery, copy the example environment file and supply credentials:
+### Step 2: Environment Configuration (Optional)
+The warehouse executes 100% locally out-of-the-box using embedded DuckDB with zero configuration or cloud dependencies. The `.env.example` file is provided as a reference template for optional future Google Cloud BigQuery deployment:
 ```bash
 cp .env.example .env
-# Edit .env with your GCP_PROJECT_ID and GOOGLE_APPLICATION_CREDENTIALS
+# Optional: Edit .env with your GCP_PROJECT_ID and GOOGLE_APPLICATION_CREDENTIALS if deploying to Cloud BigQuery
 ```
-*Note: If no GCP credentials are provided, the system automatically uses the zero-cost local BigQuery execution engine.*
+*Note: No GCP credentials or cloud resources are required for local pipeline execution, automated testing, or Power BI reporting.*
 
 ---
 
 ## 14. Execution Instructions
 
 ### Complete Automated Execution
-Execute the entire end-to-end workflow (generation $\to$ raw ingest $\to$ BigQuery SQL transformations $\to$ profiling $\to$ financial reconciliation $\to$ pytest):
+Execute the entire end-to-end workflow (generation $\to$ raw ingest $\to$ DuckDB SQL transformations $\to$ profiling $\to$ financial reconciliation $\to$ pytest):
 
 **On Windows:**
 ```cmd
@@ -322,10 +406,10 @@ chmod +x run.sh
 # 1. Generate synthetic portfolio data (52k loans, 533k txns)
 python scripts/generate_data.py
 
-# 2. Ingest raw tables into local DuckDB warehouse with audit logging
+# 2. Ingest raw CSV tables into local DuckDB warehouse with audit logging
 python scripts/ingest_bigquery.py
 
-# 3. Execute verified BigQuery-compatible SQL transformations (Staging, Dims, Facts, KPIs)
+# 3. Execute verified BigQuery-compatible SQL transformations in DuckDB (Staging, Dims, Facts, KPIs)
 python scripts/run_pipeline.py
 
 # 4. Profile warehouse and generate data quality report
